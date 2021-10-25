@@ -8,7 +8,7 @@ const log = Logger(Configs.CommandsLogLevel, 'toggle.ts')
 export const command: Command = {
     name: 'toggle',
     aliases: ['tg'],
-    description: 'Pause and unpause the player',
+    description: 'Pause and unpause the player.',
     run: async (client, ctx) => {
         if (global.musicState.player === null) {
             await safeReact(ctx, Reactions.error)

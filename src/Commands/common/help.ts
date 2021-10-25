@@ -49,7 +49,7 @@ export const command: Command = {
                             name: find.name[0].toUpperCase() + find.name.slice(1) + ' command',
                             icon_url: client.user.displayAvatarURL(),
                         },
-                        description: '```ini\n' + `[Aliases]: ${aliasesString}\n\n${find?.description}` + '\n```',
+                        description: '```ini\n' + `[Aliases]: ${aliasesString}\n\n[Description]: ${find?.description}` + '\n```',
                     })
                 } else {
                     find = client.aliases.get(args[i])
@@ -65,7 +65,7 @@ export const command: Command = {
                                 name: find.name,
                                 icon_url: client.user.displayAvatarURL(),
                             },
-                            description: '```ini\n' + `[Aliases]: ${aliasesString}\n\n${find?.description}` + '\n```',
+                            description: '```ini\n' + `[Aliases]: ${aliasesString}\n\n[Description]: ${find?.description}` + '\n```',
                         })
                     } else {
                         await sendEphemeralEmbed(message.channel, {

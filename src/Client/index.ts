@@ -22,13 +22,7 @@ class ExtendedClient extends Client {
                 port: parseInt(process.env.LAVALINK_PORT),
             },
         ],
-        trackPartial: [
-            'title',
-            'duration',
-            'requester',
-            'thumbnail',
-            'isStream',
-        ],
+        trackPartial: ['title', 'duration', 'requester', 'thumbnail', 'isStream', 'uri'],
         send: (id, payload) => {
             const guild = this.guilds.cache.get(id)
             if (guild) guild.shard.send(payload)
@@ -44,11 +38,7 @@ class ExtendedClient extends Client {
         ],
     })
         .on('nodeConnect', () => log.info(`Lavalink connected.`))
-        .on('nodeError', (node, error) =>
-            log.error(
-                new Error(`An error occuried on Lavalink\n${error.message}`)
-            )
-        )
+        .on('nodeError', (node, error) => log.error(new Error(`An error occuried on Lavalink\n${error.message}`)))
         .on('trackStart', async (player: Player, track: Track) => {
             await this.channels
                 .fetch(player.textChannel)
@@ -58,25 +48,16 @@ class ExtendedClient extends Client {
                     await sendEphemeralEmbed(textChannel, {
                         color: Color.info,
                         author: {
-                            name: global.musicState.mainEmbedMessageTitle(
-                                true,
-                                true
-                            ),
+                            name: global.musicState.mainEmbedMessageTitle(true, true),
                             icon_url: this.user.displayAvatarURL(),
                         },
                         description: `requested by <@${requester.id}>`,
                     })
 
-                    if (
-                        global.musicState.player.queue.pages !== null &&
-                        global.musicState.player.queue.pages.length > 0
-                    )
-                        global.musicState.player.queue.pages[0].shift()
+                    if (global.musicState.player.queue.pages !== null && global.musicState.player.queue.pages.length > 0) global.musicState.player.queue.pages[0].shift()
                 })
                 .catch((e) => {
-                    log.error(
-                        `Failed to fetch the the text channel, this is a discord internal error\n${e.stack}`
-                    )
+                    log.error(`Failed to fetch the the text channel, this is a discord internal error\n${e.stack}`)
                 })
         })
 
@@ -86,12 +67,7 @@ class ExtendedClient extends Client {
         log.info('Loading commands...')
         const commandPath = path.join(__dirname, '..', 'Commands')
         readdirSync(commandPath).forEach((dir) => {
-            const commands = readdirSync(`${commandPath}/${dir}`).filter(
-                (cmdFile) =>
-                    cmdFile.endsWith(
-                        process.env.IS_DEV_VERSION === 'false' ? '.js' : '.ts'
-                    )
-            )
+            const commands = readdirSync(`${commandPath}/${dir}`).filter((cmdFile) => cmdFile.endsWith(process.env.IS_DEV_VERSION === 'false' ? '.js' : '.ts'))
 
             for (const file of commands) {
                 const { command } = require(`${commandPath}/${dir}/${file}`)
@@ -112,11 +88,7 @@ class ExtendedClient extends Client {
 
         const eventPath = path.join(__dirname, '..', 'Events')
         readdirSync(eventPath).forEach(async (file) => {
-            if (
-                file.includes(
-                    process.env.IS_DEV_VERSION === 'false' ? '.js' : '.ts'
-                ) === true
-            ) {
+            if (file.includes(process.env.IS_DEV_VERSION === 'false' ? '.js' : '.ts') === true) {
                 const { event } = await import(`${eventPath}/${file}`)
                 this.events.set(event.name, event)
                 this.on(event.name, event.run.bind(null, this))

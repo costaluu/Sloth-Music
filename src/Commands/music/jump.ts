@@ -8,7 +8,7 @@ const log = Logger(Configs.CommandsLogLevel, 'jump.ts')
 export const command: Command = {
     name: 'jump',
     aliases: ['j'],
-    description: 'Jumps to specific position in queue',
+    description: 'Jumps to specific position in queue.',
     run: async (client, ctx, pos) => {
         let position: number = parseInt(pos[0])
 

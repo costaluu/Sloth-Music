@@ -3,12 +3,12 @@ import { safeReact, Reactions } from '../../Utils'
 import { VoiceChannel } from 'discord.js'
 import Logger from '../../Logger'
 import Configs from '../../config.json'
-const log = Logger(Configs.CommandsLogLevel, 'leave.ts')
+const log = Logger(Configs.CommandsLogLevel, 'fairshuffle.ts')
 
 export const command: Command = {
-    name: 'leave',
-    aliases: ['l'],
-    description: 'Turns off the bot.',
+    name: 'fairshuffle',
+    aliases: ['fsh'],
+    description: 'Shuffles the queue in a fair way.',
     run: async (client, ctx) => {
         if (global.musicState.player === null) {
             await safeReact(ctx, Reactions.error)
@@ -26,10 +26,9 @@ export const command: Command = {
 
                     if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
                         if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
-                            await global.musicState.player.destroy()
+                            global.musicState.player.queue.fairShuffle()
 
-                            global.musicState.clear()
-                            global.dataState.clear()
+                            global.musicState.player.queue.pagesGenerator()
 
                             await safeReact(ctx, Reactions.success)
                         } else await safeReact(ctx, Reactions.error)
@@ -42,6 +41,6 @@ export const command: Command = {
 
                     return
                 })
-        } else log.debug(`Received a stop command while voiceChannelID was no registred`)
+        } else log.debug(`Received a shuffle command while voiceChannelID was no registred`)
     },
 }

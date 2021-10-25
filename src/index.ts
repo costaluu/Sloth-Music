@@ -1,4 +1,4 @@
-require('events').EventEmitter.defaultMaxListeners = 15
+require('events').EventEmitter.defaultMaxListeners = 20
 import { Intents, User } from 'discord.js'
 import Client from './Client'
 import Logger from './Logger'
@@ -98,7 +98,7 @@ Structure.extend(
                     for (let i = 0; i < this.pages[pageNumber].length; i++) {
                         let requester: User = this.pages[pageNumber][i].requester as User
 
-                        songs += `${pageNumber * Configs.maxSongsPerPage + (i + 1)}. ${this.pages[pageNumber][i].title} - (${this.getDurationString(this.pages[pageNumber][i].duration, this.pages[pageNumber][i].isStream)}) | requested by ${requester.username}#${requester.discriminator}`
+                        songs += `${pageNumber * Configs.maxSongsPerPage + (i + 1)}. ${this.pages[pageNumber][i].title} - [${this.getDurationString(this.pages[pageNumber][i].duration, this.pages[pageNumber][i].isStream)}] | requested by ${requester.username}#${requester.discriminator}`
 
                         if (i + 1 < this.pages[pageNumber].length) songs += '\n'
                     }
@@ -107,6 +107,46 @@ Structure.extend(
                 if (songs === '') songs = `No more songs in queue 😔`
 
                 return '```js\n' + currentText + '\n\n' + title + '\n\n' + songs + '\n\n' + footer + '\n```'
+            }
+
+            /**
+             * Shuffles the songs after the current song in a fairly way
+             */
+
+            public fairShuffle(): void {
+                if (this.length > 0) {
+                    log.debug(`Fair queueing...`)
+
+                    let usersQueue = {}
+
+                    for (let i = 0; i < this.length; i++) {
+                        let requester: User = this[i].requester as any as User
+                        if (usersQueue[requester.id] === undefined) usersQueue[requester.id] = [this[i]]
+                        else usersQueue[requester.id].push(this[i])
+                    }
+
+                    let users: [string, Track[]][] = Object.entries(usersQueue)
+
+                    let end = false
+
+                    let fairQueue: Track[] = []
+
+                    while (end === false) {
+                        end = true
+
+                        for (let i = 0; i < users.length; i++) {
+                            if (users[i][1].length > 0) {
+                                fairQueue.push(users[i][1].shift())
+
+                                if (users[i][1].length > 0) end = false
+                            }
+                        }
+                    }
+
+                    for (let i = 0; i < fairQueue.length; i++) this[i] = fairQueue[i]
+
+                    this.pagesGenerator()
+                }
             }
         }
 )
@@ -228,7 +268,7 @@ let musicState: MusicState = {
             timestamp: this.mainEmbedMessageTimeStamp,
             footer: {
                 text: this.mainEmbedMessageFooter(),
-                icon_url: global.dataState.user.displayAvatarURL(),
+                icon_url: global.dataState.anchorUser.displayAvatarURL(),
             },
         }
     },
@@ -252,7 +292,7 @@ let musicState: MusicState = {
         else if(this.repeatLevel === RepeatLevel.RepeatSong)
             repeat = ' | Repeat: 🔂'
 
-        return `${global.dataState.user.username}#${global.dataState.user.discriminator} is the current DJ` + repeat */
+        return `${global.dataState.anchorUser.username}#${global.dataState.anchorUser.discriminator} is the current DJ` + repeat */
     },
     mainEmbedMessageButtons() {
         return new MessageActionRow().addComponents([new MessageButton().setCustomId('PlayResume').setEmoji('⏯️').setStyle('PRIMARY'), new MessageButton().setCustomId('Skip').setEmoji('⏭️').setStyle('PRIMARY'), new MessageButton().setCustomId('Repeat').setEmoji('🔁').setStyle('PRIMARY'), new MessageButton().setCustomId('Stop').setEmoji('⏹️').setStyle('PRIMARY'), new MessageButton().setCustomId('TurnOff').setEmoji('❌').setStyle('DANGER')])

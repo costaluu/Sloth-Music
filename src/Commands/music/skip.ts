@@ -8,7 +8,7 @@ const log = Logger(Configs.CommandsLogLevel, 'skip.ts')
 export const command: Command = {
     name: 'skip',
     aliases: ['s'],
-    description: 'Adds a skip vote or skips the song',
+    description: 'Adds a skip vote or skips the song.',
     run: async (client, ctx) => {
         if (global.musicState.player === null || global.musicState.player.queue.current === null || global.musicState.player.queue.current === undefined) {
             await safeReact(ctx, Reactions.error)

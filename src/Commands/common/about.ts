@@ -8,12 +8,12 @@ const log = Logger(Configs.CommandsLogLevel, 'ping.ts')
 export const command: Command = {
     name: 'about',
     aliases: [],
-    description: 'Shows info about the bot',
+    description: 'Shows info about the bot.',
     run: async (client, message) => {
         await sendEphemeralEmbed(message.channel, {
             color: Color.warn,
             author: {
-                name: 'About Sloth Music Bot',
+                name: 'About Sloth Music Bot.',
                 icon_url: client.user.displayAvatarURL(),
             },
             description: '```ini\n' + "🚧 I'm a bot under construction 🚧\n\nFeel free to report any bug🐛 or problem in the suggestion channel. You can use my help command " + `[s${global.dataState.botID}help]` + ' to see all the avaliable commands.\n\nObs: Spotify does not allow songs to be played directly, in practice the equivalent song is found on youtube.' + '\n```',

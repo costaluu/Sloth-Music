@@ -1,6 +1,6 @@
-import { Command, RoleLevel } from '../../Interfaces'
+import { Command } from '../../Interfaces'
 import { safeReact, Reactions } from '../../Utils'
-import { Message, VoiceChannel } from 'discord.js'
+import { Message } from 'discord.js'
 import Logger from '../../Logger'
 import Configs from '../../config.json'
 const log = Logger(Configs.CommandsLogLevel, 'queue.ts')

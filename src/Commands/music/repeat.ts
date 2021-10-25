@@ -8,7 +8,7 @@ const log = Logger(Configs.CommandsLogLevel, 'repeat.ts')
 export const command: Command = {
     name: 'repeat',
     aliases: ['r'],
-    description: 'Change the repeat status for the player',
+    description: 'Change the repeat status for the player.',
     run: async (client, ctx) => {
         if (global.musicState.player === null) {
             await safeReact(ctx, Reactions.error)

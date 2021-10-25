@@ -51,7 +51,7 @@ async function enqueue(client, ctx, result: SearchResult) {
 export const command: Command = {
     name: 'play',
     aliases: ['p'],
-    description: 'Plays track(s) from a given source(free text/links/playlists/albums)',
+    description: 'Plays track(s) from a given source(free text/links/playlists/albums).',
     run: async (client, ctx, request) => {
         request[0] = request[0].trim()
 
