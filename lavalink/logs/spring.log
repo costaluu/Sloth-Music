@@ -1,0 +1,398 @@
+2021-10-25 12:04:38.075  INFO 6168 --- [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        87dfa32092d97e2129725720aff2b6ff70dd2ea1-SNAPSHOT
+	Build:          1252
+	Build time:     18.10.2021 08:32:47 UTC
+	Branch          dev
+	Commit:         87dfa32
+	Commit time:    18.10.2021 08:30:07 UTC
+	JVM:            13.0.8
+	Lavaplayer      1.3.95-original
+
+2021-10-25 12:04:38.191  INFO 6168 --- [main] lavalink.server.Launcher                 : Starting Launcher on LucasC with PID 6168 (D:\git_folder\Sloth-Music\lavalink\Lavalink.jar started by conta in D:\git_folder\Sloth-Music\lavalink)
+2021-10-25 12:04:38.192  INFO 6168 --- [main] lavalink.server.Launcher                 : No active profile set, falling back to default profiles: default
+2021-10-25 12:04:38.216  WARN 6168 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2021-10-25 12:04:40.060  WARN 6168 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2021-10-25 12:04:40.098  INFO 6168 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2021-10-25 12:04:40.099  INFO 6168 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1855 ms
+2021-10-25 12:04:40.483  WARN 6168 --- [main] l.server.config.SentryConfiguration      : Turning off sentry
+2021-10-25 12:04:41.202  INFO 6168 --- [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2021-10-25 12:04:41.730  INFO 6168 --- [main] lavalink.server.config.KoeConfiguration  : OS: Windows 10, Arch: amd64
+2021-10-25 12:04:41.731  WARN 6168 --- [main] lavalink.server.config.KoeConfiguration  : This system and architecture appears to not support native audio sending! GC pauses may cause your bot to stutter during playback.
+2021-10-25 12:04:42.018  INFO 6168 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-10-25 12:04:42.442  INFO 6168 --- [main] org.xnio                                 : XNIO version 3.3.8.Final
+2021-10-25 12:04:42.453  INFO 6168 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.3.8.Final
+2021-10-25 12:04:42.520  INFO 6168 --- [main] o.s.b.w.e.u.UndertowServletWebServer     : Undertow started on port(s) 2333 (http) with context path ''
+2021-10-25 12:04:42.525  INFO 6168 --- [main] lavalink.server.Launcher                 : Started Launcher in 5.556 seconds (JVM running for 7.842)
+2021-10-25 12:04:42.527  INFO 6168 --- [main] lavalink.server.Launcher                 : You can safely ignore the big red warning about illegal reflection. See https://github.com/freyacodes/Lavalink/issues/295
+2021-10-25 12:04:55.313  INFO 6168 --- [XNIO-1 task-1] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-10-25 12:04:55.313  INFO 6168 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-10-25 12:04:55.321  INFO 6168 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2021-10-25 12:04:55.364  INFO 6168 --- [XNIO-1 task-1] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:54584
+2021-10-25 12:04:55.470  INFO 6168 --- [XNIO-1 task-1] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 12:05:13.334  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 12:05:13.643  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"sessionId":"0d8614bc5fad31435b3f5ad9d70f929a","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"260db7b5fe47350a","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 12:05:13.958  INFO 6168 --- [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Népal - Sundance"
+2021-10-25 12:05:15.424  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Népal - Sundance
+2021-10-25 12:05:15.578  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACFN1bmRhbmNlAA1OZXBhbCAtIFRvcGljAAAAAAACm/gACzhvYkN6dWhwM2NnAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9OG9iQ3p1aHAzY2cAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:05:34.268  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 12:05:34.275  INFO 6168 --- [XNIO-1 task-4] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Népal - Cheddar"
+2021-10-25 12:05:35.015  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Népal - Cheddar
+2021-10-25 12:05:35.028  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbgIAB0NoZWRkYXIADU5lcGFsIC0gVG9waWMAAAAAAAILcAALOGhJbVBDaW14OVkAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj04aEltUENpbXg5WQAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 12:07:48.904  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACFN1bmRhbmNlAA1OZXBhbCAtIFRvcGljAAAAAAACm/gACzhvYkN6dWhwM2NnAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9OG9iQ3p1aHAzY2cAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:10:39.890  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbgIAB0NoZWRkYXIADU5lcGFsIC0gVG9waWMAAAAAAAILcAALOGhJbVBDaW14OVkAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj04aEltUENpbXg5WQAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 12:12:53.648  INFO 6168 --- [XNIO-1 task-6] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Népal - Babylone"
+2021-10-25 12:12:54.665  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Népal - Babylone
+2021-10-25 12:12:55.332  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACEJhYnlsb25lAA1OZXBhbCAtIFRvcGljAAAAAAADLIAAC2VZSnkzalJ2Z19FAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9ZVlKeTNqUnZnX0UAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:13:26.971  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"pause","guildId":"858470922004070421","pause":true}
+2021-10-25 12:13:26.973  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"destroy","guildId":"858470922004070421"}
+2021-10-25 12:13:31.391  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:54584 -- CloseStatus[code=1006, reason=]
+2021-10-25 12:13:31.392  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 12:13:33.459  INFO 6168 --- [XNIO-1 task-8] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:56571
+2021-10-25 12:13:33.466  INFO 6168 --- [XNIO-1 task-8] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 12:13:47.240  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 12:13:47.551  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketServer          : {"sessionId":"efe850b02ff67e38ce1c1f9dd504949a","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"57d96172d9c4cec1","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 12:13:47.863  INFO 6168 --- [XNIO-1 task-9] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Népal - Sundance"
+2021-10-25 12:13:48.632  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Népal - Sundance
+2021-10-25 12:13:48.643  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACFN1bmRhbmNlAA1OZXBhbCAtIFRvcGljAAAAAAACm/gACzhvYkN6dWhwM2NnAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9OG9iQ3p1aHAzY2cAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:14:05.047  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 12:14:05.054  INFO 6168 --- [XNIO-1 task-11] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Népal - Cheddar"
+2021-10-25 12:14:05.755  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Népal - Cheddar
+2021-10-25 12:14:05.765  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbgIAB0NoZWRkYXIADU5lcGFsIC0gVG9waWMAAAAAAAILcAALOGhJbVBDaW14OVkAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj04aEltUENpbXg5WQAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 12:16:19.423  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACFN1bmRhbmNlAA1OZXBhbCAtIFRvcGljAAAAAAACm/gACzhvYkN6dWhwM2NnAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9OG9iQ3p1aHAzY2cAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:18:20.060  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketServer          : {"op":"pause","guildId":"858470922004070421","pause":true}
+2021-10-25 12:18:20.061  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketServer          : {"op":"destroy","guildId":"858470922004070421"}
+2021-10-25 12:18:22.611  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:56571 -- CloseStatus[code=1006, reason=]
+2021-10-25 12:18:22.612  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 12:18:24.624  INFO 6168 --- [XNIO-1 task-13] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:58308
+2021-10-25 12:18:24.634  INFO 6168 --- [XNIO-1 task-13] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 12:18:40.674  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 12:18:40.986  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"sessionId":"a0ab4b042bddfb279dd2094f5132f998","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"e38e4e356b0f2872","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 12:18:41.349  INFO 6168 --- [XNIO-1 task-14] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Népal - Sundance"
+2021-10-25 12:18:42.302  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Népal - Sundance
+2021-10-25 12:18:42.309  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACFN1bmRhbmNlAA1OZXBhbCAtIFRvcGljAAAAAAACm/gACzhvYkN6dWhwM2NnAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9OG9iQ3p1aHAzY2cAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:19:12.601  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 12:19:12.606  INFO 6168 --- [XNIO-1 task-16] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Népal - Cheddar"
+2021-10-25 12:19:13.366  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Népal - Cheddar
+2021-10-25 12:19:13.374  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbgIAB0NoZWRkYXIADU5lcGFsIC0gVG9waWMAAAAAAAILcAALOGhJbVBDaW14OVkAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj04aEltUENpbXg5WQAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 12:21:26.996  INFO 6168 --- [XNIO-1 task-18] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Népal - Babylone"
+2021-10-25 12:21:27.717  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Népal - Babylone
+2021-10-25 12:21:27.727  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACEJhYnlsb25lAA1OZXBhbCAtIFRvcGljAAAAAAADLIAAC2VZSnkzalJ2Z19FAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9ZVlKeTNqUnZnX0UAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:24:55.580  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACFN1bmRhbmNlAA1OZXBhbCAtIFRvcGljAAAAAAACm/gACzhvYkN6dWhwM2NnAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9OG9iQ3p1aHAzY2cAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:27:46.496  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbgIAB0NoZWRkYXIADU5lcGFsIC0gVG9waWMAAAAAAAILcAALOGhJbVBDaW14OVkAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj04aEltUENpbXg5WQAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 12:30:00.401  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACEJhYnlsb25lAA1OZXBhbCAtIFRvcGljAAAAAAADLIAAC2VZSnkzalJ2Z19FAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9ZVlKeTNqUnZnX0UAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:33:28.222  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACFN1bmRhbmNlAA1OZXBhbCAtIFRvcGljAAAAAAACm/gACzhvYkN6dWhwM2NnAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9OG9iQ3p1aHAzY2cAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:36:19.139  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbgIAB0NoZWRkYXIADU5lcGFsIC0gVG9waWMAAAAAAAILcAALOGhJbVBDaW14OVkAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj04aEltUENpbXg5WQAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 12:37:04.004  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"pause","guildId":"858470922004070421","pause":true}
+2021-10-25 12:37:04.005  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"destroy","guildId":"858470922004070421"}
+2021-10-25 12:37:08.226  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:58308 -- CloseStatus[code=1006, reason=]
+2021-10-25 12:37:08.226  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 12:37:10.083  INFO 6168 --- [XNIO-1 task-20] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:61518
+2021-10-25 12:37:10.091  INFO 6168 --- [XNIO-1 task-20] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 12:37:13.049  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:61518 -- CloseStatus[code=1006, reason=]
+2021-10-25 12:37:13.050  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 12:37:20.301  INFO 6168 --- [XNIO-1 task-21] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:61550
+2021-10-25 12:37:20.305  INFO 6168 --- [XNIO-1 task-21] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 12:37:32.172  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 12:37:32.481  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"sessionId":"10d17638fbc9c31004d67ca53f996bb3","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"77aa58efda0ec3a8","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 12:37:32.974  INFO 6168 --- [XNIO-1 task-22] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Népal - Sundance"
+2021-10-25 12:37:33.950  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Népal - Sundance
+2021-10-25 12:37:33.956  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACFN1bmRhbmNlAA1OZXBhbCAtIFRvcGljAAAAAAACm/gACzhvYkN6dWhwM2NnAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9OG9iQ3p1aHAzY2cAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:37:45.208  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 12:37:45.214  INFO 6168 --- [XNIO-1 task-24] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Népal - Cheddar"
+2021-10-25 12:37:45.966  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Népal - Cheddar
+2021-10-25 12:37:45.972  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbgIAB0NoZWRkYXIADU5lcGFsIC0gVG9waWMAAAAAAAILcAALOGhJbVBDaW14OVkAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj04aEltUENpbXg5WQAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 12:37:52.204  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 12:37:52.206  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbwIACFN1bmRhbmNlAA1OZXBhbCAtIFRvcGljAAAAAAACm/gACzhvYkN6dWhwM2NnAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9OG9iQ3p1aHAzY2cAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:38:06.632  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 12:38:18.961  INFO 6168 --- [XNIO-1 task-26] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 12:38:19.786  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 12:38:19.799  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 12:38:40.160  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 12:38:40.166  INFO 6168 --- [XNIO-1 task-28] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Good Guy"
+2021-10-25 12:38:41.003  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Good Guy
+2021-10-25 12:38:41.011  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAaQIACEdvb2QgR3V5AAdCbG9uZGVkAAAAAAABBbgAC3QxYXAtSjNLenI0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dDFhcC1KM0t6cjQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:39:48.098  INFO 6168 --- [XNIO-1 task-30] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nights"
+2021-10-25 12:39:48.946  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nights
+2021-10-25 12:39:48.956  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdQIAFEZyYW5rIE9jZWFuIC0gTmlnaHRzAAdCbG9uZGVkAAAAAAAEsyAAC3I0bDliRnFnTWFRAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9cjRsOWJGcWdNYVEAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:43:45.531  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 12:43:45.537  INFO 6168 --- [XNIO-1 task-32] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - White Ferrari"
+2021-10-25 12:43:46.358  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - White Ferrari
+2021-10-25 12:43:46.365  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAfAIAG0ZyYW5rIE9jZWFuIC0gV2hpdGUgRmVycmFyaQAHQmxvbmRlZAAAAAAAA8yoAAtEbHpfWEhlVVVpcwABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PURsel9YSGVVVWlzAAd5b3V0dWJlAAAAAAAAAAA="}
+2021-10-25 12:44:31.820  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"pause","guildId":"858470922004070421","pause":true}
+2021-10-25 12:44:31.821  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : {"op":"destroy","guildId":"858470922004070421"}
+2021-10-25 12:44:49.759  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:61550 -- CloseStatus[code=1006, reason=]
+2021-10-25 12:44:49.759  INFO 6168 --- [XNIO-1 I/O-2] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 12:44:51.896  INFO 6168 --- [XNIO-1 task-34] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:64962
+2021-10-25 12:44:51.899  INFO 6168 --- [XNIO-1 task-34] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 12:46:34.221  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:64962 -- CloseStatus[code=1006, reason=]
+2021-10-25 12:46:34.221  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 12:46:36.254  INFO 6168 --- [XNIO-1 task-35] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:59536
+2021-10-25 12:46:36.258  INFO 6168 --- [XNIO-1 task-35] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 12:47:16.423  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:59536 -- CloseStatus[code=1006, reason=]
+2021-10-25 12:47:16.424  INFO 6168 --- [XNIO-1 I/O-4] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 12:47:18.283  INFO 6168 --- [XNIO-1 task-36] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:65372
+2021-10-25 12:47:18.286  INFO 6168 --- [XNIO-1 task-36] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 12:47:31.217  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 12:47:31.904  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"sessionId":"c639b8efb7ef5a83eb08ab799071e547","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"bc25e2050ad139a7","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 12:47:31.967  INFO 6168 --- [XNIO-1 task-37] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 12:47:32.770  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 12:47:32.780  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 12:47:45.098  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 12:47:45.105  INFO 6168 --- [XNIO-1 task-39] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Good Guy"
+2021-10-25 12:47:45.878  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Good Guy
+2021-10-25 12:47:45.885  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAaQIACEdvb2QgR3V5AAdCbG9uZGVkAAAAAAABBbgAC3QxYXAtSjNLenI0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dDFhcC1KM0t6cjQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:48:03.012  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:65372 -- CloseStatus[code=1006, reason=]
+2021-10-25 12:48:03.013  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketContext         : Shutting down 1 playing players.
+2021-10-25 12:55:31.982  INFO 6168 --- [XNIO-1 task-41] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:65418
+2021-10-25 12:55:31.986  INFO 6168 --- [XNIO-1 task-41] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 12:55:53.523  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:65418 -- CloseStatus[code=1006, reason=]
+2021-10-25 12:55:53.523  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 12:55:55.704  INFO 6168 --- [XNIO-1 task-42] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:65441
+2021-10-25 12:55:55.707  INFO 6168 --- [XNIO-1 task-42] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 12:56:05.232  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 12:56:05.907  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"sessionId":"30bbd2d50cfc67bb77be29a316573b2e","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"e3d8b31d2d48729b","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 12:56:05.943  INFO 6168 --- [XNIO-1 task-43] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 12:56:06.960  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 12:56:06.971  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 12:56:26.979  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 12:56:26.986  INFO 6168 --- [XNIO-1 task-45] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nights"
+2021-10-25 12:56:27.887  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nights
+2021-10-25 12:56:27.919  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdQIAFEZyYW5rIE9jZWFuIC0gTmlnaHRzAAdCbG9uZGVkAAAAAAAEsyAAC3I0bDliRnFnTWFRAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9cjRsOWJGcWdNYVEAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 12:56:48.945  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:65441 -- CloseStatus[code=1006, reason=]
+2021-10-25 12:56:48.945  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketContext         : Shutting down 1 playing players.
+2021-10-25 13:03:39.053  INFO 6168 --- [XNIO-1 task-47] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:52081
+2021-10-25 13:03:39.059  INFO 6168 --- [XNIO-1 task-47] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 13:03:47.074  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 13:03:47.782  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"sessionId":"7fa091185e24f89959adefa65d4a0819","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"d851b4faf1cabf71","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 13:03:47.795  INFO 6168 --- [XNIO-1 task-48] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 13:03:48.815  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 13:03:48.821  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 13:04:04.423  INFO 6168 --- [XNIO-1 task-50] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:7"
+2021-10-25 13:04:05.235  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: 7
+2021-10-25 13:04:10.945  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:04:10.952  INFO 6168 --- [XNIO-1 task-52] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Good Guy"
+2021-10-25 13:04:11.801  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Good Guy
+2021-10-25 13:04:11.807  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAaQIACEdvb2QgR3V5AAdCbG9uZGVkAAAAAAABBbgAC3QxYXAtSjNLenI0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dDFhcC1KM0t6cjQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:04:31.126  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:52081 -- CloseStatus[code=1006, reason=]
+2021-10-25 13:04:31.126  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketContext         : Shutting down 1 playing players.
+2021-10-25 13:27:23.872  INFO 6168 --- [XNIO-1 task-54] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:65329
+2021-10-25 13:27:23.875  INFO 6168 --- [XNIO-1 task-54] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 13:27:35.342  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 13:27:36.017  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"sessionId":"6abb9d56146a29da9e2ef535b56a8e65","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"5b7a379f2091dfae","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 13:27:36.234  INFO 6168 --- [XNIO-1 task-55] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 13:27:37.259  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 13:27:37.266  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 13:27:51.877  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:27:51.883  INFO 6168 --- [XNIO-1 task-57] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Good Guy"
+2021-10-25 13:27:52.720  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Good Guy
+2021-10-25 13:27:52.728  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAaQIACEdvb2QgR3V5AAdCbG9uZGVkAAAAAAABBbgAC3QxYXAtSjNLenI0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dDFhcC1KM0t6cjQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:28:11.727  INFO 6168 --- [XNIO-1 task-59] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:teste"
+2021-10-25 13:28:12.518  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: teste
+2021-10-25 13:28:50.072  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"pause","guildId":"858470922004070421","pause":true}
+2021-10-25 13:28:50.073  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"destroy","guildId":"858470922004070421"}
+2021-10-25 13:29:28.237  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:65329 -- CloseStatus[code=1006, reason=]
+2021-10-25 13:29:28.237  INFO 6168 --- [XNIO-1 I/O-5] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 13:29:30.301  INFO 6168 --- [XNIO-1 task-61] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:56188
+2021-10-25 13:29:30.306  INFO 6168 --- [XNIO-1 task-61] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 13:29:38.015  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 13:29:38.323  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"sessionId":"c04b6d6536ad761497f9c380dcc26c19","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"381be38646d5f13c","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 13:29:38.717  INFO 6168 --- [XNIO-1 task-62] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 13:29:39.515  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 13:29:39.525  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 13:29:43.004  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:29:43.011  INFO 6168 --- [XNIO-1 task-64] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Good Guy"
+2021-10-25 13:29:43.843  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Good Guy
+2021-10-25 13:29:43.852  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAaQIACEdvb2QgR3V5AAdCbG9uZGVkAAAAAAABBbgAC3QxYXAtSjNLenI0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dDFhcC1KM0t6cjQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:30:50.911  INFO 6168 --- [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nights"
+2021-10-25 13:30:51.691  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nights
+2021-10-25 13:30:51.699  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdQIAFEZyYW5rIE9jZWFuIC0gTmlnaHRzAAdCbG9uZGVkAAAAAAAEsyAAC3I0bDliRnFnTWFRAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9cjRsOWJGcWdNYVEAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:32:07.610  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:32:07.614  INFO 6168 --- [XNIO-1 task-4] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - White Ferrari"
+2021-10-25 13:32:08.478  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - White Ferrari
+2021-10-25 13:32:08.484  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAfAIAG0ZyYW5rIE9jZWFuIC0gV2hpdGUgRmVycmFyaQAHQmxvbmRlZAAAAAAAA8yoAAtEbHpfWEhlVVVpcwABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PURsel9YSGVVVWlzAAd5b3V0dWJlAAAAAAAAAAA="}
+2021-10-25 13:32:25.327  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"pause","guildId":"858470922004070421","pause":true}
+2021-10-25 13:32:25.328  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : {"op":"destroy","guildId":"858470922004070421"}
+2021-10-25 13:32:29.982  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:56188 -- CloseStatus[code=1006, reason=]
+2021-10-25 13:32:29.982  INFO 6168 --- [XNIO-1 I/O-8] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 13:32:31.869  INFO 6168 --- [XNIO-1 task-6] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:61259
+2021-10-25 13:32:31.872  INFO 6168 --- [XNIO-1 task-6] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 13:34:13.089  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:61259 -- CloseStatus[code=1006, reason=]
+2021-10-25 13:34:13.089  INFO 6168 --- [XNIO-1 I/O-7] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 13:34:14.976  INFO 6168 --- [XNIO-1 task-7] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:53631
+2021-10-25 13:34:14.979  INFO 6168 --- [XNIO-1 task-7] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 13:34:31.694  INFO 6168 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 13:34:32.021  INFO 6168 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"sessionId":"091d6a5654addbac1a7a1003f57d9c49","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"1a7c95efbf8e5d9d","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 13:34:32.498  INFO 6168 --- [XNIO-1 task-8] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 13:34:33.254  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 13:34:33.263  INFO 6168 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 13:34:50.357  INFO 6168 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:34:50.375  INFO 6168 --- [XNIO-1 task-10] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Good Guy"
+2021-10-25 13:34:51.189  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Good Guy
+2021-10-25 13:34:51.196  INFO 6168 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAaQIACEdvb2QgR3V5AAdCbG9uZGVkAAAAAAABBbgAC3QxYXAtSjNLenI0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dDFhcC1KM0t6cjQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:35:37.431  INFO 6168 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:35:37.449  INFO 6168 --- [XNIO-1 task-12] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Pink + White"
+2021-10-25 13:35:38.434  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Pink + White
+2021-10-25 13:35:38.441  INFO 6168 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAewIAGkZyYW5rIE9jZWFuIC0gUGluayArIFdoaXRlAAdCbG9uZGVkAAAAAAAC0qgAC3V6UzNXRzZfX0c0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dXpTM1dHNl9fRzQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:38:06.324  INFO 6168 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"pause","guildId":"858470922004070421","pause":true}
+2021-10-25 13:38:06.326  INFO 6168 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"destroy","guildId":"858470922004070421"}
+2021-10-25 13:38:09.472  INFO 6168 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:53631 -- CloseStatus[code=1006, reason=]
+2021-10-25 13:38:09.473  INFO 6168 --- [XNIO-1 I/O-3] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 13:38:17.216  INFO 6168 --- [XNIO-1 task-14] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:55730
+2021-10-25 13:38:17.222  INFO 6168 --- [XNIO-1 task-14] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 13:38:27.574  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 13:38:27.884  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"sessionId":"4fdabb7bb4e71b968a27218f207e8f6d","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"da70fa4b7c52237e","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 13:38:28.324  INFO 6168 --- [XNIO-1 task-15] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 13:38:29.098  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 13:38:29.105  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 13:38:32.761  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:38:32.780  INFO 6168 --- [XNIO-1 task-17] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Good Guy"
+2021-10-25 13:38:33.608  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Good Guy
+2021-10-25 13:38:33.615  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAaQIACEdvb2QgR3V5AAdCbG9uZGVkAAAAAAABBbgAC3QxYXAtSjNLenI0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dDFhcC1KM0t6cjQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:38:42.633  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:38:42.651  INFO 6168 --- [XNIO-1 task-19] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Pink + White"
+2021-10-25 13:38:43.455  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Pink + White
+2021-10-25 13:38:43.461  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAewIAGkZyYW5rIE9jZWFuIC0gUGluayArIFdoaXRlAAdCbG9uZGVkAAAAAAAC0qgAC3V6UzNXRzZfX0c0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dXpTM1dHNl9fRzQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:41:48.264  INFO 6168 --- [XNIO-1 task-21] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Be Yourself"
+2021-10-25 13:41:49.130  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Be Yourself
+2021-10-25 13:41:49.136  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbAIAC0JlIFlvdXJzZWxmAAdCbG9uZGVkAAAAAAABU9gAC3pUQ2d3eExPdDBVAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9elRDZ3d4TE90MFUAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:43:00.358  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"pause","guildId":"858470922004070421","pause":true}
+2021-10-25 13:43:00.359  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"destroy","guildId":"858470922004070421"}
+2021-10-25 13:43:02.815  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:55730 -- CloseStatus[code=1006, reason=]
+2021-10-25 13:43:02.816  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 13:43:04.621  INFO 6168 --- [XNIO-1 task-23] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:53266
+2021-10-25 13:43:04.623  INFO 6168 --- [XNIO-1 task-23] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 13:43:17.878  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 13:43:18.184  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"sessionId":"7a6c8773f67316c4d9ff3e73dc460a99","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"4223ec24d9393583","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 13:43:18.661  INFO 6168 --- [XNIO-1 task-24] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 13:43:19.429  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 13:43:19.435  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 13:43:23.784  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:43:23.789  INFO 6168 --- [XNIO-1 task-26] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Good Guy"
+2021-10-25 13:43:24.619  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Good Guy
+2021-10-25 13:43:24.630  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAaQIACEdvb2QgR3V5AAdCbG9uZGVkAAAAAAABBbgAC3QxYXAtSjNLenI0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dDFhcC1KM0t6cjQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:44:31.716  INFO 6168 --- [XNIO-1 task-28] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nights"
+2021-10-25 13:44:32.452  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nights
+2021-10-25 13:44:32.457  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdQIAFEZyYW5rIE9jZWFuIC0gTmlnaHRzAAdCbG9uZGVkAAAAAAAEsyAAC3I0bDliRnFnTWFRAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9cjRsOWJGcWdNYVEAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:45:40.213  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:45:40.218  INFO 6168 --- [XNIO-1 task-30] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Pink + White"
+2021-10-25 13:45:41.034  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Pink + White
+2021-10-25 13:45:42.112  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAewIAGkZyYW5rIE9jZWFuIC0gUGluayArIFdoaXRlAAdCbG9uZGVkAAAAAAAC0qgAC3V6UzNXRzZfX0c0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dXpTM1dHNl9fRzQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:48:47.011  INFO 6168 --- [XNIO-1 task-32] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Be Yourself"
+2021-10-25 13:48:47.880  INFO 6168 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Be Yourself
+2021-10-25 13:48:47.887  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAbAIAC0JlIFlvdXJzZWxmAAdCbG9uZGVkAAAAAAABU9gAC3pUQ2d3eExPdDBVAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9elRDZ3d4TE90MFUAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:49:03.862  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"pause","guildId":"858470922004070421","pause":true}
+2021-10-25 13:49:03.863  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : {"op":"destroy","guildId":"858470922004070421"}
+2021-10-25 13:49:06.675  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:53266 -- CloseStatus[code=1006, reason=]
+2021-10-25 13:49:06.676  INFO 6168 --- [XNIO-1 I/O-6] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 13:49:09.641  INFO 6168 --- [Thread-1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-10-25 13:49:09.643  INFO 6168 --- [Thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2021-10-25 13:49:09.697  INFO 6168 --- [Thread-1] io.undertow.servlet                      : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2021-10-25 13:49:15.187  INFO 16612 --- [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        87dfa32092d97e2129725720aff2b6ff70dd2ea1-SNAPSHOT
+	Build:          1252
+	Build time:     18.10.2021 08:32:47 UTC
+	Branch          dev
+	Commit:         87dfa32
+	Commit time:    18.10.2021 08:30:07 UTC
+	JVM:            13.0.8
+	Lavaplayer      1.3.95-original
+
+2021-10-25 13:49:15.289  INFO 16612 --- [main] lavalink.server.Launcher                 : Starting Launcher on LucasC with PID 16612 (D:\git_folder\Sloth-Music\lavalink\Lavalink.jar started by conta in D:\git_folder\Sloth-Music\lavalink)
+2021-10-25 13:49:15.290  INFO 16612 --- [main] lavalink.server.Launcher                 : No active profile set, falling back to default profiles: default
+2021-10-25 13:49:15.313  WARN 16612 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2021-10-25 13:49:16.851  WARN 16612 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2021-10-25 13:49:16.878  INFO 16612 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2021-10-25 13:49:16.879  INFO 16612 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1537 ms
+2021-10-25 13:49:17.241  WARN 16612 --- [main] l.server.config.SentryConfiguration      : Turning off sentry
+2021-10-25 13:49:17.711  INFO 16612 --- [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2021-10-25 13:49:18.148  INFO 16612 --- [main] lavalink.server.config.KoeConfiguration  : OS: Windows 10, Arch: amd64
+2021-10-25 13:49:18.148  WARN 16612 --- [main] lavalink.server.config.KoeConfiguration  : This system and architecture appears to not support native audio sending! GC pauses may cause your bot to stutter during playback.
+2021-10-25 13:49:18.508  INFO 16612 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-10-25 13:49:18.841  INFO 16612 --- [main] org.xnio                                 : XNIO version 3.3.8.Final
+2021-10-25 13:49:18.857  INFO 16612 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.3.8.Final
+2021-10-25 13:49:18.920  INFO 16612 --- [main] o.s.b.w.e.u.UndertowServletWebServer     : Undertow started on port(s) 2333 (http) with context path ''
+2021-10-25 13:49:18.924  INFO 16612 --- [main] lavalink.server.Launcher                 : Started Launcher in 4.291 seconds (JVM running for 5.037)
+2021-10-25 13:49:18.926  INFO 16612 --- [main] lavalink.server.Launcher                 : You can safely ignore the big red warning about illegal reflection. See https://github.com/freyacodes/Lavalink/issues/295
+2021-10-25 13:49:27.209  INFO 16612 --- [XNIO-1 task-1] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-10-25 13:49:27.210  INFO 16612 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-10-25 13:49:27.231  INFO 16612 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 21 ms
+2021-10-25 13:49:27.258  INFO 16612 --- [XNIO-1 task-1] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:59608
+2021-10-25 13:49:27.354  INFO 16612 --- [XNIO-1 task-1] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 13:49:39.208  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 13:49:39.506  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"sessionId":"53a32661b3f2d248cb5ceea8da4e604d","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"ca7631e0012fb630","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 13:49:39.932  INFO 16612 --- [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 13:49:41.425  INFO 16612 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 13:49:41.450  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 13:49:47.397  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:49:47.404  INFO 16612 --- [XNIO-1 task-4] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Good Guy"
+2021-10-25 13:49:48.183  INFO 16612 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Good Guy
+2021-10-25 13:49:48.193  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAaQIACEdvb2QgR3V5AAdCbG9uZGVkAAAAAAABBbgAC3QxYXAtSjNLenI0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dDFhcC1KM0t6cjQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:50:37.591  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:50:37.595  INFO 16612 --- [XNIO-1 task-6] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Ivy"
+2021-10-25 13:50:38.441  INFO 16612 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Ivy
+2021-10-25 13:50:38.451  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAcgIAEUZyYW5rIE9jZWFuIC0gSXZ5AAdCbG9uZGVkAAAAAAAD0JAAC0FFMDA1blplRi1BAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9QUUwMDVuWmVGLUEAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:50:55.355  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:51:03.549  INFO 16612 --- [XNIO-1 task-8] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 13:51:04.317  INFO 16612 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 13:51:04.328  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 13:51:11.066  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:51:11.071  INFO 16612 --- [XNIO-1 task-10] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Good Guy"
+2021-10-25 13:51:11.859  INFO 16612 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Good Guy
+2021-10-25 13:51:11.865  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAaQIACEdvb2QgR3V5AAdCbG9uZGVkAAAAAAABBbgAC3QxYXAtSjNLenI0AAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9dDFhcC1KM0t6cjQAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:52:18.950  INFO 16612 --- [XNIO-1 task-12] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nights"
+2021-10-25 13:52:19.762  INFO 16612 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nights
+2021-10-25 13:52:19.769  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdQIAFEZyYW5rIE9jZWFuIC0gTmlnaHRzAAdCbG9uZGVkAAAAAAAEsyAAC3I0bDliRnFnTWFRAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9cjRsOWJGcWdNYVEAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:53:57.846  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"pause","guildId":"858470922004070421","pause":true}
+2021-10-25 13:53:57.847  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : {"op":"destroy","guildId":"858470922004070421"}
+2021-10-25 13:54:02.991  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:59608 -- CloseStatus[code=1006, reason=]
+2021-10-25 13:54:02.991  INFO 16612 --- [XNIO-1 I/O-4] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 13:54:06.608  INFO 16612 --- [XNIO-1 task-14] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:52311
+2021-10-25 13:54:06.612  INFO 16612 --- [XNIO-1 task-14] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 13:54:19.085  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"volume","guildId":"858470922004070421","volume":100}
+2021-10-25 13:54:19.392  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"sessionId":"c12d923ff181d1ed1eab0e471140ec54","op":"voiceUpdate","guildId":"858470922004070421","event":{"token":"b9e546b86e03ad26","guild_id":"858470922004070421","endpoint":"brazil8459.discord.media:443"}}
+2021-10-25 13:54:19.859  INFO 16612 --- [XNIO-1 task-15] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 13:54:20.641  INFO 16612 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 13:54:20.652  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 13:54:26.192  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:54:26.197  INFO 16612 --- [XNIO-1 task-17] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nights"
+2021-10-25 13:54:27.021  INFO 16612 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nights
+2021-10-25 13:54:27.029  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdQIAFEZyYW5rIE9jZWFuIC0gTmlnaHRzAAdCbG9uZGVkAAAAAAAEsyAAC3I0bDliRnFnTWFRAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9cjRsOWJGcWdNYVEAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:54:36.972  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:54:36.977  INFO 16612 --- [XNIO-1 task-19] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Skyline To"
+2021-10-25 13:54:37.886  INFO 16612 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Skyline To
+2021-10-25 13:54:37.893  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAeQIAGEZyYW5rIE9jZWFuIC0gU2t5bGluZSBUbwAHQmxvbmRlZAAAAAAAAtKoAAtDdGtVSmIyMm9TUQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PUN0a1VKYjIyb1NRAAd5b3V0dWJlAAAAAAAAAAA="}
+2021-10-25 13:54:41.630  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:54:51.011  INFO 16612 --- [XNIO-1 task-21] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nikes"
+2021-10-25 13:54:51.802  INFO 16612 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nikes
+2021-10-25 13:54:51.810  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdAIAE0ZyYW5rIE9jZWFuIC0gTmlrZXMAB0Jsb25kZWQAAAAAAATOeAALZGlJRmhjX0t6bmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1kaUlGaGNfS3puZwAHeW91dHViZQAAAAAAAAAA"}
+2021-10-25 13:54:55.826  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+2021-10-25 13:54:55.831  INFO 16612 --- [XNIO-1 task-23] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch:Frank Ocean - Nights"
+2021-10-25 13:54:56.641  INFO 16612 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: Frank Ocean - Nights
+2021-10-25 13:54:56.648  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAdQIAFEZyYW5rIE9jZWFuIC0gTmlnaHRzAAdCbG9uZGVkAAAAAAAEsyAAC3I0bDliRnFnTWFRAAEAK2h0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3dhdGNoP3Y9cjRsOWJGcWdNYVEAB3lvdXR1YmUAAAAAAAAAAA=="}
+2021-10-25 13:55:00.346  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"pause","guildId":"858470922004070421","pause":true}
+2021-10-25 13:55:00.347  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"destroy","guildId":"858470922004070421"}
+2021-10-25 13:55:12.853  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:52311 -- CloseStatus[code=1006, reason=]
+2021-10-25 13:55:12.853  INFO 16612 --- [XNIO-1 I/O-3] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 13:55:14.850  INFO 16612 --- [XNIO-1 task-25] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:56849
+2021-10-25 13:55:14.853  INFO 16612 --- [XNIO-1 task-25] lavalink.server.io.SocketServer          : Connection successfully established from erela.js
+2021-10-25 13:56:05.785  INFO 16612 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:56849 -- CloseStatus[code=1006, reason=]
+2021-10-25 13:56:05.785  INFO 16612 --- [XNIO-1 I/O-5] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-10-25 13:56:09.201  INFO 16612 --- [Thread-1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-10-25 13:56:09.203  INFO 16612 --- [Thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2021-10-25 13:56:09.210  INFO 16612 --- [Thread-1] io.undertow.servlet                      : Destroying Spring FrameworkServlet 'dispatcherServlet'

@@ -1,0 +1,16 @@
+{
+    "maxPagesInQueue": 20,
+    "maxSongsPerPage": 15,
+    "IndexLogLevel": "debug",
+    "ClientLogLevel": "debug",
+    "EventsLogLevel": "debug",
+    "CommandsLogLevel": "debug",
+    "TaskQueueLogLevel": "debug",
+    "EphemeralMessageTime": 40,
+    "Colors": {
+        "info": "0x17a2b8",
+        "warn": "0xffc107",
+        "success": "0x28a745",
+        "error": "0xdc3545"
+    }
+}
