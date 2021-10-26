@@ -25,6 +25,7 @@
         "erela.js": "^2.3.3",
         "pino": "^7.0.2",
         "pino-pretty": "^7.1.0",
-        "pino-std-serializers": "^4.0.0"
+        "pino-std-serializers": "^4.0.0",
+        "pm2": "^5.1.2"
     }
 }
