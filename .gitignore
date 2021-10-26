@@ -3,3 +3,4 @@ node_modules
 dist
 lavalink
 ecosystem.config.js
+logs

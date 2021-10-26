@@ -6,8 +6,8 @@
     "scripts": {
         "dev": "ts-node-dev -r dotenv/config --trace-warnings --respawn --transpile-only --poll ./src/index.ts 1",
         "build": "tsc",
-        "prod": "node -r dotenv/config ./dist/index.js 0",
-        "lavalink": "java -Xmx512m -jar ./lavalink/Lavalink.jar"
+        "prod": "pm2 start ecosystem.config.js",
+        "stop-prod": "pm2 delete ecosystem.config.js"
     },
     "keywords": [],
     "author": "",
