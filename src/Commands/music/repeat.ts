@@ -28,7 +28,6 @@ export const command: Command = {
                         if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
                             if (global.musicState.player.queueRepeat === true) {
                                 global.musicState.player.setTrackRepeat(true)
-                                global.musicState.player.setQueueRepeat(false)
 
                                 await sendEphemeralEmbed(ctx.channel, {
                                     color: Color.success,
@@ -39,7 +38,6 @@ export const command: Command = {
                                 })
                             } else if (global.musicState.player.trackRepeat === true) {
                                 global.musicState.player.setTrackRepeat(false)
-                                global.musicState.player.setQueueRepeat(false)
 
                                 await sendEphemeralEmbed(ctx.channel, {
                                     color: Color.success,

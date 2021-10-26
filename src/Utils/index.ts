@@ -17,33 +17,27 @@ export enum Reactions {
     error = '❌',
 }
 
-export async function sendEphemeralEmbed(
-    textChannel: TextChannel | TextBasedChannels,
-    content: Object
-): Promise<void> {
+export async function sendEphemeralEmbed(textChannel: TextChannel | TextBasedChannels, content: Object): Promise<void> {
     await textChannel
         .send({
             embeds: [content],
         })
         .then((message: Message) => {
             setTimeout(async () => {
-                await message.delete()
+                try {
+                    await message.delete()
+                } catch (e) {
+                    log.debug(`Failed to delete message, this is a discord internal error\n${e.stack}`)
+                }
             }, Configs.EphemeralMessageTime * 1000)
         })
         .catch((e) => {
-            log.debug(
-                `Failed to send message, this is a discord internal error\n${e.stack}`
-            )
+            log.debug(`Failed to send message, this is a discord internal error\n${e.stack}`)
         })
 }
 
-export async function safeReact(
-    message: Message,
-    reaction: string
-): Promise<void> {
+export async function safeReact(message: Message, reaction: string): Promise<void> {
     await message.react(reaction).catch((e) => {
-        log.debug(
-            `Failed to react, this is a discord internal error\n${e.stack}`
-        )
+        log.debug(`Failed to react, this is a discord internal error\n${e.stack}`)
     })
 }

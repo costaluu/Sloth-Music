@@ -22,6 +22,8 @@ export const command: Command = {
         else if (position - 1 >= 0 && position - 1 < global.musicState.player.queue.pages.length) position = position - 1
         else position = 0
 
+        global.musicState.player.queue.pagesGenerator()
+
         ctx.reply(global.musicState.player.queue.pageTextGenerator(position))
             .then((message: Message) => {
                 setTimeout(async () => {

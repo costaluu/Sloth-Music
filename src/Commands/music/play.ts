@@ -121,7 +121,7 @@ export const command: Command = {
                 if (voiceChannel.members.get(ctx.author.id) !== undefined) {
                     if (global.musicState.player.queue.totalSize + 1 >= Configs.maxPagesInQueue * Configs.maxSongsPerPage) {
                         await sendEphemeralEmbed(ctx.channel, {
-                            color: Color.success,
+                            color: Color.error,
                             author: {
                                 name: "The queue is full, you can't add more songs",
                                 icon_url: client.user.displayAvatarURL(),
