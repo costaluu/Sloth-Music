@@ -28,10 +28,6 @@ export const command: Command = {
 
                     if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
                         if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
-                            //if (global.dataState.firstJump === false) {
-                            //position = position
-                            //  global.dataState.firstJump = true
-                            //}
 
                             if (position >= 0 && position < global.musicState.player.queue.length) {
                                 if (global.musicState.player.queueRepeat === true || global.musicState.player.trackRepeat === true) {

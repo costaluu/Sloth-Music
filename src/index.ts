@@ -157,7 +157,6 @@ let dataState: BotState = {
     botID: parseInt(process.argv[2]) /* Bot ID */,
     anchorUser: null,
     channelID: '',
-    firstJump: false,
     voiceChannelID: '',
     isThreadCreated: false,
     threadID: '',
@@ -223,7 +222,6 @@ let dataState: BotState = {
         this.anchorUser = null
         this.channelID = ''
         this.voiceChannelID = ''
-        this.firstJump = false
         this.isThreadCreated = false
         this.threadID = ''
         this.threadMembers = new Map()

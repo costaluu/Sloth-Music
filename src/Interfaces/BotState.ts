@@ -48,7 +48,6 @@ export interface BotState {
     botID: number
     anchorUser: User
     channelID: string
-    firstJump: boolean
     voiceChannelID: string
     isThreadCreated: boolean
     threadID: string

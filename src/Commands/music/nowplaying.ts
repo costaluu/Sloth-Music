@@ -55,10 +55,11 @@ export const command: Command = {
         await sendEphemeralEmbed(ctx.channel, {
             color: Color.info,
             author: {
-                name: global.musicState.mainEmbedMessageTitle(current.isStream, true),
-                url: current.uri,
+                name: 'Now playing 🔊',
             },
-            description: `- Requested by <@${requester.id}>` + (current.isStream === true ? '' : `\n▶️ ${split}\n[${global.musicState.player.queue.getDurationString(player.position)}/${global.musicState.player.queue.getDurationString(current.duration)}]\n`),
+            title: global.musicState.mainEmbedMessageTitle(current.isStream, false),
+            url: current.uri,
+            description: `- Requested by <@${requester.id}>` + (current.isStream === true ? '' : `\n\n▶️ ${split}\n\n[${global.musicState.player.queue.getDurationString(player.position)}/${global.musicState.player.queue.getDurationString(current.duration)}]\n`),
         })
 
         return
