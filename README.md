@@ -17,9 +17,6 @@ Dedicated discord music bot using JDA music core.
 
 ```md
 📦Sloth-Music
-┣━ 📂lavalink
-┃ ┣━ 📜application.yml
-┃ ┗━ 📜Lavalink.jar
 ┣━ 📂src
 ┃ ┣━ 📂Client
 ┃ ┃ ┗━ 📜index.ts
@@ -27,7 +24,8 @@ Dedicated discord music bot using JDA music core.
 ┃ ┃ ┣━ 📂common
 ┃ ┃ ┃ ┣━ 📜about.ts
 ┃ ┃ ┃ ┣━ 📜help.ts
-┃ ┃ ┃ ┗━ 📜ping.ts
+┃ ┃ ┃ ┣━ 📜ping.ts
+┃ ┃ ┃ ┗━ 📜uptime.ts
 ┃ ┃ ┗━ 📂music
 ┃ ┃ ┃ ┣━ 📜fairshuffle.ts
 ┃ ┃ ┃ ┣━ 📜jump.ts
@@ -37,6 +35,7 @@ Dedicated discord music bot using JDA music core.
 ┃ ┃ ┃ ┣━ 📜queue.ts
 ┃ ┃ ┃ ┣━ 📜remove.ts
 ┃ ┃ ┃ ┣━ 📜repeat.ts
+┃ ┃ ┃ ┣━ 📜search.ts
 ┃ ┃ ┃ ┣━ 📜shuffle.ts
 ┃ ┃ ┃ ┣━ 📜skip.ts
 ┃ ┃ ┃ ┣━ 📜stop.ts

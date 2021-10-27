@@ -4,6 +4,7 @@ import Client from './Client'
 import Logger from './Logger'
 import { VoiceChannel, Role, MessageActionRow, MessageButton } from 'discord.js'
 import { BotState, MusicState, RoleLevel, ControlRoles, DJRoles } from './Interfaces'
+import AsyncTaskQueue from './TaskQueue'
 import Configs from './config.json'
 const log = Logger(Configs.IndexLogLevel, 'index.ts')
 import { Structure, Track } from 'erela.js'
@@ -231,6 +232,7 @@ global.dataState = dataState
 
 let musicState: MusicState = {
     currentSkipVotes: 0,
+    taskQueue: new AsyncTaskQueue(),
     votesByUser: new Map(),
     async votesToSkip() {
         if (global.dataState.anchorUser !== null && global.dataState.voiceChannelID !== '') {

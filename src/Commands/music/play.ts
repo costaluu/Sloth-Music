@@ -1,7 +1,6 @@
 import { Command } from '../../Interfaces'
 import { Color, sendEphemeralEmbed } from '../../Utils'
 import { VoiceChannel, User, TextChannel } from 'discord.js'
-import { enqueue, play } from '../../VoiceHandler'
 import Logger from '../../Logger'
 import { SearchResult } from 'erela.js'
 import Configs from '../../config.json'
@@ -104,8 +103,7 @@ export const command: Command = {
                             return
                         }
 
-                        await enqueue(client, ctx, query)
-                        await play()
+                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query])
                     } catch (e) {
                         await sendEphemeralEmbed(ctx.channel, {
                             color: Color.error,

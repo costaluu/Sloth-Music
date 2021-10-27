@@ -1,11 +1,11 @@
-import { TextChannel, Message, TextBasedChannels } from 'discord.js'
+import { Message } from 'discord.js'
 import { SearchResult } from 'erela.js'
 import { sendEphemeralEmbed, Color, Reactions, safeReact } from '../Utils'
-import Logger from '../Logger'
 import Configs from '../config.json'
-const log = Logger(Configs.VoiceHandlerLogLevel, 'voicehandler.ts')
+//import Logger from '../Logger'
+//const log = Logger(Configs.VoiceHandlerLogLevel, 'voicehandler.ts')
 
-export async function enqueue(client, ctx, result: SearchResult) {
+export async function enqueue(ctx: Message, result: SearchResult) {
     if (result.loadType === 'TRACK_LOADED' || result.loadType === 'SEARCH_RESULT') {
         global.musicState.player.queue.add(result.tracks[0])
 
@@ -47,7 +47,7 @@ export async function play() {
     if (global.musicState.player.playing === false && global.musicState.player.paused === false) await global.musicState.player.play()
 }
 
-export async function pauseUnpause(ctx: Message) {
+export async function toggle(ctx: Message) {
     await global.musicState.player.pause(!global.musicState.player.paused)
 
     await safeReact(ctx, Reactions.success)
@@ -131,6 +131,28 @@ export async function fairShuffle(ctx: Message) {
     global.musicState.player.queue.fairShuffle()
 
     global.musicState.player.queue.pagesGenerator()
+
+    await safeReact(ctx, Reactions.success)
+}
+
+export async function jump(ctx: Message, position: number) {
+    if (global.musicState.player.queueRepeat === true || global.musicState.player.trackRepeat === true) {
+        let jumpedTracks = []
+
+        for (let i = 0; i < position; i++) jumpedTracks.push(global.musicState.player.queue[i])
+
+        global.musicState.player.queue = global.musicState.player.queue.concat(jumpedTracks)
+    }
+
+    await global.musicState.player.stop(position)
+
+    global.musicState.player.queue.pagesGenerator()
+
+    await safeReact(ctx, Reactions.success)
+}
+
+export async function remove(ctx: Message, position: number) {
+    global.musicState.player.queue.remove(position)
 
     await safeReact(ctx, Reactions.success)
 }

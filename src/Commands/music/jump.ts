@@ -28,21 +28,8 @@ export const command: Command = {
 
                     if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
                         if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
-
                             if (position >= 0 && position <= global.musicState.player.queue.length) {
-                                if (global.musicState.player.queueRepeat === true || global.musicState.player.trackRepeat === true) {
-                                    let jumpedTracks = []
-
-                                    for (let i = 0; i < position; i++) jumpedTracks.push(global.musicState.player.queue[i])
-
-                                    global.musicState.player.queue = global.musicState.player.queue.concat(jumpedTracks)
-                                }
-
-                                await global.musicState.player.stop(position)
-
-                                global.musicState.player.queue.pagesGenerator()
-
-                                await safeReact(ctx, Reactions.success)
+                                global.musicState.taskQueue.enqueueTask('Jump', [ctx, position])
                             } else await safeReact(ctx, Reactions.error)
                         } else {
                             await safeReact(ctx, Reactions.error)

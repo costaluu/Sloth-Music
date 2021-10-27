@@ -1,16 +1,19 @@
 import { Command, RoleLevel } from '../../Interfaces'
-import { safeReact, Reactions } from '../../Utils'
-import { VoiceChannel } from 'discord.js'
+import { Color, sendEphemeralEmbed, safeReact, Reactions } from '../../Utils'
+import { VoiceChannel, User, TextChannel } from 'discord.js'
 import Logger from '../../Logger'
+import { SearchResult } from 'erela.js'
 import Configs from '../../config.json'
-const log = Logger(Configs.CommandsLogLevel, 'leave.ts')
+const log = Logger(Configs.CommandsLogLevel, 'search.ts')
 
 export const command: Command = {
-    name: 'leave',
-    aliases: ['l'],
-    description: 'Turns off the bot.',
-    run: async (client, ctx) => {
-        if (global.musicState.player === null) {
+    name: 'search',
+    aliases: ['srch', 'src'],
+    description: 'Search for a video on youtube.',
+    run: async (client, ctx, request) => {
+        request[0] = request[0].trim()
+
+        if (global.musicState.player === null || global.musicState.player.queue.current === null) {
             await safeReact(ctx, Reactions.error)
 
             return
@@ -25,9 +28,7 @@ export const command: Command = {
                     let member = voiceChannel.members.get(ctx.author.id)
 
                     if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
-                        if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
-                            global.musicState.taskQueue.enqueueTask('Leave', [ctx])
-                        } else await safeReact(ctx, Reactions.error)
+                        await safeReact(ctx, Reactions.success)
                     } else await safeReact(ctx, Reactions.error)
                 })
                 .catch(async (e) => {
@@ -37,6 +38,6 @@ export const command: Command = {
 
                     return
                 })
-        } else log.debug(`Received a stop command while voiceChannelID was no registred`)
+        } else log.debug(`Received a skip command while voiceChannelID was no registred`)
     },
 }

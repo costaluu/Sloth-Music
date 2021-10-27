@@ -26,11 +26,7 @@ export const command: Command = {
 
                     if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
                         if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
-                            global.musicState.player.queue.fairShuffle()
-
-                            global.musicState.player.queue.pagesGenerator()
-
-                            await safeReact(ctx, Reactions.success)
+                            global.musicState.taskQueue.enqueueTask('FairShuffle', [ctx])
                         } else await safeReact(ctx, Reactions.error)
                     } else await safeReact(ctx, Reactions.error)
                 })

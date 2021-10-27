@@ -26,34 +26,7 @@ export const command: Command = {
 
                     if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
                         if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
-                            if (global.musicState.player.queueRepeat === true) {
-                                global.musicState.player.setTrackRepeat(true)
-
-                                await sendEphemeralEmbed(ctx.channel, {
-                                    color: Color.success,
-                                    author: {
-                                        name: `Repeat: Song.`,
-                                    },
-                                })
-                            } else if (global.musicState.player.trackRepeat === true) {
-                                global.musicState.player.setTrackRepeat(false)
-
-                                await sendEphemeralEmbed(ctx.channel, {
-                                    color: Color.success,
-                                    author: {
-                                        name: `Repeat: No repeat.`,
-                                    },
-                                })
-                            } else {
-                                global.musicState.player.setQueueRepeat(true)
-
-                                await sendEphemeralEmbed(ctx.channel, {
-                                    color: Color.success,
-                                    author: {
-                                        name: `Repeat: Queue.`,
-                                    },
-                                })
-                            }
+                            global.musicState.taskQueue.enqueueTask('Repeat', [ctx])
                         } else await safeReact(ctx, Reactions.error)
                     } else await safeReact(ctx, Reactions.error)
                 })

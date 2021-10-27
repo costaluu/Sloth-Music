@@ -30,9 +30,7 @@ export const command: Command = {
                         if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
                             position = position - 1
                             if (position >= 0 && position < global.musicState.player.queue.length) {
-                                global.musicState.player.queue.remove(position)
-
-                                await safeReact(ctx, Reactions.success)
+                                global.musicState.taskQueue.enqueueTask('Remove', [ctx, position])
                             } else await safeReact(ctx, Reactions.error)
                         } else {
                             await safeReact(ctx, Reactions.error)

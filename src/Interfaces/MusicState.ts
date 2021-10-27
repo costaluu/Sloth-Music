@@ -1,7 +1,9 @@
-import { Queue, Player, Track } from 'erela.js'
+import { Player } from 'erela.js'
+import AsyncTaskQueue from '../TaskQueue'
 
 export interface MusicState {
     currentSkipVotes: number
+    taskQueue: AsyncTaskQueue
     votesByUser: Map<string, boolean>
     player?: Player
     votesToSkip(): Promise<number>

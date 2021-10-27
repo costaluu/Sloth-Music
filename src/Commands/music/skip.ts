@@ -10,7 +10,7 @@ export const command: Command = {
     aliases: ['s'],
     description: 'Adds a skip vote or skips the song.',
     run: async (client, ctx) => {
-        if (global.musicState.player === null || global.musicState.player.queue.current === null || global.musicState.player.queue.current === undefined) {
+        if (global.musicState.player === null || global.musicState.player.queue.current === null) {
             await safeReact(ctx, Reactions.error)
 
             return
@@ -47,21 +47,7 @@ export const command: Command = {
                         }
 
                         if (global.musicState.currentSkipVotes === votesToSkip) {
-                            await sendEphemeralEmbed(ctx.channel, {
-                                color: Color.success,
-                                author: {
-                                    name: `Skipping...`,
-                                },
-                            })
-
-                            global.musicState.currentSkipVotes = 0
-                            global.musicState.votesByUser = new Map()
-
-                            if (global.musicState.player.queueRepeat === true || global.musicState.player.trackRepeat === true) global.musicState.player.queue.push(global.musicState.player.queue.current)
-
-                            await global.musicState.player.stop()
-
-                            global.musicState.player.queue.pagesGenerator()
+                            global.musicState.taskQueue.enqueueTask('Skip', [ctx])
                         }
 
                         await safeReact(ctx, Reactions.success)
