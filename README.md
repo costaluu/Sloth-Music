@@ -29,17 +29,22 @@ Dedicated discord music bot using JDA music core.
 ┃ ┃ ┃ ┣━ 📜help.ts
 ┃ ┃ ┃ ┗━ 📜ping.ts
 ┃ ┃ ┗━ 📂music
+┃ ┃ ┃ ┣━ 📜fairshuffle.ts
 ┃ ┃ ┃ ┣━ 📜jump.ts
 ┃ ┃ ┃ ┣━ 📜leave.ts
+┃ ┃ ┃ ┣━ 📜nowplaying.ts
 ┃ ┃ ┃ ┣━ 📜play.ts
 ┃ ┃ ┃ ┣━ 📜queue.ts
 ┃ ┃ ┃ ┣━ 📜remove.ts
 ┃ ┃ ┃ ┣━ 📜repeat.ts
+┃ ┃ ┃ ┣━ 📜shuffle.ts
 ┃ ┃ ┃ ┣━ 📜skip.ts
 ┃ ┃ ┃ ┣━ 📜stop.ts
+┃ ┃ ┃ ┣━ 📜thread.ts
 ┃ ┃ ┃ ┗━ 📜toggle.ts
 ┃ ┣━ 📂Events
-┃ ┃ ┗━ 📜messageCreate.ts
+┃ ┃ ┣━ 📜messageCreate.ts
+┃ ┃ ┗━ 📜voiceStateUpdate.ts
 ┃ ┣━ 📂Interfaces
 ┃ ┃ ┣━ 📜BotState.ts
 ┃ ┃ ┣━ 📜Command.ts
@@ -48,7 +53,11 @@ Dedicated discord music bot using JDA music core.
 ┃ ┃ ┗━ 📜MusicState.ts
 ┃ ┣━ 📂Logger
 ┃ ┃ ┗━ 📜index.ts
+┃ ┣━ 📂TaskQueue
+┃ ┃ ┗━ 📜index.ts
 ┃ ┣━ 📂Utils
+┃ ┃ ┗━ 📜index.ts
+┃ ┣━ 📂VoiceHandler
 ┃ ┃ ┗━ 📜index.ts
 ┃ ┣━ 📜config.json
 ┃ ┗━ 📜index.ts

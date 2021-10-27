@@ -6,6 +6,7 @@
     "EventsLogLevel": "debug",
     "CommandsLogLevel": "debug",
     "TaskQueueLogLevel": "debug",
+    "VoiceHandlerLogLevel": "debug",
     "EphemeralMessageTime": 40,
     "Colors": {
         "info": "0x17a2b8",

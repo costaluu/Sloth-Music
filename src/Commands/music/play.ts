@@ -1,52 +1,11 @@
 import { Command } from '../../Interfaces'
 import { Color, sendEphemeralEmbed } from '../../Utils'
 import { VoiceChannel, User, TextChannel } from 'discord.js'
+import { enqueue, play } from '../../VoiceHandler'
 import Logger from '../../Logger'
 import { SearchResult } from 'erela.js'
 import Configs from '../../config.json'
 const log = Logger(Configs.CommandsLogLevel, 'play.ts')
-
-async function enqueue(client, ctx, result: SearchResult) {
-    if (result.loadType === 'TRACK_LOADED' || result.loadType === 'SEARCH_RESULT') {
-        global.musicState.player.queue.add(result.tracks[0])
-
-        await sendEphemeralEmbed(ctx.channel, {
-            color: Color.success,
-            author: {
-                name: `Enqueued ${result.tracks[0].title}.`,
-                icon_url: client.user.displayAvatarURL(),
-            },
-        })
-    } else {
-        if (result.tracks.length > Configs.maxPagesInQueue * Configs.maxSongsPerPage - global.musicState.player.queue.totalSize) {
-            let newTracksLength = Configs.maxPagesInQueue * Configs.maxSongsPerPage - global.musicState.player.queue.totalSize
-
-            result.tracks = result.tracks.slice(0, newTracksLength)
-
-            await sendEphemeralEmbed(ctx.channel, {
-                color: Color.success,
-                author: {
-                    name: `Enqueued only ${newTracksLength} songs from playlist ${result.playlist.name} due to queue limit.`,
-                    icon_url: client.user.displayAvatarURL(),
-                },
-            })
-        } else {
-            await sendEphemeralEmbed(ctx.channel, {
-                color: Color.success,
-                author: {
-                    name: `Enqueued playlist ${result.playlist.name} with ${result.tracks.length} songs.`,
-                    icon_url: client.user.displayAvatarURL(),
-                },
-            })
-        }
-
-        global.musicState.player.queue.add(result.tracks)
-    }
-
-    global.musicState.player.queue.pagesGenerator()
-
-    if (global.musicState.player.playing === false && global.musicState.player.paused === false) global.musicState.player.play()
-}
 
 export const command: Command = {
     name: 'play',
@@ -60,7 +19,6 @@ export const command: Command = {
                 color: Color.error,
                 author: {
                     name: `You are not in a Voice Channel`,
-                    icon_url: client.user.displayAvatarURL(),
                 },
             })
 
@@ -74,7 +32,6 @@ export const command: Command = {
                 color: Color.error,
                 author: {
                     name: `I don't have permission to join in this voice channel`,
-                    icon_url: client.user.displayAvatarURL(),
                 },
             })
 
@@ -86,7 +43,6 @@ export const command: Command = {
                 color: Color.error,
                 author: {
                     name: `I don't have permission to speak in this voice channel`,
-                    icon_url: client.user.displayAvatarURL(),
                 },
             })
 
@@ -124,7 +80,6 @@ export const command: Command = {
                             color: Color.error,
                             author: {
                                 name: "The queue is full, you can't add more songs",
-                                icon_url: client.user.displayAvatarURL(),
                             },
                         })
 
@@ -143,7 +98,6 @@ export const command: Command = {
                                 color: Color.error,
                                 author: {
                                     name: `No song found.`,
-                                    icon_url: client.user.displayAvatarURL(),
                                 },
                             })
 
@@ -151,12 +105,12 @@ export const command: Command = {
                         }
 
                         await enqueue(client, ctx, query)
+                        await play()
                     } catch (e) {
                         await sendEphemeralEmbed(ctx.channel, {
                             color: Color.error,
                             author: {
                                 name: `There was an error while searching.`,
-                                icon_url: client.user.displayAvatarURL(),
                             },
                         })
 
@@ -167,7 +121,6 @@ export const command: Command = {
                         color: Color.error,
                         author: {
                             name: `I'm in another voice channel`,
-                            icon_url: client.user.displayAvatarURL(),
                         },
                     })
                 }

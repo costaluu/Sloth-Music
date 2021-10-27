@@ -12,7 +12,7 @@ export const command: Command = {
     run: async (client, ctx, pos) => {
         let position: number = parseInt(pos[0])
 
-        if (global.musicState.player === null || global.musicState.player.queue.current === null || global.musicState.player.queue.current === undefined || isNaN(position) === true) {
+        if (global.musicState.player === null || global.musicState.player.queue.current === null || isNaN(position) === true) {
             await safeReact(ctx, Reactions.error)
 
             return
@@ -29,7 +29,7 @@ export const command: Command = {
                     if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
                         if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
 
-                            if (position >= 0 && position < global.musicState.player.queue.length) {
+                            if (position >= 0 && position <= global.musicState.player.queue.length) {
                                 if (global.musicState.player.queueRepeat === true || global.musicState.player.trackRepeat === true) {
                                     let jumpedTracks = []
 

@@ -38,7 +38,6 @@ export const command: Command = {
                                 color: Color.success,
                                 author: {
                                     name: `Skip votes ${global.musicState.currentSkipVotes}/${votesToSkip}`,
-                                    icon_url: client.user.displayAvatarURL(),
                                 },
                             })
                         } else {
@@ -52,7 +51,6 @@ export const command: Command = {
                                 color: Color.success,
                                 author: {
                                     name: `Skipping...`,
-                                    icon_url: client.user.displayAvatarURL(),
                                 },
                             })
 

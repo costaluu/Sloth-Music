@@ -1,4 +1,4 @@
-require('events').EventEmitter.defaultMaxListeners = 20
+require('events').EventEmitter.defaultMaxListeners = 30
 import { Intents, User } from 'discord.js'
 import Client from './Client'
 import Logger from './Logger'
@@ -6,7 +6,6 @@ import { VoiceChannel, Role, MessageActionRow, MessageButton } from 'discord.js'
 import { BotState, MusicState, RoleLevel, ControlRoles, DJRoles } from './Interfaces'
 import Configs from './config.json'
 const log = Logger(Configs.IndexLogLevel, 'index.ts')
-import { oneHourInMS } from './Utils'
 import { Structure, Track } from 'erela.js'
 
 Structure.extend(
@@ -328,6 +327,29 @@ try {
     })
 
     client.init()
+
+    const exitSignals: NodeJS.Signals[] = ['SIGINT', 'SIGTERM', 'SIGQUIT']
+
+    exitSignals.map((signal) => {
+        process.on(signal, async () => {
+            await client.gracefullShutdown()
+            if (process.env.IS_DEV_VERSION === 'true') process.exit(ExitStatus.Failure)
+        })
+    })
+
+    process.on('unhandledRejection', async (reason, promise) => {
+        log.fatal(new Error(`Error: ${promise} and reason: ${reason}`))
+
+        await client.gracefullShutdown()
+        if (process.env.IS_DEV_VERSION === 'true') process.exit(ExitStatus.Failure)
+    })
+
+    process.on('uncaughtException', async (e) => {
+        log.fatal(new Error(`Error: ${e.stack}`))
+
+        await client.gracefullShutdown()
+        if (process.env.IS_DEV_VERSION === 'true') process.exit(ExitStatus.Failure)
+    })
 } catch (e) {
     log.error(new Error(`Bot exited due to error \n${e.stack}`))
     process.exit(ExitStatus.Failure)

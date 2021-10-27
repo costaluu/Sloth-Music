@@ -33,7 +33,6 @@ export const command: Command = {
                                     color: Color.success,
                                     author: {
                                         name: `Repeat: Song.`,
-                                        icon_url: client.user.displayAvatarURL(),
                                     },
                                 })
                             } else if (global.musicState.player.trackRepeat === true) {
@@ -43,7 +42,6 @@ export const command: Command = {
                                     color: Color.success,
                                     author: {
                                         name: `Repeat: No repeat.`,
-                                        icon_url: client.user.displayAvatarURL(),
                                     },
                                 })
                             } else {
@@ -53,7 +51,6 @@ export const command: Command = {
                                     color: Color.success,
                                     author: {
                                         name: `Repeat: Queue.`,
-                                        icon_url: client.user.displayAvatarURL(),
                                     },
                                 })
                             }

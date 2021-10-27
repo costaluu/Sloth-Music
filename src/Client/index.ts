@@ -49,7 +49,6 @@ class ExtendedClient extends Client {
                         color: Color.info,
                         author: {
                             name: global.musicState.mainEmbedMessageTitle(true, true),
-                            icon_url: this.user.displayAvatarURL(),
                         },
                         description: `requested by <@${requester.id}>`,
                     })
@@ -112,7 +111,62 @@ class ExtendedClient extends Client {
         this.login(process.env.BOT_TOKEN)
     }
 
-    public async gracefullShutdown(): Promise<void> {}
+    public async gracefullShutdown(): Promise<void> {
+        if (process.env.IS_DEV_VERSION === 'true') {
+            log.info('Gracefull shutdown...\n')
+
+            if (global.dataState.channelID !== '') {
+                await this.channels.fetch(global.dataState.channelID).then(async (channel: TextChannel) => {
+                    if (channel) {
+                        let findThread = channel.threads.cache.find((thread) => thread.id === global.dataState.threadID)
+
+                        if (findThread !== undefined) {
+                            log.info('Thread found! Deleting...')
+
+                            try {
+                                await findThread.delete()
+                            } catch (e) {
+                                log.error(`Failed to delete thread, this is a discord internal error\n${e.stack}`)
+                            }
+                        } else log.info('Thread not found...')
+
+                        log.info('Removing voice connection...')
+
+                        try {
+                            await global.musicState.player.destroy()
+
+                            global.dataState.clear()
+                            global.musicState.clear()
+
+                            log.info('Done.')
+                        } catch (e) {
+                            log.error(new Error(`Failed to destroy client connection, this is a discord internal error ${e.stack}`))
+                        }
+                    } else log.warn(`Failed to fetch channel while gracefull shutdown`)
+                })
+            } else {
+                log.info(`State is already clear...`)
+                log.info('Done.')
+            }
+        } /* else {
+            log.info('Soft stop triggered...')
+
+            if (global.musicState.player !== null) {
+                log.debug(`Killing player...`)
+
+                try {
+                    await global.musicState.player.destroy()
+                } catch (e) {
+                    log.error(`Failed to stop the player\n${e.stack}`)
+                }
+            } else log.debug(`Player is already null`)
+
+            global.dataState.clear()
+            global.musicState.clear()
+
+            //global.musicState.taskQueue.enqueueTask('Skip', false)
+        } */
+    }
 }
 
 export default ExtendedClient

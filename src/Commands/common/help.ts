@@ -11,7 +11,6 @@ export const command: Command = {
                 color: Color.info,
                 author: {
                     name: 'All commands for Sloth Music Bot',
-                    icon_url: client.user.displayAvatarURL(),
                 },
                 description: '```ini\nYou can use ' + `s${global.dataState.botID}help` + ' [command] to get more info about a specific command.\n\nTemplate: s[index][command/alias] [arg]\n\nObs: [index/command/alias] means that you should use the command without [].\n```',
                 fields: [
@@ -47,7 +46,6 @@ export const command: Command = {
                         color: Color.info,
                         author: {
                             name: find.name[0].toUpperCase() + find.name.slice(1) + ' command',
-                            icon_url: client.user.displayAvatarURL(),
                         },
                         description: '```ini\n' + `[Aliases]: ${aliasesString}\n\n[Description]: ${find?.description}` + '\n```',
                     })
@@ -63,7 +61,6 @@ export const command: Command = {
                             color: Color.info,
                             author: {
                                 name: find.name,
-                                icon_url: client.user.displayAvatarURL(),
                             },
                             description: '```ini\n' + `[Aliases]: ${aliasesString}\n\n[Description]: ${find?.description}` + '\n```',
                         })
@@ -72,7 +69,6 @@ export const command: Command = {
                             color: Color.error,
                             author: {
                                 name: `Command not found`,
-                                icon_url: client.user.displayAvatarURL(),
                             },
                         })
                     }

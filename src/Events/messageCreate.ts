@@ -54,7 +54,6 @@ export const event: Event = {
                     color: Color.error,
                     author: {
                         name: `Command not found`,
-                        icon_url: client.user.displayAvatarURL(),
                     },
                 })
             }
