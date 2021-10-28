@@ -1,42 +1,62 @@
 import { Message } from 'discord.js'
-import { SearchResult } from 'erela.js'
-import { sendEphemeralEmbed, Color, Reactions, safeReact } from '../Utils'
+import { SearchResult, Track } from 'erela.js'
+import { sendEphemeralEmbed, Color, Emojis, safeReact } from '../Utils'
 import Configs from '../config.json'
 //import Logger from '../Logger'
 //const log = Logger(Configs.VoiceHandlerLogLevel, 'voicehandler.ts')
 
-export async function enqueue(ctx: Message, result: SearchResult) {
-    if (result.loadType === 'TRACK_LOADED' || result.loadType === 'SEARCH_RESULT') {
-        global.musicState.player.queue.add(result.tracks[0])
+function assertSearchResultType(result: SearchResult | Track): boolean {
+    let check = result as SearchResult
+    if (check.loadType) return true
+    else return false
+}
+
+export async function enqueue(ctx: Message, result: SearchResult | Track) {
+    if (assertSearchResultType(result) === false) {
+        result = result as Track
+
+        global.musicState.player.queue.add(result)
 
         await sendEphemeralEmbed(ctx.channel, {
             color: Color.success,
             author: {
-                name: `Enqueued ${result.tracks[0].title}.`,
+                name: `${Emojis.song} Enqueued ${result.title}.`,
             },
         })
     } else {
-        if (result.tracks.length > Configs.maxPagesInQueue * Configs.maxSongsPerPage - global.musicState.player.queue.totalSize) {
-            let newTracksLength = Configs.maxPagesInQueue * Configs.maxSongsPerPage - global.musicState.player.queue.totalSize
-
-            result.tracks = result.tracks.slice(0, newTracksLength)
+        result = result as SearchResult
+        if (result.loadType === 'TRACK_LOADED' || result.loadType === 'SEARCH_RESULT') {
+            global.musicState.player.queue.add(result.tracks[0])
 
             await sendEphemeralEmbed(ctx.channel, {
                 color: Color.success,
                 author: {
-                    name: `Enqueued only ${newTracksLength} songs from playlist ${result.playlist.name} due to queue limit.`,
+                    name: `${Emojis.song} Enqueued ${result.tracks[0].title}.`,
                 },
             })
         } else {
-            await sendEphemeralEmbed(ctx.channel, {
-                color: Color.success,
-                author: {
-                    name: `Enqueued playlist ${result.playlist.name} with ${result.tracks.length} songs.`,
-                },
-            })
-        }
+            if (result.tracks.length > Configs.maxPagesInQueue * Configs.maxSongsPerPage - global.musicState.player.queue.totalSize) {
+                let newTracksLength = Configs.maxPagesInQueue * Configs.maxSongsPerPage - global.musicState.player.queue.totalSize
 
-        global.musicState.player.queue.add(result.tracks)
+                result.tracks = result.tracks.slice(0, newTracksLength)
+
+                await sendEphemeralEmbed(ctx.channel, {
+                    color: Color.success,
+                    author: {
+                        name: `${Emojis.playlist} Enqueued only ${newTracksLength} songs from playlist ${result.playlist.name} due to queue limit.`,
+                    },
+                })
+            } else {
+                await sendEphemeralEmbed(ctx.channel, {
+                    color: Color.success,
+                    author: {
+                        name: `${Emojis.playlist} Enqueued playlist ${result.playlist.name} with ${result.tracks.length} songs.`,
+                    },
+                })
+            }
+
+            global.musicState.player.queue.add(result.tracks)
+        }
     }
 
     global.musicState.player.queue.pagesGenerator()
@@ -50,7 +70,7 @@ export async function play() {
 export async function toggle(ctx: Message) {
     await global.musicState.player.pause(!global.musicState.player.paused)
 
-    await safeReact(ctx, Reactions.success)
+    await safeReact(ctx, Emojis.success)
 }
 
 export async function stop(ctx: Message) {
@@ -59,7 +79,7 @@ export async function stop(ctx: Message) {
     await global.musicState.player.queue.clear()
     await global.musicState.player.stop()
 
-    await safeReact(ctx, Reactions.success)
+    await safeReact(ctx, Emojis.success)
 }
 
 export async function skip(ctx: Message) {
@@ -115,7 +135,7 @@ export async function shuffle(ctx: Message) {
     await global.musicState.player.queue.shuffle()
     global.musicState.player.queue.pagesGenerator()
 
-    await safeReact(ctx, Reactions.success)
+    await safeReact(ctx, Emojis.success)
 }
 
 export async function leave(ctx: Message) {
@@ -124,7 +144,7 @@ export async function leave(ctx: Message) {
     global.musicState.clear()
     global.dataState.clear()
 
-    await safeReact(ctx, Reactions.success)
+    await safeReact(ctx, Emojis.success)
 }
 
 export async function fairShuffle(ctx: Message) {
@@ -132,7 +152,7 @@ export async function fairShuffle(ctx: Message) {
 
     global.musicState.player.queue.pagesGenerator()
 
-    await safeReact(ctx, Reactions.success)
+    await safeReact(ctx, Emojis.success)
 }
 
 export async function jump(ctx: Message, position: number) {
@@ -148,11 +168,11 @@ export async function jump(ctx: Message, position: number) {
 
     global.musicState.player.queue.pagesGenerator()
 
-    await safeReact(ctx, Reactions.success)
+    await safeReact(ctx, Emojis.success)
 }
 
 export async function remove(ctx: Message, position: number) {
     global.musicState.player.queue.remove(position)
 
-    await safeReact(ctx, Reactions.success)
+    await safeReact(ctx, Emojis.success)
 }

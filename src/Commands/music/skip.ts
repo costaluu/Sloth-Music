@@ -1,5 +1,5 @@
 import { Command, RoleLevel } from '../../Interfaces'
-import { safeReact, Reactions, sendEphemeralEmbed, Color } from '../../Utils'
+import { safeReact, Emojis, sendEphemeralEmbed, Color } from '../../Utils'
 import { VoiceChannel } from 'discord.js'
 import Logger from '../../Logger'
 import Configs from '../../config.json'
@@ -11,7 +11,7 @@ export const command: Command = {
     description: 'Adds a skip vote or skips the song.',
     run: async (client, ctx) => {
         if (global.musicState.player === null || global.musicState.player.queue.current === null) {
-            await safeReact(ctx, Reactions.error)
+            await safeReact(ctx, Emojis.error)
 
             return
         }
@@ -41,7 +41,7 @@ export const command: Command = {
                                 },
                             })
                         } else {
-                            await safeReact(ctx, Reactions.error)
+                            await safeReact(ctx, Emojis.error)
 
                             return
                         }
@@ -50,13 +50,13 @@ export const command: Command = {
                             global.musicState.taskQueue.enqueueTask('Skip', [ctx])
                         }
 
-                        await safeReact(ctx, Reactions.success)
-                    } else await safeReact(ctx, Reactions.error)
+                        await safeReact(ctx, Emojis.success)
+                    } else await safeReact(ctx, Emojis.error)
                 })
                 .catch(async (e) => {
                     log.error(`Failed to fetch voice channel, this is a discord internal error\n${e.stack}`)
 
-                    await safeReact(ctx, Reactions.error)
+                    await safeReact(ctx, Emojis.error)
 
                     return
                 })

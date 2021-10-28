@@ -12,9 +12,11 @@ export enum Color {
     error = parseInt(Configs.Colors.error),
 }
 
-export enum Reactions {
+export enum Emojis {
     success = '✅',
     error = '❌',
+    playlist = '💽',
+    song = '🎵',
 }
 
 export async function sendEphemeralEmbed(textChannel: TextChannel | TextBasedChannels, content: Object): Promise<void> {

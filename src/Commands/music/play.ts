@@ -92,7 +92,7 @@ export const command: Command = {
                             if (!global.musicState.player.queue.current) global.musicState.player.destroy()
 
                             throw query.exception
-                        } else if (query.loadType === 'NO_MATCHES') {
+                        } else if (query.loadType === 'NO_MATCHES' || request[0] === '') {
                             await sendEphemeralEmbed(ctx.channel, {
                                 color: Color.error,
                                 author: {

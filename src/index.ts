@@ -90,7 +90,9 @@ Structure.extend(
 
                 let title = this.length === 0 ? '🎶 Queue List 🎶' : `🎶 Queue List 🎶 ${this.totalSize} songs`
 
-                let footer = `Page ${pageNumber + 1 === this.currentPage + 1 ? this.currentPage + 1 : pageNumber + 1}/${this.pages.length === 0 ? 1 : this.pages.length}  | Total duration: ${this.getTotalQueueDurationString()}` + (global.musicState.player.trackRepeat === true ? ' | Repeat: 🔂' : global.musicState.player.queueRepeat === true ? ' | Repeat: 🔁' : '')
+                let footer =
+                    `Page ${pageNumber + 1 === this.currentPage + 1 ? this.currentPage + 1 : pageNumber + 1}/${this.pages.length === 0 ? 1 : this.pages.length}  | Total duration: ${this.getTotalQueueDurationString()}` +
+                    (global.musicState.player.trackRepeat === true ? ' | Repeat: 🔂' : global.musicState.player.queueRepeat === true ? ' | Repeat: 🔁' : '')
 
                 let songs = ''
 
@@ -98,7 +100,9 @@ Structure.extend(
                     for (let i = 0; i < this.pages[pageNumber].length; i++) {
                         let requester: User = this.pages[pageNumber][i].requester as User
 
-                        songs += `${pageNumber * Configs.maxSongsPerPage + (i + 1)}. ${this.pages[pageNumber][i].title} - [${this.getDurationString(this.pages[pageNumber][i].duration, this.pages[pageNumber][i].isStream)}] | requested by ${requester.username}#${requester.discriminator}`
+                        songs += `${pageNumber * Configs.maxSongsPerPage + (i + 1)}. ${this.pages[pageNumber][i].title} - [${this.getDurationString(this.pages[pageNumber][i].duration, this.pages[pageNumber][i].isStream)}] | requested by ${
+                            requester.username
+                        }#${requester.discriminator}`
 
                         if (i + 1 < this.pages[pageNumber].length) songs += '\n'
                     }
@@ -294,13 +298,24 @@ let musicState: MusicState = {
         return `${global.dataState.anchorUser.username}#${global.dataState.anchorUser.discriminator} is the current DJ` + repeat */
     },
     mainEmbedMessageButtons() {
-        return new MessageActionRow().addComponents([new MessageButton().setCustomId('PlayResume').setEmoji('⏯️').setStyle('PRIMARY'), new MessageButton().setCustomId('Skip').setEmoji('⏭️').setStyle('PRIMARY'), new MessageButton().setCustomId('Repeat').setEmoji('🔁').setStyle('PRIMARY'), new MessageButton().setCustomId('Stop').setEmoji('⏹️').setStyle('PRIMARY'), new MessageButton().setCustomId('TurnOff').setEmoji('❌').setStyle('DANGER')])
+        return new MessageActionRow().addComponents([
+            new MessageButton().setCustomId('PlayResume').setEmoji('⏯️').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('Skip').setEmoji('⏭️').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('Repeat').setEmoji('🔁').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('Stop').setEmoji('⏹️').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('TurnOff').setEmoji('❌').setStyle('DANGER'),
+        ])
     },
     queueEmbedMessage() {
         return this.musicQueue.pageTextGenerator(this.musicQueue.currentPage)
     },
     queueEmbedMessageButtons() {
-        return new MessageActionRow().addComponents([new MessageButton().setCustomId('PreviousPage').setEmoji('⬅️').setStyle('PRIMARY'), new MessageButton().setCustomId('NextPage').setEmoji('➡️').setStyle('PRIMARY'), new MessageButton().setCustomId('ShuffleQueue').setEmoji('🔀').setStyle('PRIMARY'), new MessageButton().setCustomId('FairQueue').setEmoji('🤝').setStyle('PRIMARY')])
+        return new MessageActionRow().addComponents([
+            new MessageButton().setCustomId('PreviousPage').setEmoji('⬅️').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('NextPage').setEmoji('➡️').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('ShuffleQueue').setEmoji('🔀').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('FairQueue').setEmoji('🤝').setStyle('PRIMARY'),
+        ])
     },
     clear() {
         this.currentSkipVotes = 0
@@ -339,12 +354,12 @@ try {
         })
     })
 
-    process.on('unhandledRejection', async (reason, promise) => {
+    /*     process.on('unhandledRejection', async (reason, promise) => {
         log.fatal(new Error(`Error: ${promise} and reason: ${reason}`))
 
         await client.gracefullShutdown()
         if (process.env.IS_DEV_VERSION === 'true') process.exit(ExitStatus.Failure)
-    })
+    }) */
 
     process.on('uncaughtException', async (e) => {
         log.fatal(new Error(`Error: ${e.stack}`))

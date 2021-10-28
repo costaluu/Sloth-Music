@@ -1,5 +1,5 @@
 import { Command } from '../../Interfaces'
-import { safeReact, Reactions, sendEphemeralEmbed, Color } from '../../Utils'
+import { safeReact, Emojis, sendEphemeralEmbed, Color } from '../../Utils'
 import { Message } from 'discord.js'
 import Logger from '../../Logger'
 import Configs from '../../config.json'

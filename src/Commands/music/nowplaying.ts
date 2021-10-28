@@ -1,5 +1,5 @@
 import { Command } from '../../Interfaces'
-import { safeReact, Reactions, sendEphemeralEmbed, Color } from '../../Utils'
+import { safeReact, Emojis, sendEphemeralEmbed, Color } from '../../Utils'
 import { Message, User } from 'discord.js'
 import { Player, Track, UnresolvedTrack } from 'erela.js'
 import Logger from '../../Logger'
@@ -39,7 +39,7 @@ export const command: Command = {
     description: 'Shows the current song.',
     run: async (client, ctx) => {
         if (global.musicState.player === null) {
-            await safeReact(ctx, Reactions.error)
+            await safeReact(ctx, Emojis.error)
 
             return
         }
@@ -59,7 +59,9 @@ export const command: Command = {
             },
             title: global.musicState.mainEmbedMessageTitle(current.isStream, false),
             url: current.uri,
-            description: `- Requested by <@${requester.id}>` + (current.isStream === true ? '' : `\n\n▶️ ${split}\n\n[${global.musicState.player.queue.getDurationString(player.position)}/${global.musicState.player.queue.getDurationString(current.duration)}]\n`),
+            description:
+                `- Requested by <@${requester.id}>` +
+                (current.isStream === true ? '' : `\n\n▶️ ${split}\n\n[${global.musicState.player.queue.getDurationString(player.position)}/${global.musicState.player.queue.getDurationString(current.duration)}]\n`),
         })
 
         return

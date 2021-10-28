@@ -12,16 +12,19 @@ export const command: Command = {
                 author: {
                     name: 'All commands for Sloth Music Bot',
                 },
-                description: '```ini\nYou can use ' + `s${global.dataState.botID}help` + ' [command] to get more info about a specific command.\n\nTemplate: s[index][command/alias] [arg]\n\nObs: [index/command/alias] means that you should use the command without [].\n```',
+                description:
+                    '```ini\nYou can use ' +
+                    `s${global.dataState.botID}help` +
+                    ' [command] to get more info about a specific command.\n\nTemplate: s[index][command/alias] [arg]\n\nObs: [index/command/alias] means that you should use the command without [].\n```',
                 fields: [
                     {
                         name: `Common commands`,
-                        value: '`ping`, `help`, `about`',
+                        value: '`ping`, `help`, `about`, `uptime`',
                         inline: false,
                     },
                     {
                         name: `Music commands`,
-                        value: '`play`, `toggle`, `stop`, `queue`, `remove`, `leave`, `skip`, `repeat`, `jump`, `nowplaying`, `shuffle`, `fairshuffle`, `thread`',
+                        value: '`play`, `toggle`, `stop`, `search`, `queue`, `remove`, `leave`, `skip`, `repeat`, `jump`, `nowplaying`, `shuffle`, `fairshuffle`, `thread`',
                         inline: false,
                     },
                 ],

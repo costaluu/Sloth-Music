@@ -1,5 +1,5 @@
 import { Command } from '../../Interfaces'
-import { safeReact, Reactions } from '../../Utils'
+import { safeReact, Emojis } from '../../Utils'
 import { Message } from 'discord.js'
 import Logger from '../../Logger'
 import Configs from '../../config.json'
@@ -13,7 +13,7 @@ export const command: Command = {
         let position: number = parseInt(page[0])
 
         if (global.musicState.player === null) {
-            await safeReact(ctx, Reactions.error)
+            await safeReact(ctx, Emojis.error)
 
             return
         }

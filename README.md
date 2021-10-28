@@ -17,6 +17,10 @@ Dedicated discord music bot using JDA music core.
 
 ```md
 📦Sloth-Music
+┣━ 📂lavalink
+┃ ┣━ 📜application.yml
+┃ ┣━ 📜launch.sh
+┃ ┗━ 📜Lavalink.jar
 ┣━ 📂src
 ┃ ┣━ 📂Client
 ┃ ┃ ┗━ 📜index.ts
