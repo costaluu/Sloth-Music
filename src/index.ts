@@ -7,7 +7,7 @@ import { BotState, MusicState, RoleLevel, ControlRoles, DJRoles } from './Interf
 import AsyncTaskQueue from './TaskQueue'
 import Configs from './config.json'
 const log = Logger(Configs.IndexLogLevel, 'index.ts')
-import { Structure, Track } from 'erela.js'
+import { Structure, Track, UnresolvedTrack } from 'erela.js'
 
 Structure.extend(
     'Queue',
@@ -17,7 +17,25 @@ Structure.extend(
             public pages: [Track[]] | [] = null
 
             /**
-             * Get the duration of the song in format HH:mm:ss
+             * Get a slice from queue estructure
+             * @param {page} number of the piece.
+             */
+
+            getPage(page: number): (Track | UnresolvedTrack)[] {
+                return this.slice((page - 1) * Configs.maxSongsPerPage, Math.min(page * Configs.maxSongsPerPage, this.length))
+            }
+
+            /**
+             * Returns the current number of pages
+             * @param {page} number of the piece.
+             */
+
+            pagesCount(): number {
+                return Math.floor(this.length / Configs.maxSongsPerPage) + (this.length % Configs.maxSongsPerPage > 0 ? 1 : 0)
+            }
+
+            /**
+             * Get the duration of the song in format HH:mm:ss or mm:ss
              * @param {duration} number of seconds to get the time string.
              * @param {isStream} boolean that indicates if it is a live stream.
              */
@@ -48,38 +66,14 @@ Structure.extend(
             }
 
             /**
-             * Generates a new pages array, its used when a song its deleted or first queue song
-             */
-
-            public pagesGenerator(): void {
-                log.debug(`Generating pages structure...`)
-
-                let pages = []
-                let currentPage = -1
-
-                for (let i = 0; i < this.length; i++) {
-                    if (i % Configs.maxSongsPerPage === 0) {
-                        pages.push([])
-                        currentPage = currentPage + 1
-                    }
-
-                    pages[currentPage].push(this[i])
-                }
-
-                this.pages = pages as [Track[]] | []
-            }
-
-            /**
              * Generates a queue text to current page
              * @param {pageNumber} number of the page to be generated.
              */
 
             public pageTextGenerator(pageNumber: number): string {
-                if (global.musicState.player === null || this.current === null) return '```js\n' + `No songs in queue 😔` + '\n```'
+                if (global.musicState.player === null || this.current === null) return '```css\n' + `No songs in queue 😔` + '\n```'
 
                 let currentText = ''
-
-                if (this.pages === null) this.pagesGenerator()
 
                 if (this.current !== null) {
                     let requester: User = this.current?.requester as User
@@ -91,26 +85,26 @@ Structure.extend(
                 let title = this.length === 0 ? '🎶 Queue List 🎶' : `🎶 Queue List 🎶 ${this.totalSize} songs`
 
                 let footer =
-                    `Page ${pageNumber + 1 === this.currentPage + 1 ? this.currentPage + 1 : pageNumber + 1}/${this.pages.length === 0 ? 1 : this.pages.length}  | Total duration: ${this.getTotalQueueDurationString()}` +
+                    `Page [${pageNumber === this.currentPage ? this.currentPage : pageNumber}/${this.pagesCount() === 0 ? 1 : this.pagesCount()}] | Total duration: ${this.getTotalQueueDurationString()}` +
                     (global.musicState.player.trackRepeat === true ? ' | Repeat: 🔂' : global.musicState.player.queueRepeat === true ? ' | Repeat: 🔁' : '')
 
                 let songs = ''
 
-                if (this.pages !== null && this.pages.length > 0 && pageNumber >= 0 && pageNumber < this.pages.length) {
-                    for (let i = 0; i < this.pages[pageNumber].length; i++) {
-                        let requester: User = this.pages[pageNumber][i].requester as User
+                if (pageNumber > 0 && pageNumber <= this.pagesCount()) {
+                    let page: (Track | UnresolvedTrack)[] = this.getPage(pageNumber)
 
-                        songs += `${pageNumber * Configs.maxSongsPerPage + (i + 1)}. ${this.pages[pageNumber][i].title} - [${this.getDurationString(this.pages[pageNumber][i].duration, this.pages[pageNumber][i].isStream)}] | requested by ${
-                            requester.username
-                        }#${requester.discriminator}`
+                    for (let i = 0; i < page.length; i++) {
+                        let requester: User = page[i].requester as User
 
-                        if (i + 1 < this.pages[pageNumber].length) songs += '\n'
+                        songs += `[${(pageNumber - 1) * Configs.maxSongsPerPage + (i + 1)}]. ${page[i].title} - [${this.getDurationString(page[i].duration, page[i].isStream)}] | requested by ${requester.username}#${requester.discriminator}`
+
+                        if (i + 1 < page.length) songs += '\n'
                     }
                 }
 
                 if (songs === '') songs = `No more songs in queue 😔`
 
-                return '```js\n' + currentText + '\n\n' + title + '\n\n' + songs + '\n\n' + footer + '\n```'
+                return '```css\n' + currentText + '\n\n' + title + '\n\n' + songs + '\n\n' + footer + '\n```'
             }
 
             /**
@@ -148,8 +142,6 @@ Structure.extend(
                     }
 
                     for (let i = 0; i < fairQueue.length; i++) this[i] = fairQueue[i]
-
-                    this.pagesGenerator()
                 }
             }
         }

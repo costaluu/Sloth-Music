@@ -35,8 +35,6 @@ export const command: Command = {
                         await safeReact(ctx, Emojis.error)
                     }
                 } else await safeReact(ctx, Emojis.error)
-
-                global.musicState.player.queue.pagesGenerator()
             })
             .catch(async (e) => {
                 log.error(`Failed to fetch voice channel, this is a discord internal error\n${e.stack}`)

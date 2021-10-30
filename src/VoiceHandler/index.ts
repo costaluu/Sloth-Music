@@ -59,7 +59,6 @@ export async function enqueue(ctx: Message, result: SearchResult | Track) {
         }
     }
 
-    global.musicState.player.queue.pagesGenerator()
     await play()
 }
 
@@ -96,8 +95,6 @@ export async function skip(ctx: Message) {
     if (global.musicState.player.queueRepeat === true || global.musicState.player.trackRepeat === true) global.musicState.player.queue.push(global.musicState.player.queue.current)
 
     await global.musicState.player.stop()
-
-    global.musicState.player.queue.pagesGenerator()
 }
 
 export async function repeat(ctx: Message) {
@@ -133,7 +130,6 @@ export async function repeat(ctx: Message) {
 
 export async function shuffle(ctx: Message) {
     await global.musicState.player.queue.shuffle()
-    global.musicState.player.queue.pagesGenerator()
 
     await safeReact(ctx, Emojis.success)
 }
@@ -150,23 +146,19 @@ export async function leave(ctx: Message) {
 export async function fairShuffle(ctx: Message) {
     global.musicState.player.queue.fairShuffle()
 
-    global.musicState.player.queue.pagesGenerator()
-
     await safeReact(ctx, Emojis.success)
 }
 
 export async function jump(ctx: Message, position: number) {
     if (global.musicState.player.queueRepeat === true || global.musicState.player.trackRepeat === true) {
-        let jumpedTracks = []
+        let jumpedTracks = [global.musicState.player.queue.current]
 
-        for (let i = 0; i < position; i++) jumpedTracks.push(global.musicState.player.queue[i])
+        for (let i = 0; i < position - 1; i++) jumpedTracks.push(global.musicState.player.queue[i])
 
         global.musicState.player.queue = global.musicState.player.queue.concat(jumpedTracks)
     }
 
     await global.musicState.player.stop(position)
-
-    global.musicState.player.queue.pagesGenerator()
 
     await safeReact(ctx, Emojis.success)
 }

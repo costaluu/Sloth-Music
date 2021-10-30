@@ -18,11 +18,7 @@ export const command: Command = {
             return
         }
 
-        if (isNaN(position) === true) position = 0
-        else if (position - 1 >= 0 && position - 1 < global.musicState.player.queue.pages.length) position = position - 1
-        else position = 0
-
-        global.musicState.player.queue.pagesGenerator()
+        if (isNaN(position) === true || position <= 0 || position > global.musicState.player.queue.pagesCount()) position = 1
 
         ctx.reply(global.musicState.player.queue.pageTextGenerator(position))
             .then((message: Message) => {

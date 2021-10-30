@@ -78,7 +78,7 @@ export const command: Command = {
                                 })
 
                                 const filter = (interaction) => interaction.user.id === ctx.author.id
-                                const collector = sendedMessage.channel.createMessageComponentCollector({ filter, time: 40 * 1000, max: 1 })
+                                const collector = sendedMessage.channel.createMessageComponentCollector({ filter, time: Configs.EphemeralMessageTime * 1000, max: 1 })
 
                                 collector.once('collect', async (interaction: ButtonInteraction) => {
                                     if (interaction.customId === 'SearchFirst') {
