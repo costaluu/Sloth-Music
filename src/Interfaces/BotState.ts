@@ -47,8 +47,6 @@ export enum RoleLevel {
 export interface BotState {
     botID: number
     anchorUser: User
-    channelID: string
-    voiceChannelID: string
     isThreadCreated: boolean
     threadID: string
     threadMembers: Map<string, boolean>

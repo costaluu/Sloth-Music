@@ -9,7 +9,7 @@ const log = Logger(Configs.CommandsLogLevel, 'play.ts')
 export const command: Command = {
     name: 'play',
     aliases: ['p'],
-    description: 'Plays track(s) from a given source(free text/links/playlists/albums).',
+    description: 'Plays track(s) from a given source(free text / links / playlists / albums).',
     run: async (client, ctx, request) => {
         request[0] = request[0].trim()
 
@@ -48,22 +48,17 @@ export const command: Command = {
             return
         }
 
-        if (global.dataState.voiceChannelID === '') {
+        if (global.musicState.player === null) {
             log.debug(`Setting up player and Bot state...`)
 
             const channel = ctx.channel as TextChannel
-
-            global.dataState.voiceChannelID = voiceChannel.id
             global.dataState.anchorUser = ctx.author as User
-            global.dataState.channelID = channel.id
 
-            if (global.musicState.player === null) {
-                global.musicState.player = client.manager.create({
-                    guild: channel.guild.id,
-                    voiceChannel: voiceChannel.id,
-                    textChannel: channel.id,
-                })
-            }
+            global.musicState.player = client.manager.create({
+                guild: channel.guild.id,
+                voiceChannel: voiceChannel.id,
+                textChannel: channel.id,
+            })
 
             if (global.musicState.player.state !== 'CONNECTED') global.musicState.player.connect()
 
@@ -71,7 +66,7 @@ export const command: Command = {
         }
 
         await ctx.guild.channels
-            .fetch(global.dataState.voiceChannelID)
+            .fetch(global.musicState.player.voiceChannel)
             .then(async (voiceChannel: VoiceChannel) => {
                 if (voiceChannel.members.get(ctx.author.id) !== undefined) {
                     if (global.musicState.player.queue.totalSize + 1 >= Configs.maxPagesInQueue * Configs.maxSongsPerPage) {

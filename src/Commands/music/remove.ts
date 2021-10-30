@@ -20,34 +20,28 @@ export const command: Command = {
 
         let userPermissions: [RoleLevel, boolean] = await global.dataState.userPermissions(ctx.author.id)
 
-        if (global.dataState.voiceChannelID !== '') {
-            await ctx.guild.channels
-                .fetch(global.dataState.voiceChannelID)
-                .then(async (voiceChannel: VoiceChannel) => {
-                    let member = voiceChannel.members.get(ctx.author.id)
+        await ctx.guild.channels
+            .fetch(global.musicState.player.voiceChannel)
+            .then(async (voiceChannel: VoiceChannel) => {
+                let member = voiceChannel.members.get(ctx.author.id)
 
-                    if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
-                        if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
-                            position = position - 1
-                            if (position >= 0 && position < global.musicState.player.queue.length) {
-                                global.musicState.taskQueue.enqueueTask('Remove', [ctx, position])
-                            } else await safeReact(ctx, Emojis.error)
-                        } else {
-                            await safeReact(ctx, Emojis.error)
-                        }
-                    } else await safeReact(ctx, Emojis.error)
+                if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
+                    if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
+                        position = position - 1
+                        if (position >= 0 && position < global.musicState.player.queue.length) {
+                            global.musicState.taskQueue.enqueueTask('Remove', [ctx, position])
+                        } else await safeReact(ctx, Emojis.error)
+                    } else {
+                        await safeReact(ctx, Emojis.error)
+                    }
+                } else await safeReact(ctx, Emojis.error)
 
-                    global.musicState.player.queue.pagesGenerator()
+                global.musicState.player.queue.pagesGenerator()
+            })
+            .catch(async (e) => {
+                log.error(`Failed to fetch voice channel, this is a discord internal error\n${e.stack}`)
 
-                    return
-                })
-                .catch(async (e) => {
-                    log.error(`Failed to fetch voice channel, this is a discord internal error\n${e.stack}`)
-
-                    await safeReact(ctx, Emojis.error)
-
-                    return
-                })
-        } else log.debug(`Received a skip command while voiceChannelID was no registred`)
+                await safeReact(ctx, Emojis.error)
+            })
     },
 }

@@ -38,7 +38,7 @@ export const command: Command = {
     aliases: ['np'],
     description: 'Shows the current song.',
     run: async (client, ctx) => {
-        if (global.musicState.player === null) {
+        if (global.musicState.player === null && global.musicState.player.queue.current !== null) {
             await safeReact(ctx, Emojis.error)
 
             return

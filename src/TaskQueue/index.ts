@@ -1,5 +1,5 @@
 import EventEmitter from 'events'
-import { enqueue, play, toggle, stop, skip, repeat, shuffle, leave, fairShuffle, jump } from '../VoiceHandler'
+import { enqueue, play, toggle, stop, skip, repeat, shuffle, leave, fairShuffle, jump, remove } from '../VoiceHandler'
 import Logger from '../Logger'
 import Configs from '../config.json'
 import Client from '../Client'
@@ -58,7 +58,7 @@ class AsyncTaskQueue {
             else if (currentTask === 'Leave') await leave(args[0])
             else if (currentTask === 'FairShuffle') await fairShuffle(args[0])
             else if (currentTask === 'Jump') await jump(args[0], args[1])
-            else if (currentTask === 'Remove') await jump(args[0], args[1])
+            else if (currentTask === 'Remove') await remove(args[0], args[1])
             /*             else if (currentTask[0] === 'PreviousPage') await previousQueuePage()
             else if (currentTask[0] === 'NextPage') await nextQueuePage() */
 

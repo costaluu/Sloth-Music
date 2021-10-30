@@ -75,7 +75,7 @@ Structure.extend(
              */
 
             public pageTextGenerator(pageNumber: number): string {
-                if (global.musicState.player === null || this.current === null) return `No songs in queue 😔`
+                if (global.musicState.player === null || this.current === null) return '```js\n' + `No songs in queue 😔` + '\n```'
 
                 let currentText = ''
 
@@ -160,8 +160,6 @@ let dataState: BotState = {
     djRoles: [DJRoles.SlothNation, DJRoles.SlothSupporter, DJRoles.DJ],
     botID: parseInt(process.argv[2]) /* Bot ID */,
     anchorUser: null,
-    channelID: '',
-    voiceChannelID: '',
     isThreadCreated: false,
     threadID: '',
     threadMembers: new Map(),
@@ -169,11 +167,11 @@ let dataState: BotState = {
         let roleLevel: RoleLevel = RoleLevel.NoPermission
         let isUserInVC: boolean = false
 
-        if (this.voiceChannelID !== '') {
+        if (global.musicState.player !== null) {
             log.debug(`Checking user permissions...`)
 
             await this.anchorUser.client.channels
-                .fetch(this.channelID)
+                .fetch(global.musicState.player.voiceChannel)
                 .then(async (channel: VoiceChannel) => {
                     let find = channel.members.get(userID)
 
@@ -224,8 +222,6 @@ let dataState: BotState = {
     },
     clear() {
         this.anchorUser = null
-        this.channelID = ''
-        this.voiceChannelID = ''
         this.isThreadCreated = false
         this.threadID = ''
         this.threadMembers = new Map()
@@ -239,11 +235,11 @@ let musicState: MusicState = {
     taskQueue: new AsyncTaskQueue(),
     votesByUser: new Map(),
     async votesToSkip() {
-        if (global.dataState.anchorUser !== null && global.dataState.voiceChannelID !== '') {
+        if (global.dataState.anchorUser !== null && global.musicState.player !== null) {
             let result: number
 
             await global.dataState.anchorUser.client.channels
-                .fetch(global.dataState.voiceChannelID)
+                .fetch(global.musicState.player.voiceChannel)
                 .then((voiceChannel: VoiceChannel) => {
                     result = Math.ceil((voiceChannel.members.size - 1) * (2 / 3))
                 })
@@ -320,6 +316,13 @@ let musicState: MusicState = {
     clear() {
         this.currentSkipVotes = 0
         this.votesByUser = new Map()
+
+        try {
+            this.player.destroy()
+        } catch (e) {
+            log.warn(`Failed to destroy the player,${e.stack}`)
+        }
+
         this.player = null
         this.mainEmbedMessageID = ''
         this.mainEmbedMessageTimeStamp = null

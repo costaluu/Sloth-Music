@@ -18,48 +18,44 @@ export const command: Command = {
 
         let userPermissions: [RoleLevel, boolean] = await global.dataState.userPermissions(ctx.author.id)
 
-        if (global.dataState.voiceChannelID !== '') {
-            await ctx.guild.channels
-                .fetch(global.dataState.voiceChannelID)
-                .then(async (voiceChannel: VoiceChannel) => {
-                    let member = voiceChannel.members.get(ctx.author.id)
+        await ctx.guild.channels
+            .fetch(global.musicState.player.voiceChannel)
+            .then(async (voiceChannel: VoiceChannel) => {
+                let member = voiceChannel.members.get(ctx.author.id)
 
-                    if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
-                        let votesToSkip = await global.musicState.votesToSkip()
+                if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
+                    let votesToSkip = await global.musicState.votesToSkip()
 
-                        if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
-                            global.musicState.currentSkipVotes = votesToSkip
-                        } else if (global.musicState.votesByUser.get(ctx.author.id) === undefined) {
-                            global.musicState.votesByUser.set(ctx.author.id, true) /* Unique vote */
+                    if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
+                        global.musicState.currentSkipVotes = votesToSkip
+                    } else if (global.musicState.votesByUser.get(ctx.author.id) === undefined) {
+                        global.musicState.votesByUser.set(ctx.author.id, true) /* Unique vote */
 
-                            global.musicState.currentSkipVotes = global.musicState.currentSkipVotes + 1
+                        global.musicState.currentSkipVotes = global.musicState.currentSkipVotes + 1
 
-                            await sendEphemeralEmbed(ctx.channel, {
-                                color: Color.success,
-                                author: {
-                                    name: `Skip votes ${global.musicState.currentSkipVotes}/${votesToSkip}`,
-                                },
-                            })
-                        } else {
-                            await safeReact(ctx, Emojis.error)
+                        await sendEphemeralEmbed(ctx.channel, {
+                            color: Color.success,
+                            author: {
+                                name: `Skip votes ${global.musicState.currentSkipVotes}/${votesToSkip}`,
+                            },
+                        })
+                    } else {
+                        await safeReact(ctx, Emojis.error)
 
-                            return
-                        }
+                        return
+                    }
 
-                        if (global.musicState.currentSkipVotes === votesToSkip) {
-                            global.musicState.taskQueue.enqueueTask('Skip', [ctx])
-                        }
+                    if (global.musicState.currentSkipVotes === votesToSkip) {
+                        global.musicState.taskQueue.enqueueTask('Skip', [ctx])
+                    }
 
-                        await safeReact(ctx, Emojis.success)
-                    } else await safeReact(ctx, Emojis.error)
-                })
-                .catch(async (e) => {
-                    log.error(`Failed to fetch voice channel, this is a discord internal error\n${e.stack}`)
+                    await safeReact(ctx, Emojis.success)
+                } else await safeReact(ctx, Emojis.error)
+            })
+            .catch(async (e) => {
+                log.error(`Failed to fetch voice channel, this is a discord internal error\n${e.stack}`)
 
-                    await safeReact(ctx, Emojis.error)
-
-                    return
-                })
-        } else log.debug(`Received a skip command while voiceChannelID was no registred`)
+                await safeReact(ctx, Emojis.error)
+            })
     },
 }

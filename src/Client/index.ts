@@ -38,7 +38,11 @@ class ExtendedClient extends Client {
         ],
     })
         .on('nodeConnect', () => log.info(`Lavalink connected.`))
-        .on('nodeError', (node, error) => log.error(new Error(`An error occuried on Lavalink\n${error.message}`)))
+        .on('nodeError', (node, error) => {
+            this.gracefullShutdown()
+
+            log.error(`An error occuried on Lavalink\n${error.message}`)
+        })
         .on('trackStart', async (player: Player, track: Track) => {
             await this.channels
                 .fetch(player.textChannel)
@@ -115,8 +119,8 @@ class ExtendedClient extends Client {
         if (process.env.IS_DEV_VERSION === 'true') {
             log.info('Gracefull shutdown...\n')
 
-            if (global.dataState.channelID !== '') {
-                await this.channels.fetch(global.dataState.channelID).then(async (channel: TextChannel) => {
+            if (global.musicState.player !== null) {
+                await this.channels.fetch(global.musicState.player.textChannel).then(async (channel: TextChannel) => {
                     if (channel) {
                         let findThread = channel.threads.cache.find((thread) => thread.id === global.dataState.threadID)
 

@@ -3,8 +3,6 @@ import Logger from '../Logger'
 import Configs from '../config.json'
 const log = Logger(Configs.CommandsLogLevel, 'utils.ts')
 
-export const oneHourInMS = 60000 * 60000
-
 export enum Color {
     info = parseInt(Configs.Colors.info),
     warn = parseInt(Configs.Colors.warn),
@@ -25,12 +23,10 @@ export async function sendEphemeralEmbed(textChannel: TextChannel | TextBasedCha
             embeds: [content],
         })
         .then((message: Message) => {
-            setTimeout(async () => {
-                try {
-                    await message.delete()
-                } catch (e) {
+            setTimeout(() => {
+                message.delete().catch((e) => {
                     log.debug(`Failed to delete message, this is a discord internal error\n${e.stack}`)
-                }
+                })
             }, Configs.EphemeralMessageTime * 1000)
         })
         .catch((e) => {
