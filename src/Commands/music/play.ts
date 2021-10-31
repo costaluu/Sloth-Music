@@ -61,8 +61,6 @@ export const command: Command = {
             })
 
             if (global.musicState.player.state !== 'CONNECTED') global.musicState.player.connect()
-
-            global.musicState.player.setQueueRepeat(true)
         }
 
         await ctx.guild.channels

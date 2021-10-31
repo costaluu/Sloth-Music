@@ -1,6 +1,6 @@
 import { Command } from '../../Interfaces'
 import { safeReact, Emojis, sendEphemeralEmbed, Color } from '../../Utils'
-import { Message, User } from 'discord.js'
+import { User } from 'discord.js'
 import { Player, Track, UnresolvedTrack } from 'erela.js'
 import Logger from '../../Logger'
 import Configs from '../../config.json'

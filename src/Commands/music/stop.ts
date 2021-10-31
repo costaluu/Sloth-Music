@@ -6,8 +6,8 @@ import Configs from '../../config.json'
 const log = Logger(Configs.CommandsLogLevel, 'stop.ts')
 
 export const command: Command = {
-    name: 'stop',
-    aliases: ['sp', 'clear'],
+    name: 'clear',
+    aliases: ['sp', 'stop', 'cl'],
     description: 'Stops the player.',
     run: async (client, ctx) => {
         if (global.musicState.player === null) {

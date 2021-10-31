@@ -104,7 +104,7 @@ export async function repeat(ctx: Message) {
         await sendEphemeralEmbed(ctx.channel, {
             color: Color.success,
             author: {
-                name: `Repeat: Song.`,
+                name: `Loop: Song.`,
             },
         })
     } else if (global.musicState.player.trackRepeat === true) {
@@ -113,7 +113,7 @@ export async function repeat(ctx: Message) {
         await sendEphemeralEmbed(ctx.channel, {
             color: Color.success,
             author: {
-                name: `Repeat: No repeat.`,
+                name: `Loop: No repeat.`,
             },
         })
     } else {
@@ -122,7 +122,7 @@ export async function repeat(ctx: Message) {
         await sendEphemeralEmbed(ctx.channel, {
             color: Color.success,
             author: {
-                name: `Repeat: Queue.`,
+                name: `Loop: Queue.`,
             },
         })
     }

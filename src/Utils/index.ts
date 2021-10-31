@@ -11,8 +11,8 @@ export enum Color {
 }
 
 export enum Emojis {
-    success = '✅',
-    error = '❌',
+    success = '<:zslothsalute:695418865131454534>',
+    error = '<:zslothmad:859400824421613588>',
     playlist = '💽',
     song = '🎵',
 }

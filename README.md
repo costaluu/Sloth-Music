@@ -5,9 +5,10 @@ Dedicated discord music bot using JDA music core.
 ### Requeriments
 
 -   [Java 13](https://www.azul.com/downloads/?package=jdk)
--   [Node v16+](https://nodejs.org/pt-br/download/current/)
+-   [Node v16.13+](https://nodejs.org/pt-br/download/current/)
+-   [Lavalink](https://ci.fredboat.com/viewLog.html?buildId=8907&buildTypeId=Lavalink_Build&tab=artifacts&branch_Lavalink=refs%2Fheads%2Fdev)
 
-### Extensions VS Code
+#### Extensions VS Code
 
 -   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 -   [Editor Config](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)

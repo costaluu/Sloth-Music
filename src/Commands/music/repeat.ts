@@ -1,13 +1,13 @@
 import { Command, RoleLevel } from '../../Interfaces'
-import { Color, sendEphemeralEmbed, safeReact, Emojis } from '../../Utils'
+import { safeReact, Emojis } from '../../Utils'
 import { VoiceChannel } from 'discord.js'
 import Logger from '../../Logger'
 import Configs from '../../config.json'
 const log = Logger(Configs.CommandsLogLevel, 'repeat.ts')
 
 export const command: Command = {
-    name: 'repeat',
-    aliases: ['r', 'loop'],
+    name: 'loop',
+    aliases: ['reapeat', 'r'],
     description: 'Change the repeat status for the player.',
     run: async (client, ctx) => {
         if (global.musicState.player === null) {
