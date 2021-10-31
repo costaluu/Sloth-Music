@@ -8,77 +8,53 @@ export const event: Event = {
     name: 'voiceStateUpdate',
     run: async (client, oldChannel: VoiceState, newChannel: VoiceState) => {
         if (global.musicState.player !== null) {
-            let textChannelID = global.musicState.player.textChannel
-            let voiceChannelID = global.musicState.player.voiceChannel
+            let oldVC: string = oldChannel.channelId
+            let newVC: string = newChannel.channelId
+            let currentVC: string = global.musicState.player.voiceChannel
+            let currentTC: string = global.musicState.player.textChannel
 
-            if (newChannel.channelId === oldChannel.channelId && oldChannel.id === client.user.id) {
-                /* Bot was disconnected from VC */
-
-                log.debug(`Bot left the voice channel, clearing state...`)
-
-                await client.channels
-                    .fetch(textChannelID)
-                    .then(async (channel: TextChannel) => {
-                        if (channel) {
-                            let findThread = channel.threads.cache.find((thread) => thread.id === global.dataState.threadID)
-
-                            if (findThread !== undefined) {
-                                log.debug('Thread found! Deleting...')
-
-                                await findThread.delete().catch((e) => {
-                                    log.warn(`Failed to delete thread, this is a discord internal error\n${e.stack}`)
-                                })
-                            }
-
-                            global.musicState.clear()
-                            global.dataState.clear()
-                        } else log.warn(`Failed to fetch text channel while clearing bot state`)
-                    })
-                    .catch((e) => {
-                        log.warn(`Failed to fetch text channel while clearing bot state\n${e.stack}`)
-                    })
-            }
-            if (newChannel.channelId === voiceChannelID && oldChannel.channelId !== newChannel.channelId && newChannel.id !== client.user.id) {
-                /* A user joined on VC */
-                console.log('a')
-                //if (global.dataState.isThreadCreated === true) await updateMainEmbedMessage()
-            } else if (newChannel.channelId !== voiceChannelID) {
-                console.log('b')
-                /* A user left the channel */
+            if (newVC === currentVC) {
+                if (oldVC !== newVC) {
+                    /* User joined in the currentVC */
+                    //if (global.dataState.isThreadCreated === true) await updateMainEmbedMessage()
+                }
+            } else {
                 if (oldChannel.id === client.user.id) {
-                    console.log('c')
-                    /* This user is the client */
-                    if (newChannel.channelId !== voiceChannelID) {
-                        /* Bot change voice channel */
-                        console.log('e')
+                    /* Bot leaved the current voice channel */
 
-                        log.debug(`Bot changed to another VC!`)
-
-                        try {
-                            global.musicState.player.setVoiceChannel(newChannel.channelId)
-                        } catch (e) {
-                            log.warn(`Failed to change voice channel exiting...\n${e.stack}`)
-
-                            /* TODO: Change task queue structure to accept optional parameters, this is necessary to make the client leave if something happen */
-
-                            //global.musicState.taskQueue.enqueueTask('Leave', [ctx])
-                        }
-                    }
-                } else {
-                    /* Its a user */
-                    console.log('f')
+                    log.debug(`Bot left the voice channel, clearing state...`)
 
                     await client.channels
-                        .fetch(voiceChannelID)
+                        .fetch(currentTC)
+                        .then(async (channel: TextChannel) => {
+                            if (channel) {
+                                let findThread = channel.threads.cache.find((thread) => thread.id === global.dataState.threadID)
+
+                                if (findThread !== undefined) {
+                                    log.debug('Thread found! Deleting...')
+
+                                    await findThread.delete().catch((e) => {
+                                        log.warn(`Failed to delete thread, this is a discord internal error\n${e.stack}`)
+                                    })
+                                }
+
+                                global.musicState.clear()
+                                global.dataState.clear()
+                            } else log.warn(`Failed to fetch text channel while clearing bot state`)
+                        })
+                        .catch((e) => {
+                            log.warn(`Failed to fetch text channel while clearing bot state\n${e.stack}`)
+                        })
+                } else {
+                    await client.channels
+                        .fetch(currentVC)
                         .then(async (channel: VoiceChannel) => {
                             if (channel.members.size === 1 && channel.members.get(client.user.id) !== undefined) {
                                 /* Bot alone in call */
-                                console.log('g')
-
                                 log.debug(`Bot alone in call, clearing state...`)
 
                                 await client.channels
-                                    .fetch(textChannelID)
+                                    .fetch(currentTC)
                                     .then(async (channel: TextChannel) => {
                                         let findThread = channel.threads.cache.find((thread) => thread.id === global.dataState.threadID)
 
@@ -101,7 +77,6 @@ export const event: Event = {
                                         log.warn(`Failed to fetch text channel while clearing state`)
                                     })
                             } else if (oldChannel.id === global.dataState.anchorUser.id) {
-                                console.log('h')
                                 /* Anchoruser left, handover */
 
                                 log.debug(`Executing a handover, fetching new anchor user...`)
@@ -117,11 +92,11 @@ export const event: Event = {
 
                                 if (global.dataState.isThreadCreated === true) {
                                     await client.channels
-                                        .fetch(textChannelID)
+                                        .fetch(currentTC)
                                         .then(async (channel: TextChannel) => {
                                             let thread = channel.threads.cache.find((thread) => thread.id === global.dataState.threadID)
 
-                                            if (global.musicState.mainEmbedMessageID !== '') {
+                                            if (global.musicState.mainEmbedMessageID !== '' && global.dataState.isThreadCreated === true) {
                                                 log.debug(`Editing message...`)
 
                                                 await thread.messages.fetch(global.musicState.mainEmbedMessageID).then(async (message: Message) => {
@@ -150,13 +125,12 @@ export const event: Event = {
                                         })
                                 }
                             } else if (global.dataState.isThreadCreated === true) {
-                                console.log('i')
                                 /* Common user left the channel */
 
                                 log.debug(`Common member left the channel, checking thread members...`)
 
                                 await client.channels
-                                    .fetch(textChannelID)
+                                    .fetch(currentTC)
                                     .then(async (channel: TextChannel) => {
                                         let thread = channel.threads.cache.find((thread) => thread.id === global.dataState.threadID)
 
@@ -166,9 +140,9 @@ export const event: Event = {
                                             try {
                                                 await thread.members.remove(oldChannel.id)
 
-                                                log.success({ message: `Done`, level: 4 })
+                                                log.info(`Done`)
                                             } catch (e) {
-                                                log.error(new Error(`Failed to remove thread member, this is a discord internal error ${e.stack}`))
+                                                log.error(`Failed to remove thread member, this is a discord internal error\n${e.stack}`)
                                             }
                                         }
 

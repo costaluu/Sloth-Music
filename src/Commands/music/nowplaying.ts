@@ -7,7 +7,7 @@ import Configs from '../../config.json'
 const log = Logger(Configs.CommandsLogLevel, 'nowplaying.ts')
 
 /**
- * Thanks to  string-progressbar fro this function
+ * Thanks to string-progressbar for this function
  * https://github.com/Sparker-99/string-progressbar
  */
 
