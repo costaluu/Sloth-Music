@@ -304,12 +304,12 @@ let musicState: MusicState = {
             new MessageButton().setCustomId('FairQueue').setEmoji('🤝').setStyle('PRIMARY'),
         ])
     },
-    clear() {
+    async clear() {
         this.currentSkipVotes = 0
         this.votesByUser = new Map()
 
         try {
-            this.player.destroy()
+            await this.player.destroy()
         } catch (e) {
             log.warn(`Failed to destroy the player,${e.stack}`)
         }
@@ -348,12 +348,12 @@ try {
         })
     })
 
-    /*     process.on('unhandledRejection', async (reason, promise) => {
+    process.on('unhandledRejection', async (reason, promise) => {
         log.fatal(new Error(`Error: ${promise} and reason: ${reason}`))
 
         await client.gracefullShutdown()
         if (process.env.IS_DEV_VERSION === 'true') process.exit(ExitStatus.Failure)
-    }) */
+    })
 
     process.on('uncaughtException', async (e) => {
         log.fatal(new Error(`Error: ${e.stack}`))

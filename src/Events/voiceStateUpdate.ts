@@ -38,7 +38,7 @@ export const event: Event = {
                                     })
                                 }
 
-                                global.musicState.clear()
+                                await global.musicState.clear()
                                 global.dataState.clear()
                             } else log.warn(`Failed to fetch text channel while clearing bot state`)
                         })
@@ -67,7 +67,7 @@ export const event: Event = {
                                         }
 
                                         try {
-                                            global.musicState.clear()
+                                            await global.musicState.clear()
                                             global.dataState.clear()
                                         } catch (e) {
                                             log.warn(`Failed to destroy the player\n${e.stack}`)

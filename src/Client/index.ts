@@ -140,7 +140,7 @@ class ExtendedClient extends Client {
                             await global.musicState.player.destroy()
 
                             global.dataState.clear()
-                            global.musicState.clear()
+                            await global.musicState.clear()
 
                             log.success('Done.')
                         } catch (e) {
@@ -152,26 +152,18 @@ class ExtendedClient extends Client {
                 log.info(`State is already clear...`)
                 log.success('Done.')
             }
-        } /* else {
+        } else {
             log.info('Soft stop triggered...')
-
-            TODO: use taskqueue to clear the player
 
             if (global.musicState.player !== null) {
                 log.debug(`Killing player...`)
 
-                try {
-                    await global.musicState.player.destroy()
-                } catch (e) {
-                    log.error(`Failed to stop the player\n${e.stack}`)
-                }
+                global.musicState.taskQueue.enqueueTask('Leave', [null, false])
             } else log.debug(`Player is already null`)
 
             global.dataState.clear()
-            global.musicState.clear()
-
-            //global.musicState.taskQueue.enqueueTask('Skip', false)
-        } */
+            await global.musicState.clear()
+        }
     }
 }
 

@@ -55,7 +55,7 @@ class AsyncTaskQueue {
             else if (currentTask === 'Skip') await skip(args[0])
             else if (currentTask === 'Repeat') await repeat(args[0])
             else if (currentTask === 'Shuffle') await shuffle(args[0])
-            else if (currentTask === 'Leave') await leave(args[0])
+            else if (currentTask === 'Leave') await leave(args[0], args[1])
             else if (currentTask === 'FairShuffle') await fairShuffle(args[0])
             else if (currentTask === 'Jump') await jump(args[0], args[1])
             else if (currentTask === 'Remove') await remove(args[0], args[1])

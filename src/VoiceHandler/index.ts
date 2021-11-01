@@ -134,13 +134,11 @@ export async function shuffle(ctx: Message) {
     await safeReact(ctx, Emojis.success)
 }
 
-export async function leave(ctx: Message) {
-    await global.musicState.player.destroy()
-
-    global.musicState.clear()
+export async function leave(ctx: Message, internalTrigger: boolean) {
+    await global.musicState.clear()
     global.dataState.clear()
 
-    await safeReact(ctx, Emojis.success)
+    if (internalTrigger === false) await safeReact(ctx, Emojis.success)
 }
 
 export async function fairShuffle(ctx: Message) {
