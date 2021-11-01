@@ -1,26 +1,22 @@
-import pino from 'pino'
+const consola = require('consola')
 
-const Logger = (level: string, file: string) => {
-    return pino({
-        level,
-        transport: {
-            target: 'pino-pretty',
-            options: {
-                colorize: true,
-                ignore: 'pid,hostname,fileName',
-                translateTime: 'yyyy-mm-dd HH:MM:ss',
-                levelFirst: false,
-            },
+const Logger = (level: number, file: string) => {
+    return consola.create({
+        level: level,
+        reporters: [
+            new consola.FancyReporter({
+                dateFormat: 'HH:mm:ss YYYY/DD/MM',
+                formatOptions: {
+                    date: true,
+                    colors: true,
+                    compact: false,
+                },
+            }),
+        ],
+        defaults: {
+            tag: file,
         },
-        serializers: {
-            err: (e) => {
-                stack: e.stack
-            },
-            error: (e) => {
-                stack: e.stack
-            },
-        },
-    }).child({ name: file })
+    })
 }
 
 export default Logger

@@ -1,4 +1,3 @@
-require('events').EventEmitter.defaultMaxListeners = 30
 import { Intents, User } from 'discord.js'
 import Client from './Client'
 import Logger from './Logger'

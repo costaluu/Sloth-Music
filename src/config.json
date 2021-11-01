@@ -1,12 +1,12 @@
 {
     "maxPagesInQueue": 20,
     "maxSongsPerPage": 15,
-    "IndexLogLevel": "debug",
-    "ClientLogLevel": "debug",
-    "EventsLogLevel": "debug",
-    "CommandsLogLevel": "debug",
-    "TaskQueueLogLevel": "debug",
-    "VoiceHandlerLogLevel": "debug",
+    "IndexLogLevel": 4,
+    "ClientLogLevel": 4,
+    "EventsLogLevel": 4,
+    "CommandsLogLevel": 4,
+    "TaskQueueLogLevel": 4,
+    "VoiceHandlerLogLevel": 4,
     "EphemeralMessageTime": 60,
     "Colors": {
         "info": "0x17a2b8",

@@ -140,7 +140,7 @@ export const event: Event = {
                                             try {
                                                 await thread.members.remove(oldChannel.id)
 
-                                                log.info(`Done`)
+                                                log.success({ message: `Done`, level: 4 })
                                             } catch (e) {
                                                 log.error(`Failed to remove thread member, this is a discord internal error\n${e.stack}`)
                                             }

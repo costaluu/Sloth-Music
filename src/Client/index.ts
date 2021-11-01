@@ -37,7 +37,7 @@ class ExtendedClient extends Client {
             }),
         ],
     })
-        .on('nodeConnect', () => log.info(`Lavalink connected.`))
+        .on('nodeConnect', () => log.success(`Lavalink connected.`))
         .on('nodeError', (node, error) => {
             this.gracefullShutdown()
 
@@ -103,7 +103,7 @@ class ExtendedClient extends Client {
         this.once('ready', () => {
             this.manager.init(this.user.id)
 
-            log.info(`Bot loaded, ${this.user.tag} is ready to go!`)
+            log.success(`Bot loaded, ${this.user.tag} is ready to go!`)
 
             this.user.setActivity(`s${global.dataState.botID}help`, {
                 type: 'LISTENING',
@@ -142,7 +142,7 @@ class ExtendedClient extends Client {
                             global.dataState.clear()
                             global.musicState.clear()
 
-                            log.info('Done.')
+                            log.success('Done.')
                         } catch (e) {
                             log.error(new Error(`Failed to destroy client connection, this is a discord internal error ${e.stack}`))
                         }
@@ -150,10 +150,12 @@ class ExtendedClient extends Client {
                 })
             } else {
                 log.info(`State is already clear...`)
-                log.info('Done.')
+                log.success('Done.')
             }
         } /* else {
             log.info('Soft stop triggered...')
+
+            TODO: use taskqueue to clear the player
 
             if (global.musicState.player !== null) {
                 log.debug(`Killing player...`)
