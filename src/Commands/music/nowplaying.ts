@@ -2,9 +2,6 @@ import { Command } from '../../Interfaces'
 import { safeReact, Emojis, sendEphemeralEmbed, Color } from '../../Utils'
 import { User } from 'discord.js'
 import { Player, Track, UnresolvedTrack } from 'erela.js'
-import Logger from '../../Logger'
-import Configs from '../../config.json'
-const log = Logger(Configs.CommandsLogLevel, 'nowplaying.ts')
 
 /**
  * Thanks to string-progressbar for this function
@@ -19,7 +16,6 @@ const splitBar = (total: number, current: number, size: number = 40, line: strin
     if (isNaN(size)) throw new Error('Size is not an integer')
     if (current > total) {
         const bar = line.repeat(size + 2)
-        const percentage = (current / total) * 100
         return bar
     } else {
         const percentage = current / total
@@ -28,7 +24,6 @@ const splitBar = (total: number, current: number, size: number = 40, line: strin
         const progressText = line.repeat(progress).replace(/.$/, slider)
         const emptyProgressText = line.repeat(emptyProgress)
         const bar = progressText + emptyProgressText
-        const calculated = percentage * 100
         return bar
     }
 }

@@ -1,8 +1,7 @@
 import EventEmitter from 'events'
-import { enqueue, play, toggle, stop, skip, repeat, shuffle, leave, fairShuffle, jump, remove } from '../VoiceHandler'
+import * as tasks from '../VoiceHandler'
 import Logger from '../Logger'
 import Configs from '../config.json'
-import Client from '../Client'
 const log = Logger(Configs.TaskQueueLogLevel, 'taskqueue.ts')
 
 class AsyncTaskQueue {
@@ -48,17 +47,19 @@ class AsyncTaskQueue {
 
             log.debug(`Processing ${currentTask}`)
 
-            if (currentTask === 'Enqueue') await enqueue(args[0], args[1])
-            else if (currentTask === 'Play') await play()
-            else if (currentTask === 'Toggle') await toggle(args[0])
-            else if (currentTask === 'Stop') await stop(args[0])
-            else if (currentTask === 'Skip') await skip(args[0])
-            else if (currentTask === 'Repeat') await repeat(args[0])
-            else if (currentTask === 'Shuffle') await shuffle(args[0])
-            else if (currentTask === 'Leave') await leave(args[0], args[1])
-            else if (currentTask === 'FairShuffle') await fairShuffle(args[0])
-            else if (currentTask === 'Jump') await jump(args[0], args[1])
-            else if (currentTask === 'Remove') await remove(args[0], args[1])
+            if (currentTask === 'Enqueue') await tasks.enqueue(args[0], args[1])
+            else if (currentTask === 'Play') await tasks.play()
+            else if (currentTask === 'Toggle') await tasks.toggle(args[0])
+            else if (currentTask === 'Pause') await tasks.pause(args[0])
+            else if (currentTask === 'Unpause') await tasks.unpause(args[0])
+            else if (currentTask === 'Stop') await tasks.stop(args[0])
+            else if (currentTask === 'Skip') await tasks.skip(args[0])
+            else if (currentTask === 'Repeat') await tasks.repeat(args[0])
+            else if (currentTask === 'Shuffle') await tasks.shuffle(args[0])
+            else if (currentTask === 'Leave') await tasks.leave(args[0], args[1])
+            else if (currentTask === 'FairShuffle') await tasks.fairShuffle(args[0])
+            else if (currentTask === 'Jump') await tasks.jump(args[0], args[1])
+            else if (currentTask === 'Remove') await tasks.remove(args[0], args[1])
             /*             else if (currentTask[0] === 'PreviousPage') await previousQueuePage()
             else if (currentTask[0] === 'NextPage') await nextQueuePage() */
 

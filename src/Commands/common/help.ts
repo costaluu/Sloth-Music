@@ -24,7 +24,7 @@ export const command: Command = {
                     },
                     {
                         name: `Music commands`,
-                        value: '`play`, `toggle`, `clear`, `search`, `queue`, `remove`, `leave`, `skip`, `loop`, `jump`, `nowplaying`, `shuffle`, `fairshuffle`, `thread`',
+                        value: '`play`, `pause`, `resume`, `clear`, `search`, `queue`, `remove`, `leave`, `skip`, `loop`, `jump`, `nowplaying`, `shuffle`, `fairshuffle`, `thread`',
                         inline: false,
                     },
                 ],

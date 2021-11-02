@@ -16,7 +16,7 @@ export const command: Command = {
             },
             description:
                 '```ini\n' +
-                `The ${client.user.username} is a dedicated music bot for \`The Language Sloth server\` made with Java, Javascript and Typescript and maintained by costa.\n\nFeel free to report any bug🐛 or problem in the suggestion channel. You can use the help command ` +
+                `The ${client.user.username} is a dedicated music bot for The Language Sloth server made with Java, Javascript and Typescript and maintained by costa.\n\nFeel free to report any bug🐛 or problem in the suggestion channel. You can use the help command ` +
                 `[s${global.dataState.botID}help]` +
                 ' to see all the avaliable commands.\n\nObs: Spotify does not allow songs to be played directly, in practice the equivalent song is found on youtube.' +
                 '\n```',
