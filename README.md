@@ -18,60 +18,60 @@ Dedicated discord music bot using JDA music core.
 
 ```md
 📦Sloth-Music
-┣ 📂lavalink
-┃ ┣ 📜application.yml
-┃ ┣ 📜launch.sh
-┃ ┗ 📜Lavalink.jar
-┣ 📂src
-┃ ┣ 📂Client
-┃ ┃ ┗ 📜index.ts
-┃ ┣ 📂Commands
-┃ ┃ ┣ 📂common
-┃ ┃ ┃ ┣ 📜about.ts
-┃ ┃ ┃ ┣ 📜help.ts
-┃ ┃ ┃ ┣ 📜ping.ts
-┃ ┃ ┃ ┗ 📜uptime.ts
-┃ ┃ ┗ 📂music
-┃ ┃ ┃ ┣ 📜clearstate.ts
-┃ ┃ ┃ ┣ 📜fairshuffle.ts
-┃ ┃ ┃ ┣ 📜jump.ts
-┃ ┃ ┃ ┣ 📜leave.ts
-┃ ┃ ┃ ┣ 📜nowplaying.ts
-┃ ┃ ┃ ┣ 📜pause.ts
-┃ ┃ ┃ ┣ 📜play.ts
-┃ ┃ ┃ ┣ 📜queue.ts
-┃ ┃ ┃ ┣ 📜remove.ts
-┃ ┃ ┃ ┣ 📜repeat.ts
-┃ ┃ ┃ ┣ 📜resume.ts
-┃ ┃ ┃ ┣ 📜search.ts
-┃ ┃ ┃ ┣ 📜shuffle.ts
-┃ ┃ ┃ ┣ 📜skip.ts
-┃ ┃ ┃ ┣ 📜stop.ts
-┃ ┃ ┃ ┣ 📜thread.ts
-┃ ┃ ┃ ┗ 📜toggle.ts
-┃ ┣ 📂Events
-┃ ┃ ┣ 📜messageCreate.ts
-┃ ┃ ┗ 📜voiceStateUpdate.ts
-┃ ┣ 📂Interfaces
-┃ ┃ ┣ 📜BotState.ts
-┃ ┃ ┣ 📜Command.ts
-┃ ┃ ┣ 📜Event.ts
-┃ ┃ ┣ 📜index.ts
-┃ ┃ ┗ 📜MusicState.ts
-┃ ┣ 📂Logger
-┃ ┃ ┗ 📜index.ts
-┃ ┣ 📂TaskQueue
-┃ ┃ ┗ 📜index.ts
-┃ ┣ 📂Utils
-┃ ┃ ┗ 📜index.ts
-┃ ┣ 📂VoiceHandler
-┃ ┃ ┗ 📜index.ts
-┃ ┣ 📜config.json
-┃ ┗ 📜index.ts
-┣ 📜.editorconfig
-┣ 📜.gitignore
-┣ 📜.prettierrc
-┣ 📜package.json
-┣ 📜README.md
-┗ 📜tsconfig.json
+┣━ 📂lavalink
+┃ ┣━ 📜application.yml
+┃ ┣━ 📜launch.sh
+┃ ┗━ 📜Lavalink.jar
+┣━ 📂src
+┃ ┣━ 📂Client
+┃ ┃ ┗━ 📜index.ts
+┃ ┣━ 📂Commands
+┃ ┃ ┣━ 📂common
+┃ ┃ ┃ ┣━ 📜about.ts
+┃ ┃ ┃ ┣━ 📜help.ts
+┃ ┃ ┃ ┣━ 📜ping.ts
+┃ ┃ ┃ ┗━ 📜uptime.ts
+┃ ┃ ┗━ 📂music
+┃ ┃ ┃ ┣━ 📜clearstate.ts
+┃ ┃ ┃ ┣━ 📜fairshuffle.ts
+┃ ┃ ┃ ┣━ 📜jump.ts
+┃ ┃ ┃ ┣━ 📜leave.ts
+┃ ┃ ┃ ┣━ 📜nowplaying.ts
+┃ ┃ ┃ ┣━ 📜pause.ts
+┃ ┃ ┃ ┣━ 📜play.ts
+┃ ┃ ┃ ┣━ 📜queue.ts
+┃ ┃ ┃ ┣━ 📜remove.ts
+┃ ┃ ┃ ┣━ 📜repeat.ts
+┃ ┃ ┃ ┣━ 📜resume.ts
+┃ ┃ ┃ ┣━ 📜search.ts
+┃ ┃ ┃ ┣━ 📜shuffle.ts
+┃ ┃ ┃ ┣━ 📜skip.ts
+┃ ┃ ┃ ┣━ 📜stop.ts
+┃ ┃ ┃ ┣━ 📜thread.ts
+┃ ┃ ┃ ┗━ 📜toggle.ts
+┃ ┣━ 📂Events
+┃ ┃ ┣━ 📜messageCreate.ts
+┃ ┃ ┗━ 📜voiceStateUpdate.ts
+┃ ┣━ 📂Interfaces
+┃ ┃ ┣━ 📜BotState.ts
+┃ ┃ ┣━ 📜Command.ts
+┃ ┃ ┣━ 📜Event.ts
+┃ ┃ ┣━ 📜index.ts
+┃ ┃ ┗━ 📜MusicState.ts
+┃ ┣━ 📂Logger
+┃ ┃ ┗━ 📜index.ts
+┃ ┣━ 📂TaskQueue
+┃ ┃ ┗━ 📜index.ts
+┃ ┣━ 📂Utils
+┃ ┃ ┗━ 📜index.ts
+┃ ┣━ 📂VoiceHandler
+┃ ┃ ┗━ 📜index.ts
+┃ ┣━ 📜config.json
+┃ ┗━ 📜index.ts
+┣━ 📜.editorconfig
+┣━ 📜.gitignore
+┣━ 📜.prettierrc
+┣━ 📜package.json
+┣━ 📜README.md
+┗━ 📜tsconfig.json
 ```
