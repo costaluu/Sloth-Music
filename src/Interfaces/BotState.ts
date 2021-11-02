@@ -2,7 +2,7 @@
  * Control roles has the power to use the bot even outside the Thread/VC
  */
 
-import { User } from 'discord.js'
+import { Message, User } from 'discord.js'
 
 export enum ControlRoles {
     Cosmos = '474774889778380820',
@@ -51,7 +51,8 @@ export interface BotState {
     threadID: string
     threadMembers: Map<string, boolean>
     userPermissions(userID: string): Promise<[RoleLevel, boolean]>
+    managerBotPermission(ctx: Message): Promise<boolean>
     controlRoles: ControlRoles[]
     djRoles: DJRoles[]
-    clear()
+    clear(): void
 }

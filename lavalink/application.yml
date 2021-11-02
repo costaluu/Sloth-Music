@@ -3,17 +3,17 @@ server: # REST and WS server
     address: 127.0.0.1
 lavalink:
     server:
-        password: "test"
+        password: 'test'
         sources:
             youtube: true
             bandcamp: false
             soundcloud: true
-            twitch: true
+            twitch: false
             vimeo: true
-            http: true
+            http: false
             local: false
-        bufferDurationMs: 400
-        youtubePlaylistLoadLimit: 6 # Number of pages at 100 each
+        bufferDurationMs: 600
+        youtubePlaylistLoadLimit: 5 # Number of pages at 100 each
         playerUpdateInterval: 5 # How frequently to send player updates to clients, in seconds
         youtubeSearchEnabled: true
         soundcloudSearchEnabled: true
@@ -31,8 +31,8 @@ metrics:
         endpoint: /metrics
 
 sentry:
-    dsn: ""
-    environment: ""
+    dsn: ''
+    environment: ''
 #  tags:
 #    some_key: some_value
 #    another_key: another_value

@@ -16,5 +16,5 @@ export interface MusicState {
     queueEmbedMessageID?: string
     queueEmbedMessage(): any
     queueEmbedMessageButtons(): any
-    clear()
+    clear(): Promise<void>
 }

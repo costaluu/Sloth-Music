@@ -1,4 +1,4 @@
-import { Intents, User } from 'discord.js'
+import { Guild, GuildMember, Intents, Message, User } from 'discord.js'
 import Client from './Client'
 import Logger from './Logger'
 import { VoiceChannel, Role, MessageActionRow, MessageButton } from 'discord.js'
@@ -211,6 +211,27 @@ let dataState: BotState = {
 
         return [roleLevel, isUserInVC] as [RoleLevel, boolean]
     },
+    async managerBotPermission(ctx: Message): Promise<boolean> {
+        let hasPermission: boolean = false
+
+        let roles: ControlRoles[] = [ControlRoles.Admin, ControlRoles.Dev, ControlRoles.Moderator]
+
+        for (let i = 0; i < roles.length && hasPermission === false; i++) {
+            let role = ctx.guild.roles.cache.get(roles[i]) as Role
+
+            if (role !== undefined) {
+                let find = role.members.get(ctx.author.id)
+
+                if (find !== undefined) {
+                    hasPermission = true
+
+                    break
+                }
+            }
+        }
+
+        return hasPermission
+    },
     clear() {
         this.anchorUser = null
         this.isThreadCreated = false
@@ -305,13 +326,17 @@ let musicState: MusicState = {
         ])
     },
     async clear() {
+        log.debug('Clearing state...')
+
         this.currentSkipVotes = 0
         this.votesByUser = new Map()
 
-        try {
-            await this.player.destroy()
-        } catch (e) {
-            log.warn(`Failed to destroy the player,${e.stack}`)
+        if (this.player !== null) {
+            try {
+                await this.player.destroy()
+            } catch (e) {
+                log.warn(`Failed to destroy the player,${e.stack}`)
+            }
         }
 
         this.player = null

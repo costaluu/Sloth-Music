@@ -6,13 +6,9 @@ export const command: Command = {
     aliases: [],
     description: 'Clear the state of the bot.',
     run: async (client, ctx) => {
-        if (global.musicState.player === null) {
-            await safeReact(ctx, Emojis.error)
+        let managerPermission: boolean = await global.dataState.managerBotPermission(ctx)
 
-            return
-        }
-
-        if (ctx.author.id === '358060034489581571') {
+        if (managerPermission === true) {
             await global.musicState.clear()
             global.dataState.clear()
 
