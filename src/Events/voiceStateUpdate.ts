@@ -19,7 +19,7 @@ export const event: Event = {
                     //if (global.dataState.isThreadCreated === true) await updateMainEmbedMessage()
                 }
             } else {
-                if (oldChannel.id === client.user.id) {
+                if (oldChannel.id === client.user.id || newChannel.id === client.user.id) {
                     /* Bot leaved the current voice channel */
 
                     log.debug(`Bot left the voice channel, clearing state...`)

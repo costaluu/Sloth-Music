@@ -154,15 +154,7 @@ class ExtendedClient extends Client {
             }
         } else {
             log.info('Soft stop triggered...')
-
-            if (global.musicState.player !== null) {
-                log.debug(`Killing player...`)
-
-                global.musicState.taskQueue.enqueueTask('Leave', [null, false])
-            } else log.debug(`Player is already null`)
-
-            global.dataState.clear()
-            await global.musicState.clear()
+            global.musicState.taskQueue.enqueueTask('Leave', [null, true])
         }
     }
 }
