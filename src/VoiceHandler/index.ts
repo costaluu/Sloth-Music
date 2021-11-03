@@ -2,8 +2,6 @@ import { Message } from 'discord.js'
 import { SearchResult, Track } from 'erela.js'
 import { sendEphemeralEmbed, Color, Emojis, safeReact } from '../Utils'
 import Configs from '../config.json'
-//import Logger from '../Logger'
-//const log = Logger(Configs.VoiceHandlerLogLevel, 'voicehandler.ts')
 
 function assertSearchResultType(result: SearchResult | Track): boolean {
     let check = result as SearchResult

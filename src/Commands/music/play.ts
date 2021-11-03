@@ -58,6 +58,7 @@ export const command: Command = {
                 guild: channel.guild.id,
                 voiceChannel: voiceChannel.id,
                 textChannel: channel.id,
+                selfDeafen: true,
             })
 
             if (global.musicState.player.state !== 'CONNECTED') global.musicState.player.connect()
