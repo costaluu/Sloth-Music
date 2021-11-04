@@ -61,6 +61,7 @@ class AsyncTaskQueue {
                 else if (currentTask === 'FairShuffle') await tasks.fairShuffle(args[0])
                 else if (currentTask === 'Jump') await tasks.jump(args[0], args[1])
                 else if (currentTask === 'Remove') await tasks.remove(args[0], args[1])
+                else if (currentTask === 'Thread') await tasks.thread(args[0], args[1])
                 /*             else if (currentTask[0] === 'PreviousPage') await previousQueuePage()
                 else if (currentTask[0] === 'NextPage') await nextQueuePage() */
             } catch (e) {

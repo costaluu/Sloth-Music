@@ -1,7 +1,9 @@
-import { Message } from 'discord.js'
+import { Message, TextChannel } from 'discord.js'
 import { SearchResult, Track } from 'erela.js'
 import { sendEphemeralEmbed, Color, Emojis, safeReact } from '../Utils'
 import Configs from '../config.json'
+import Logger from '../Logger'
+const log = Logger(Configs.VoiceHandlerLogLevel, 'voicehandler.ts')
 
 function assertSearchResultType(result: SearchResult | Track): boolean {
     let check = result as SearchResult
@@ -183,4 +185,28 @@ export async function remove(ctx: Message, position: number) {
     global.musicState.player.queue.remove(position)
 
     await safeReact(ctx, Emojis.success)
+}
+
+export async function thread(client, ctx: Message) {
+    const channel = ctx.channel as TextChannel
+
+    const checkForThread = channel.threads.cache.find((thread) => thread.name === `Music Thread-${global.dataState.voiceChannelID}`)
+
+    if (checkForThread === undefined) {
+        /* Cria a thread */
+        const channel = ctx.channel as TextChannel
+
+        await channel.threads.create({
+            name: `Music Thread-${global.dataState.voiceChannelID}`,
+            autoArchiveDuration: 'MAX',
+            reason: `Music-Bot Thread created by User id: ${global.dataState.user.id}`
+        })
+    } else {
+        await sendEphemeralEmbed(ctx.channel, {
+            color: Color.error,
+            author: {
+                name: `There is another thread linked to this voice channel!`,
+            },
+        })
+    }
 }

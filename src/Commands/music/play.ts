@@ -2,7 +2,7 @@ import { Command } from '../../Interfaces'
 import { Color, sendEphemeralEmbed } from '../../Utils'
 import { VoiceChannel, User, TextChannel } from 'discord.js'
 import Logger from '../../Logger'
-import { SearchResult } from 'erela.js'
+import { SearchResult, Player } from 'erela.js'
 import Configs from '../../config.json'
 const log = Logger(Configs.CommandsLogLevel, 'play.ts')
 
@@ -48,65 +48,111 @@ export const command: Command = {
             return
         }
 
-        if (global.musicState.player === null) {
-            log.debug(`Setting up player and Bot state...`)
+        let checkNode: Player | undefined = client.manager.get(ctx.guild.id)
 
-            const channel = ctx.channel as TextChannel
-            global.dataState.anchorUser = ctx.author as User
-
-            global.musicState.player = client.manager.create({
-                guild: channel.guild.id,
-                voiceChannel: voiceChannel.id,
-                textChannel: channel.id,
-                selfDeafen: true,
+        if (!checkNode) {
+            await sendEphemeralEmbed(ctx.channel, {
+                color: Color.error,
+                author: {
+                    name: `Node not connected`,
+                },
             })
 
+            return
+        }
+
+        try {
+            if (global.musicState.player === null) {
+                log.debug(`Setting up player and Bot state...`)
+
+                const channel = ctx.channel as TextChannel
+                global.dataState.anchorUser = ctx.author as User
+
+                global.musicState.player = client.manager.create({
+                    guild: channel.guild.id,
+                    voiceChannel: voiceChannel.id,
+                    textChannel: channel.id,
+                    selfDeafen: true,
+                })
+            }
+
+            if (!global.musicState.player) {
+                await sendEphemeralEmbed(ctx.channel, {
+                    color: Color.error,
+                    author: {
+                        name: `There is not player at moment`,
+                    },
+                })
+
+                return
+            }
+
             if (global.musicState.player.state !== 'CONNECTED') global.musicState.player.connect()
+        } catch (e) {
+            await sendEphemeralEmbed(ctx.channel, {
+                color: Color.error,
+                author: {
+                    name: 'Failed to connect to voice channel, please try again',
+                },
+            })
+
+            global.musicState.taskQueue.enqueueTask('Leave', [null, true])
+
+            return
         }
 
         await ctx.guild.channels
             .fetch(global.musicState.player.voiceChannel)
             .then(async (voiceChannel: VoiceChannel) => {
-                if (voiceChannel.members.get(ctx.author.id) !== undefined) {
-                    if (global.musicState.player.queue.totalSize + 1 >= Configs.maxPagesInQueue * Configs.maxSongsPerPage) {
-                        await sendEphemeralEmbed(ctx.channel, {
-                            color: Color.error,
-                            author: {
-                                name: "The queue is full, you can't add more songs",
-                            },
-                        })
-
-                        return
-                    }
-
-                    let query: SearchResult = await global.musicState.player.search(request[0], ctx.author)
-
-                    try {
-                        if (query.loadType === 'LOAD_FAILED') {
-                            if (!global.musicState.player.queue.current) global.musicState.player.destroy()
-
-                            throw query.exception
-                        } else if (query.loadType === 'NO_MATCHES' || request[0] === '') {
+                if (voiceChannel) {
+                    if (voiceChannel.members.get(ctx.author.id) !== undefined) {
+                        if (global.musicState.player.queue.totalSize + 1 >= Configs.maxPagesInQueue * Configs.maxSongsPerPage) {
                             await sendEphemeralEmbed(ctx.channel, {
                                 color: Color.error,
                                 author: {
-                                    name: `No song found.`,
+                                    name: "The queue is full, you can't add more songs",
                                 },
                             })
 
                             return
                         }
 
-                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query])
-                    } catch (e) {
+                        let query: SearchResult = await global.musicState.player.search(request[0], ctx.author)
+
+                        try {
+                            if (query.loadType === 'LOAD_FAILED') {
+                                if (!global.musicState.player.queue.current) global.musicState.taskQueue.enqueueTask('Leave', [null, true])
+                            } else if (query.loadType === 'NO_MATCHES' || request[0] === '') {
+                                await sendEphemeralEmbed(ctx.channel, {
+                                    color: Color.error,
+                                    author: {
+                                        name: `No song found.`,
+                                    },
+                                })
+
+                                return
+                            }
+
+                            global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query])
+                        } catch (e) {
+                            await sendEphemeralEmbed(ctx.channel, {
+                                color: Color.error,
+                                author: {
+                                    name: `There was an error while searching.`,
+                                },
+                            })
+
+                            log.warn(`There was an error while searching\n${e.stack}`)
+                        }
+                    } else {
                         await sendEphemeralEmbed(ctx.channel, {
                             color: Color.error,
                             author: {
-                                name: `There was an error while searching.`,
+                                name: 'Failed to connect to voice channel, please try again',
                             },
                         })
 
-                        log.warn(`There was an error while searching\n${e.stack}`)
+                        global.musicState.taskQueue.enqueueTask('Leave', [null, true])
                     }
                 } else {
                     await sendEphemeralEmbed(ctx.channel, {
