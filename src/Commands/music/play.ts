@@ -48,19 +48,6 @@ export const command: Command = {
             return
         }
 
-        let checkNode: Player | undefined = client.manager.get(ctx.guild.id)
-
-        if (!checkNode) {
-            await sendEphemeralEmbed(ctx.channel, {
-                color: Color.error,
-                author: {
-                    name: `Node not connected`,
-                },
-            })
-
-            return
-        }
-
         try {
             if (global.musicState.player === null) {
                 log.debug(`Setting up player and Bot state...`)
