@@ -1,5 +1,5 @@
 import { Event, Command } from '../Interfaces'
-import { Message } from 'discord.js'
+import { Message, ThreadChannel } from 'discord.js'
 import Logger from '../Logger'
 import { sendEphemeralEmbed, Color } from '../Utils'
 import Configs from '../config.json'
@@ -64,6 +64,22 @@ export const event: Event = {
                 } catch (e) {
                     log.debug(`Failed to deleted message while play command, this is a discord internal issue`)
                 }
+            }
+        } else {
+            if (processedContent === null) {
+                if (message.channelId === global.dataState.threadID && !message.content.includes('tenor.com')) {
+                    const thread = message.channel as ThreadChannel
+
+                    if (thread.isThread() && global.dataState.threadMembers.has(message.author.id)) global.musicState.taskQueue.enqueueTask('Enqueue', [message.content, `${message.author.username}#${message.author.discriminator}`])
+
+                    if (message.system === false) {
+                        await message.delete().catch((e) => {
+                            log.debug(`Failed to delete message, this is a discord internal error\n${e.stack}`)
+                        })
+                    }
+                }
+
+                return
             }
         }
     },

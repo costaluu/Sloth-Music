@@ -12,7 +12,7 @@ export const command: Command = {
     run: async (client, ctx) => {
         let managerPermission: boolean = await global.dataState.managerBotPermission(ctx)
         if (managerPermission === true) {
-            if (global.musicState.player === null) {
+            if (global.musicState.player === null || global.dataState.isThreadCreated === true) {
                 await safeReact(ctx, Emojis.error)
 
                 return
@@ -31,7 +31,7 @@ export const command: Command = {
                             (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) ||
                             (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)
                         ) {
-                            global.musicState.taskQueue.enqueueTask('Thread', [ctx])
+                            global.musicState.taskQueue.enqueueTask('Thread', [client, ctx])
                         } else await safeReact(ctx, Emojis.error)
                     } else await safeReact(ctx, Emojis.error)
                 })

@@ -1,4 +1,4 @@
-import { TextChannel, Message, TextBasedChannels } from 'discord.js'
+import { TextChannel, Message, TextBasedChannels, ThreadChannel } from 'discord.js'
 import Logger from '../Logger'
 import Configs from '../config.json'
 const log = Logger(Configs.CommandsLogLevel, 'utils.ts')

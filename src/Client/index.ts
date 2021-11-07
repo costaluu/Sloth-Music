@@ -4,7 +4,7 @@ import path from 'path'
 import { readdirSync } from 'fs'
 import Configs from '../config.json'
 import Logger from '../Logger'
-import { Manager, Player, Track } from 'erela.js'
+import { Manager, Node, Player, Track } from 'erela.js'
 const Spotify = require('better-erela.js-spotify').default
 const log = Logger(Configs.ClientLogLevel, 'client.ts')
 import { sendEphemeralEmbed, Color } from '../Utils'
@@ -56,12 +56,45 @@ class ExtendedClient extends Client {
                         },
                         description: `requested by <@${requester.id}>`,
                     })
-
-                    if (global.musicState.player.queue.pages !== null && global.musicState.player.queue.pages.length > 0) global.musicState.player.queue.pages[0].shift()
                 })
                 .catch((e) => {
                     log.error(`Failed to fetch the the text channel, this is a discord internal error\n${e.stack}`)
                 })
+        })
+        .on('trackStuck', async () => {
+            global.musicState.taskQueue.enqueueTask('Unpause', [null, true])
+        })
+        .on('trackError', async (player: Player, track: Track) => {
+            await this.channels
+                .fetch(player.textChannel)
+                .then(async (textChannel: TextChannel) => {
+                    global.musicState.taskQueue.enqueueTask('Skip', [textChannel, true])
+                })
+                .catch((e) => {
+                    log.error(`Failed to fetch the the text channel, this is a discord internal error\n${e.stack}`)
+                })
+        })
+        .on('socketClosed', async (player: Player) => {
+            await this.channels
+                .fetch(player.textChannel)
+                .then(async (textChannel: TextChannel) => {
+                    await sendEphemeralEmbed(textChannel, {
+                        color: Color.error,
+                        author: {
+                            name: `The sockect closed the connect suddently, leaving...`,
+                        },
+                    })
+
+                    try {
+                        player.destroy()
+                    } catch (e) {
+                        log.eror(`Failed to destroy the player\n${e.stack}`)
+                    }
+                })
+                .catch((e) => {
+                    log.error(`Failed to fetch the the text channel, this is a discord internal error\n${e.stack}`)
+                })
+            global.musicState.taskQueue.enqueueTask('Leave', [null, true])
         })
 
     public async init() {
@@ -137,10 +170,8 @@ class ExtendedClient extends Client {
                         log.info('Removing voice connection...')
 
                         try {
-                            await global.musicState.player.destroy()
-
-                            global.dataState.clear()
                             await global.musicState.clear()
+                            global.dataState.clear()
 
                             log.success('Done.')
                         } catch (e) {

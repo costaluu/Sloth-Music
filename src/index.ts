@@ -1,4 +1,4 @@
-import { Guild, GuildMember, Intents, Message, User } from 'discord.js'
+import { Guild, GuildMember, Intents, Message, TextChannel, ThreadChannel, User } from 'discord.js'
 import Client from './Client'
 import Logger from './Logger'
 import { VoiceChannel, Role, MessageActionRow, MessageButton } from 'discord.js'
@@ -6,14 +6,18 @@ import { BotState, MusicState, RoleLevel, ControlRoles, DJRoles } from './Interf
 import AsyncTaskQueue from './TaskQueue'
 import Configs from './config.json'
 const log = Logger(Configs.IndexLogLevel, 'index.ts')
-import { Structure, Track, UnresolvedTrack } from 'erela.js'
+import { Player, Structure, Track, UnresolvedTrack } from 'erela.js'
+
+enum ExitStatus {
+    Failure = 1,
+    Success = 0,
+}
 
 Structure.extend(
     'Queue',
     (Queue) =>
         class extends Queue {
             public currentPage: number = 0
-            public pages: [Track[]] | [] = null
 
             /**
              * Get a slice from queue estructure
@@ -214,7 +218,7 @@ let dataState: BotState = {
     async managerBotPermission(ctx: Message): Promise<boolean> {
         let hasPermission: boolean = false
 
-        let roles: ControlRoles[] = [ControlRoles.Admin, ControlRoles.Dev, ControlRoles.Moderator]
+        let roles: ControlRoles[] = [ControlRoles.Admin, ControlRoles.Dev, ControlRoles.Moderator, ControlRoles.Teste]
 
         for (let i = 0; i < roles.length && hasPermission === false; i++) {
             let role = ctx.guild.roles.cache.get(roles[i]) as Role
@@ -267,19 +271,21 @@ let musicState: MusicState = {
     player: null,
     async mainEmbedMessage() {
         return {
-            color: this.mainEmbedMessageColor(),
+            color: 0x000000,
             author: {
                 name: this.mainEmbedMessageTitle(true, false),
-                icon_url: this.mainEmbedMessageIcon(),
             },
             description: `Skip votes: ${this.currentSkipVotes}/${await this.votesToSkip()}`,
             image: {
-                url: '',
+                url:
+                    (this.player as Player).queue.current !== null
+                        ? (this.player as Player).queue.current?.displayThumbnail()
+                        : 'https://elements-cover-images-0.imgix.net/669507c8-e26d-4e51-a393-a9d0b61983b5?auto=compress&crop=edges&fit=crop&fm=jpeg&h=630&w=1200&s=b96daa64c42952dab2a2eb2f6c6955ee',
             },
             timestamp: this.mainEmbedMessageTimeStamp,
             footer: {
                 text: this.mainEmbedMessageFooter(),
-                icon_url: global.dataState.anchorUser.displayAvatarURL(),
+                icon_url: (global.dataState.anchorUser as User).displayAvatarURL(),
             },
         }
     },
@@ -295,15 +301,12 @@ let musicState: MusicState = {
         }
     },
     mainEmbedMessageFooter() {
-        return ''
-        /* let repeat = ''
+        let repeat = ''
 
-        if(this.repeatLevel === RepeatLevel.RepeatQueue)
-            repeat = ' | Repeat: 🔁'
-        else if(this.repeatLevel === RepeatLevel.RepeatSong)
-            repeat = ' | Repeat: 🔂'
+        if ((this.player as Player).queueRepeat === true) repeat = ' | Repeat: 🔁'
+        else if ((this.player as Player).trackRepeat === true) repeat = ' | Repeat: 🔂'
 
-        return `${global.dataState.anchorUser.username}#${global.dataState.anchorUser.discriminator} is the current DJ` + repeat */
+        return `${global.dataState.anchorUser.username}#${global.dataState.anchorUser.discriminator} is the current DJ` + repeat
     },
     mainEmbedMessageButtons() {
         return new MessageActionRow().addComponents([
@@ -315,7 +318,7 @@ let musicState: MusicState = {
         ])
     },
     queueEmbedMessage() {
-        return this.musicQueue.pageTextGenerator(this.musicQueue.currentPage)
+        return this.player.queue.pageTextGenerator(this.player.queue.currentPage)
     },
     queueEmbedMessageButtons() {
         return new MessageActionRow().addComponents([
@@ -330,6 +333,28 @@ let musicState: MusicState = {
 
         this.currentSkipVotes = 0
         this.votesByUser = new Map()
+
+        if (global.dataState.isThreadCreated === true) {
+            await global.dataState.anchorUser.client.channels
+                .fetch(global.dataState.channelID)
+                .then(async (textChannel: TextChannel) => {
+                    await textChannel.threads
+                        .fetch(global.dataState.threadID)
+                        .then(async (thread: ThreadChannel) => {
+                            await thread.delete().catch((e: any) => {
+                                log.fatal(`Failed to cleanup the thread, exiting...\n${e.stack}`)
+
+                                process.exit(ExitStatus.Success)
+                            })
+                        })
+                        .catch((e: any) => {
+                            process.exit(ExitStatus.Success)
+                        })
+                })
+                .catch((e: any) => {
+                    process.exit(ExitStatus.Success)
+                })
+        }
 
         if (this.player !== null) {
             try {
@@ -347,11 +372,6 @@ let musicState: MusicState = {
 }
 
 global.musicState = musicState
-
-enum ExitStatus {
-    Failure = 1,
-    Success = 0,
-}
 
 try {
     console.clear()
