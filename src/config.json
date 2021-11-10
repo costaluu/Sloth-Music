@@ -8,6 +8,7 @@
     "TaskQueueLogLevel": 4,
     "VoiceHandlerLogLevel": 4,
     "EphemeralMessageTime": 60,
+    "defaultThreadThumbnail": "https://elements-cover-images-0.imgix.net/669507c8-e26d-4e51-a393-a9d0b61983b5?auto=compress&crop=edges&fit=crop&fm=jpeg&h=630&w=1200&s=b96daa64c42952dab2a2eb2f6c6955ee",
     "Colors": {
         "info": "0x17a2b8",
         "warn": "0xffc107",

@@ -166,6 +166,8 @@ export async function stop(ctx: Message, internalTrigger: boolean) {
     await global.musicState.player.setTrackRepeat(false)
     await global.musicState.player.queue.clear()
     await global.musicState.player.stop()
+    global.musicState.player.queue.current = null
+    global.musicState.player.queue.previous = null
 
     if (internalTrigger === false) await safeReact(ctx, Emojis.success)
 }
@@ -311,15 +313,15 @@ export async function thread(client, ctx: Message) {
                                     {
                                         color: parseInt(Configs.Colors.info),
                                         title: `Sloth Music Bot`,
-                                        description: `Now you can just ** type the song name, link to music/video/playlist/album**, however you can use text commands as usual in this thread.`,
+                                        description: `Now you can just ** type the song name or url**, however you can use text commands as usual in this thread.`,
                                         fields: [
                                             {
-                                                name: `Player Button Commands`,
-                                                value: `Resume/Pause(⏯️) | Skip(⏭️) | Repeat(🔁) | Stop(⏹️) | Turn Off(❌)`,
+                                                name: `Player Commands`,
+                                                value: `Pause/Resume(⏯️) | Skip(⏭️) | Loop(🔁) | Stop(⏹️) | Leave(❌)`,
                                                 inline: false,
                                             },
                                             {
-                                                name: `Queue Button Commands`,
+                                                name: `Queue Commands`,
                                                 value: `Previous Page (⬅️) | Next Page (➡️) | Shuffle (🔀) | Fair Shuffle (🤝)`,
                                                 inline: false,
                                             },

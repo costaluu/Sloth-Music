@@ -50,8 +50,8 @@ class ExtendedClient extends Client {
                 .then(async (textChannel: TextChannel) => {
                     let requester = track.requester as any as User
 
-                    await updateMainEmbedMessage()
-                    await updateQueueEmbedMessage()
+                    global.musicState.taskQueue.enqueueTask('updateMainMessage', [null])
+                    global.musicState.taskQueue.enqueueTask('updateMainQueueMessage', [null])
 
                     if (global.dataState.isThreadCreated === false) {
                         await sendEphemeralEmbed(textChannel, {

@@ -48,7 +48,9 @@ class AsyncTaskQueue {
             log.debug(`Processing ${currentTask}`)
 
             try {
-                if (currentTask === 'Enqueue') await tasks.enqueue(args[0], args[1], args[2])
+                if (currentTask === 'updateMainQueueMessage') await tasks.updateQueueEmbedMessage()
+                else if (currentTask === 'updateMainMessage') await tasks.updateMainEmbedMessage()
+                else if (currentTask === 'Enqueue') await tasks.enqueue(args[0], args[1], args[2])
                 else if (currentTask === 'Play') await tasks.play()
                 else if (currentTask === 'Toggle') await tasks.toggle(args[0], args[1])
                 else if (currentTask === 'Pause') await tasks.pause(args[0])
@@ -77,8 +79,8 @@ class AsyncTaskQueue {
                     currentTask === 'PreviousPage' ||
                     currentTask === 'NextPage'
                 ) {
-                    await tasks.updateMainEmbedMessage()
-                    await tasks.updateQueueEmbedMessage()
+                    that.enqueueTask('updateMainMessage', [null])
+                    that.enqueueTask('updateMainQueueMessage', [null])
                 }
             } catch (e) {
                 log.warn(`Failed to execute ${currentTask}\n${e.stack}`)

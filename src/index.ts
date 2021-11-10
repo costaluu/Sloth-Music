@@ -283,6 +283,11 @@ let musicState: MusicState = {
     },
     player: null,
     async mainEmbedMessage() {
+        let thumbnail = null
+        thumbnail = (this.player as Player).queue.current !== null ? (this.player as Player).queue.current.displayThumbnail('maxresdefault') : null
+
+        if (thumbnail === null) thumbnail = Configs.defaultThreadThumbnail
+
         return {
             color: (global.dataState.anchorUser as User).client.guilds.cache.get((this.player as Player).guild).me.displayHexColor || 0x000000,
             author: {
@@ -290,11 +295,7 @@ let musicState: MusicState = {
             },
             description: `Skip votes: ${this.currentSkipVotes}/${await this.votesToSkip()}`,
             image: {
-                url:
-                    (this.player as Player).queue.current !== null
-                        ? (this.player as Player).queue.current.displayThumbnail('maxresdefault') ||
-                          'https://elements-cover-images-0.imgix.net/669507c8-e26d-4e51-a393-a9d0b61983b5?auto=compress&crop=edges&fit=crop&fm=jpeg&h=630&w=1200&s=b96daa64c42952dab2a2eb2f6c6955ee'
-                        : 'https://elements-cover-images-0.imgix.net/669507c8-e26d-4e51-a393-a9d0b61983b5?auto=compress&crop=edges&fit=crop&fm=jpeg&h=630&w=1200&s=b96daa64c42952dab2a2eb2f6c6955ee',
+                url: thumbnail,
             },
             timestamp: this.mainEmbedMessageTimeStamp,
             footer: {
