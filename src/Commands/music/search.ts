@@ -82,15 +82,15 @@ export const command: Command = {
 
                                 collector.once('collect', async (interaction: ButtonInteraction) => {
                                     if (interaction.customId === 'SearchFirst') {
-                                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query.tracks[0]])
+                                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query.tracks[0], false])
                                     } else if (interaction.customId === 'SearchSecond') {
-                                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query.tracks[1]])
+                                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query.tracks[1], false])
                                     } else if (interaction.customId === 'SearchThird') {
-                                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query.tracks[2]])
+                                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query.tracks[2], false])
                                     } else if (interaction.customId === 'SearchFourth') {
-                                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query.tracks[3]])
+                                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query.tracks[3], false])
                                     } else if (interaction.customId === 'SearchFifth') {
-                                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query.tracks[4]])
+                                        global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query.tracks[4], false])
                                     }
 
                                     sendedMessage.delete().catch((e) => {

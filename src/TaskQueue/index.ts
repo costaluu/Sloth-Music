@@ -48,22 +48,40 @@ class AsyncTaskQueue {
             log.debug(`Processing ${currentTask}`)
 
             try {
-                if (currentTask === 'Enqueue') await tasks.enqueue(args[0], args[1])
+                if (currentTask === 'updateMainQueueMessage') await tasks.updateQueueEmbedMessage()
+                else if (currentTask === 'updateMainMessage') await tasks.updateMainEmbedMessage()
+                else if (currentTask === 'Enqueue') await tasks.enqueue(args[0], args[1], args[2])
                 else if (currentTask === 'Play') await tasks.play()
-                else if (currentTask === 'Toggle') await tasks.toggle(args[0])
+                else if (currentTask === 'Toggle') await tasks.toggle(args[0], args[1])
                 else if (currentTask === 'Pause') await tasks.pause(args[0])
-                else if (currentTask === 'Unpause') await tasks.unpause(args[0])
-                else if (currentTask === 'Stop') await tasks.stop(args[0])
-                else if (currentTask === 'Skip') await tasks.skip(args[0])
-                else if (currentTask === 'Repeat') await tasks.repeat(args[0])
-                else if (currentTask === 'Shuffle') await tasks.shuffle(args[0])
+                else if (currentTask === 'Unpause') await tasks.unpause(args[0], args[1])
+                else if (currentTask === 'Stop') await tasks.stop(args[0], args[1])
+                else if (currentTask === 'Skip') await tasks.skip(args[0], args[1], args[2])
+                else if (currentTask === 'Repeat') await tasks.repeat(args[0], args[1])
+                else if (currentTask === 'Shuffle') await tasks.shuffle(args[0], args[1])
                 else if (currentTask === 'Leave') await tasks.leave(args[0], args[1])
-                else if (currentTask === 'FairShuffle') await tasks.fairShuffle(args[0])
+                else if (currentTask === 'FairShuffle') await tasks.fairShuffle(args[0], args[1])
                 else if (currentTask === 'Jump') await tasks.jump(args[0], args[1])
                 else if (currentTask === 'Remove') await tasks.remove(args[0], args[1])
                 else if (currentTask === 'Thread') await tasks.thread(args[0], args[1])
-                /*             else if (currentTask[0] === 'PreviousPage') await previousQueuePage()
-                else if (currentTask[0] === 'NextPage') await nextQueuePage() */
+                else if (currentTask === 'PreviousPage') tasks.previousQueuePage()
+                else if (currentTask === 'NextPage') tasks.nextQueuePage()
+
+                if (
+                    currentTask === 'Enqueue' ||
+                    currentTask === 'Stop' ||
+                    currentTask === 'Skip' ||
+                    currentTask === 'Repeat' ||
+                    currentTask === 'Shuffle' ||
+                    currentTask === 'FairShuffle' ||
+                    currentTask === 'Jump' ||
+                    currentTask === 'Remove' ||
+                    currentTask === 'PreviousPage' ||
+                    currentTask === 'NextPage'
+                ) {
+                    that.enqueueTask('updateMainMessage', [null])
+                    that.enqueueTask('updateMainQueueMessage', [null])
+                }
             } catch (e) {
                 log.warn(`Failed to execute ${currentTask}\n${e.stack}`)
             }

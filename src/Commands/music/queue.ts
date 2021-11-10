@@ -1,4 +1,4 @@
-import { Command } from '../../Interfaces'
+import { Command, RoleLevel } from '../../Interfaces'
 import { safeReact, Emojis } from '../../Utils'
 import { Message } from 'discord.js'
 import Logger from '../../Logger'
@@ -11,8 +11,9 @@ export const command: Command = {
     description: 'Shows the current or specific queue page.',
     run: async (client, ctx, page) => {
         let position: number = parseInt(page[0])
+        let userPermissions: [RoleLevel, boolean] = await global.dataState.userPermissions(ctx.author.id)
 
-        if (global.musicState.player === null) {
+        if (global.musicState.player === null || userPermissions[1] === false) {
             await safeReact(ctx, Emojis.error)
 
             return

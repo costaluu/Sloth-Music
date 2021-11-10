@@ -79,7 +79,7 @@ export const command: Command = {
             await sendEphemeralEmbed(ctx.channel, {
                 color: Color.error,
                 author: {
-                    name: 'Failed to connect to voice channel, please try again',
+                    name: `Failed to connect to voice channel, please try again\n${e.stack}`,
                 },
             })
 
@@ -120,7 +120,7 @@ export const command: Command = {
                                 return
                             }
 
-                            global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query])
+                            global.musicState.taskQueue.enqueueTask('Enqueue', [ctx, query, false])
                         } catch (e) {
                             await sendEphemeralEmbed(ctx.channel, {
                                 color: Color.error,

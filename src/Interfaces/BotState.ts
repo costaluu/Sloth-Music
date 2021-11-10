@@ -12,6 +12,7 @@ export enum ControlRoles {
     AstroSloth = '817761854880612363',
     SlothExplorer = '706635884090359899',
     SlothNapper = '706635836954902620',
+    Teste = '901687527071694901',
 }
 
 /**

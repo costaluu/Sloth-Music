@@ -1,4 +1,4 @@
-import { Guild, GuildMember, Intents, Message, User } from 'discord.js'
+import { Intents, Message, TextChannel, ThreadChannel, User } from 'discord.js'
 import Client from './Client'
 import Logger from './Logger'
 import { VoiceChannel, Role, MessageActionRow, MessageButton } from 'discord.js'
@@ -6,14 +6,18 @@ import { BotState, MusicState, RoleLevel, ControlRoles, DJRoles } from './Interf
 import AsyncTaskQueue from './TaskQueue'
 import Configs from './config.json'
 const log = Logger(Configs.IndexLogLevel, 'index.ts')
-import { Structure, Track, UnresolvedTrack } from 'erela.js'
+import { Player, Structure, Track, UnresolvedTrack } from 'erela.js'
+
+enum ExitStatus {
+    Failure = 1,
+    Success = 0,
+}
 
 Structure.extend(
     'Queue',
     (Queue) =>
         class extends Queue {
-            public currentPage: number = 0
-            public pages: [Track[]] | [] = null
+            public currentPage: number = 1
 
             /**
              * Get a slice from queue estructure
@@ -81,7 +85,7 @@ Structure.extend(
                     currentText = `Now playing 🔊 ` + live + `[${this.getDurationString(this.current?.duration, this.current?.isStream)}] - ${this.current.title} requested by ${requester.username}#${requester.discriminator}`
                 }
 
-                let title = this.length === 0 ? '🎶 Queue List 🎶' : `🎶 Queue List 🎶 ${this.totalSize} songs`
+                let title = this.length === 0 ? '🎶 Queue List 🎶' : `🎶 Queue List 🎶 ${this.length} songs`
 
                 let footer =
                     `Page [${pageNumber === this.currentPage ? this.currentPage : pageNumber}/${this.pagesCount() === 0 ? 1 : this.pagesCount()}] | Total duration: ${this.getTotalQueueDurationString()}` +
@@ -141,6 +145,19 @@ Structure.extend(
                     }
 
                     for (let i = 0; i < fairQueue.length; i++) this[i] = fairQueue[i]
+                }
+            }
+
+            public nextPage(): void {
+                if (this.currentPage + 1 <= this.pagesCount()) {
+                    this.currentPage = this.currentPage + 1
+                }
+            }
+
+            public previousPage(): void {
+                console.log(this.currentPage)
+                if (this.currentPage - 1 > 0) {
+                    this.currentPage = this.currentPage - 1
                 }
             }
         }
@@ -214,7 +231,7 @@ let dataState: BotState = {
     async managerBotPermission(ctx: Message): Promise<boolean> {
         let hasPermission: boolean = false
 
-        let roles: ControlRoles[] = [ControlRoles.Admin, ControlRoles.Dev, ControlRoles.Moderator]
+        let roles: ControlRoles[] = [ControlRoles.Admin, ControlRoles.Dev]
 
         for (let i = 0; i < roles.length && hasPermission === false; i++) {
             let role = ctx.guild.roles.cache.get(roles[i]) as Role
@@ -266,20 +283,24 @@ let musicState: MusicState = {
     },
     player: null,
     async mainEmbedMessage() {
+        let thumbnail = null
+        thumbnail = (this.player as Player).queue.current !== null ? (this.player as Player).queue.current.displayThumbnail('hqdefault') : null
+
+        if (thumbnail === null) thumbnail = Configs.defaultThreadThumbnail
+
         return {
-            color: this.mainEmbedMessageColor(),
+            color: (global.dataState.anchorUser as User).client.guilds.cache.get((this.player as Player).guild).me.displayHexColor || 0x000000,
             author: {
                 name: this.mainEmbedMessageTitle(true, false),
-                icon_url: this.mainEmbedMessageIcon(),
             },
             description: `Skip votes: ${this.currentSkipVotes}/${await this.votesToSkip()}`,
             image: {
-                url: '',
+                url: thumbnail,
             },
             timestamp: this.mainEmbedMessageTimeStamp,
             footer: {
                 text: this.mainEmbedMessageFooter(),
-                icon_url: global.dataState.anchorUser.displayAvatarURL(),
+                icon_url: (global.dataState.anchorUser as User).displayAvatarURL(),
             },
         }
     },
@@ -295,41 +316,62 @@ let musicState: MusicState = {
         }
     },
     mainEmbedMessageFooter() {
-        return ''
-        /* let repeat = ''
-
-        if(this.repeatLevel === RepeatLevel.RepeatQueue)
-            repeat = ' | Repeat: 🔁'
-        else if(this.repeatLevel === RepeatLevel.RepeatSong)
-            repeat = ' | Repeat: 🔂'
-
-        return `${global.dataState.anchorUser.username}#${global.dataState.anchorUser.discriminator} is the current DJ` + repeat */
+        return `${global.dataState.anchorUser.username}#${global.dataState.anchorUser.discriminator} is the current DJ`
     },
     mainEmbedMessageButtons() {
         return new MessageActionRow().addComponents([
-            new MessageButton().setCustomId('PlayResume').setEmoji('⏯️').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('Toggle').setEmoji('⏯️').setStyle('PRIMARY'),
             new MessageButton().setCustomId('Skip').setEmoji('⏭️').setStyle('PRIMARY'),
             new MessageButton().setCustomId('Repeat').setEmoji('🔁').setStyle('PRIMARY'),
             new MessageButton().setCustomId('Stop').setEmoji('⏹️').setStyle('PRIMARY'),
-            new MessageButton().setCustomId('TurnOff').setEmoji('❌').setStyle('DANGER'),
+            new MessageButton().setCustomId('Leave').setEmoji('❌').setStyle('DANGER'),
         ])
     },
     queueEmbedMessage() {
-        return this.musicQueue.pageTextGenerator(this.musicQueue.currentPage)
+        return this.player.queue.pageTextGenerator(this.player.queue.currentPage)
     },
     queueEmbedMessageButtons() {
         return new MessageActionRow().addComponents([
             new MessageButton().setCustomId('PreviousPage').setEmoji('⬅️').setStyle('PRIMARY'),
             new MessageButton().setCustomId('NextPage').setEmoji('➡️').setStyle('PRIMARY'),
-            new MessageButton().setCustomId('ShuffleQueue').setEmoji('🔀').setStyle('PRIMARY'),
-            new MessageButton().setCustomId('FairQueue').setEmoji('🤝').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('Shuffle').setEmoji('🔀').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('FairShuffle').setEmoji('🤝').setStyle('PRIMARY'),
         ])
     },
-    async clear() {
+    async clear(clearBotState: boolean) {
         log.debug('Clearing state...')
 
         this.currentSkipVotes = 0
         this.votesByUser = new Map()
+
+        if (global.dataState.isThreadCreated === true) {
+            log.debug('Thread created, cleaning...')
+
+            await global.dataState.anchorUser.client.channels
+                .fetch(global.musicState.player.textChannel)
+                .then(async (textChannel: TextChannel) => {
+                    await textChannel.threads
+                        .fetch(global.dataState.threadID)
+                        .then(async (thread: ThreadChannel) => {
+                            await thread
+                                .delete()
+                                .then(() => {
+                                    log.success({ message: 'Thread deleted!', level: 4 })
+                                })
+                                .catch((e: any) => {
+                                    log.fatal(`Failed to cleanup the thread, exiting...\n${e.stack}`)
+
+                                    process.exit(ExitStatus.Success)
+                                })
+                        })
+                        .catch((e: any) => {
+                            process.exit(ExitStatus.Success)
+                        })
+                })
+                .catch((e: any) => {
+                    process.exit(ExitStatus.Success)
+                })
+        }
 
         if (this.player !== null) {
             try {
@@ -343,15 +385,12 @@ let musicState: MusicState = {
         this.mainEmbedMessageID = ''
         this.mainEmbedMessageTimeStamp = null
         this.queueEmbedMessageID = ''
+
+        if (clearBotState === true) global.dataState.clear()
     },
 }
 
 global.musicState = musicState
-
-enum ExitStatus {
-    Failure = 1,
-    Success = 0,
-}
 
 try {
     console.clear()

@@ -1,4 +1,4 @@
-import { Command } from '../../Interfaces'
+import { Command, RoleLevel } from '../../Interfaces'
 import { safeReact, Emojis, sendEphemeralEmbed, Color } from '../../Utils'
 import { User } from 'discord.js'
 import { Player, Track, UnresolvedTrack } from 'erela.js'
@@ -33,7 +33,9 @@ export const command: Command = {
     aliases: ['np'],
     description: 'Shows the current song.',
     run: async (client, ctx) => {
-        if (global.musicState.player === null && global.musicState.player.queue.current !== null) {
+        let userPermissions: [RoleLevel, boolean] = await global.dataState.userPermissions(ctx.author.id)
+
+        if (global.musicState.player === null || global.musicState.player.queue.current === null || userPermissions[1] === false) {
             await safeReact(ctx, Emojis.error)
 
             return

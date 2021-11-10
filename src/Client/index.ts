@@ -5,6 +5,7 @@ import { readdirSync } from 'fs'
 import Configs from '../config.json'
 import Logger from '../Logger'
 import { Manager, Player, Track } from 'erela.js'
+import { updateMainEmbedMessage, updateQueueEmbedMessage } from '../VoiceHandler'
 const Spotify = require('better-erela.js-spotify').default
 const log = Logger(Configs.ClientLogLevel, 'client.ts')
 import { sendEphemeralEmbed, Color } from '../Utils'
@@ -22,7 +23,7 @@ class ExtendedClient extends Client {
                 port: parseInt(process.env.LAVALINK_PORT),
             },
         ],
-        trackPartial: ['title', 'duration', 'requester', 'thumbnail', 'isStream', 'uri'],
+        trackPartial: ['title', 'duration', 'requester', 'displayThumbnail', 'isStream', 'uri'],
         send: (id, payload) => {
             const guild = this.guilds.cache.get(id)
             if (guild) guild.shard.send(payload)
@@ -49,19 +50,43 @@ class ExtendedClient extends Client {
                 .then(async (textChannel: TextChannel) => {
                     let requester = track.requester as any as User
 
-                    await sendEphemeralEmbed(textChannel, {
-                        color: Color.info,
-                        author: {
-                            name: global.musicState.mainEmbedMessageTitle(true, true),
-                        },
-                        description: `requested by <@${requester.id}>`,
-                    })
+                    global.musicState.taskQueue.enqueueTask('updateMainMessage', [null])
+                    global.musicState.taskQueue.enqueueTask('updateMainQueueMessage', [null])
 
-                    if (global.musicState.player.queue.pages !== null && global.musicState.player.queue.pages.length > 0) global.musicState.player.queue.pages[0].shift()
+                    if (global.dataState.isThreadCreated === false) {
+                        await sendEphemeralEmbed(textChannel, {
+                            color: Color.info,
+                            author: {
+                                name: global.musicState.mainEmbedMessageTitle(true, true),
+                            },
+                            description: `requested by <@${requester.id}>`,
+                        })
+                    }
                 })
                 .catch((e) => {
                     log.error(`Failed to fetch the the text channel, this is a discord internal error\n${e.stack}`)
                 })
+        })
+        .on('trackStuck', async () => {
+            global.musicState.taskQueue.enqueueTask('Unpause', [null, true])
+        })
+        .on('trackError', async (player: Player, track: Track) => {
+            await this.channels
+                .fetch(player.textChannel)
+                .then(async (textChannel: TextChannel) => {
+                    global.musicState.taskQueue.enqueueTask('Skip', [textChannel, true, true])
+                })
+                .catch((e) => {
+                    log.error(`Failed to fetch the the text channel, this is a discord internal error\n${e.stack}`)
+                })
+        })
+        .on('socketClosed', async (player: Player) => {
+            try {
+                player.destroy()
+            } catch (e) {
+                log.eror(`Failed to destroy the player\n${e.stack}`)
+            }
+            global.musicState.taskQueue.enqueueTask('Leave', [null, true])
         })
 
     public async init() {
@@ -137,10 +162,7 @@ class ExtendedClient extends Client {
                         log.info('Removing voice connection...')
 
                         try {
-                            await global.musicState.player.destroy()
-
-                            global.dataState.clear()
-                            await global.musicState.clear()
+                            await global.musicState.clear(true)
 
                             log.success('Done.')
                         } catch (e) {

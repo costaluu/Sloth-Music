@@ -2,9 +2,9 @@ import { Command } from '../../Interfaces'
 import { safeReact, Emojis } from '../../Utils'
 
 export const command: Command = {
-    name: 'clearstate',
+    name: 'reboot',
     aliases: [],
-    description: 'Clear the state of the bot.',
+    description: 'Reboots the bot',
     run: async (client, ctx) => {
         let managerPermission: boolean = await global.dataState.managerBotPermission(ctx)
 
@@ -12,6 +12,8 @@ export const command: Command = {
             await global.musicState.clear(true)
 
             await safeReact(ctx, Emojis.success)
+
+            process.exit(1)
         } else await safeReact(ctx, Emojis.error)
     },
 }

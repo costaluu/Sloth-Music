@@ -25,7 +25,7 @@ export const command: Command = {
 
                 if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
                     if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
-                        global.musicState.taskQueue.enqueueTask('Stop', [ctx])
+                        global.musicState.taskQueue.enqueueTask('Stop', [ctx, false])
                     } else await safeReact(ctx, Emojis.error)
                 } else await safeReact(ctx, Emojis.error)
             })
