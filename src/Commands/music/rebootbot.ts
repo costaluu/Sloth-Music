@@ -13,7 +13,7 @@ export const command: Command = {
 
             await safeReact(ctx, Emojis.success)
 
-            await process.exit(1)
+            process.exit(1)
         } else await safeReact(ctx, Emojis.error)
     },
 }

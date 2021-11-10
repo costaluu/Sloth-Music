@@ -1,4 +1,4 @@
-import { Guild, GuildMember, Intents, Message, TextChannel, ThreadChannel, User } from 'discord.js'
+import { Intents, Message, TextChannel, ThreadChannel, User } from 'discord.js'
 import Client from './Client'
 import Logger from './Logger'
 import { VoiceChannel, Role, MessageActionRow, MessageButton } from 'discord.js'
@@ -85,7 +85,7 @@ Structure.extend(
                     currentText = `Now playing 🔊 ` + live + `[${this.getDurationString(this.current?.duration, this.current?.isStream)}] - ${this.current.title} requested by ${requester.username}#${requester.discriminator}`
                 }
 
-                let title = this.length === 0 ? '🎶 Queue List 🎶' : `🎶 Queue List 🎶 ${this.totalSize} songs`
+                let title = this.length === 0 ? '🎶 Queue List 🎶' : `🎶 Queue List 🎶 ${this.length} songs`
 
                 let footer =
                     `Page [${pageNumber === this.currentPage ? this.currentPage : pageNumber}/${this.pagesCount() === 0 ? 1 : this.pagesCount()}] | Total duration: ${this.getTotalQueueDurationString()}` +
@@ -145,6 +145,19 @@ Structure.extend(
                     }
 
                     for (let i = 0; i < fairQueue.length; i++) this[i] = fairQueue[i]
+                }
+            }
+
+            public nextPage(): void {
+                if (this.currentPage + 1 <= this.pagesCount()) {
+                    this.currentPage = this.currentPage + 1
+                }
+            }
+
+            public previousPage(): void {
+                console.log(this.currentPage)
+                if (this.currentPage - 1 > 0) {
+                    this.currentPage = this.currentPage - 1
                 }
             }
         }
@@ -271,7 +284,7 @@ let musicState: MusicState = {
     player: null,
     async mainEmbedMessage() {
         return {
-            color: 0x000000,
+            color: (global.dataState.anchorUser as User).client.guilds.cache.get((this.player as Player).guild).me.displayHexColor || 0x000000,
             author: {
                 name: this.mainEmbedMessageTitle(true, false),
             },
@@ -279,7 +292,8 @@ let musicState: MusicState = {
             image: {
                 url:
                     (this.player as Player).queue.current !== null
-                        ? (this.player as Player).queue.current?.thumbnail
+                        ? (this.player as Player).queue.current.displayThumbnail('maxresdefault') ||
+                          'https://elements-cover-images-0.imgix.net/669507c8-e26d-4e51-a393-a9d0b61983b5?auto=compress&crop=edges&fit=crop&fm=jpeg&h=630&w=1200&s=b96daa64c42952dab2a2eb2f6c6955ee'
                         : 'https://elements-cover-images-0.imgix.net/669507c8-e26d-4e51-a393-a9d0b61983b5?auto=compress&crop=edges&fit=crop&fm=jpeg&h=630&w=1200&s=b96daa64c42952dab2a2eb2f6c6955ee',
             },
             timestamp: this.mainEmbedMessageTimeStamp,
@@ -301,12 +315,7 @@ let musicState: MusicState = {
         }
     },
     mainEmbedMessageFooter() {
-        let repeat = ''
-
-        if ((this.player as Player).queueRepeat === true) repeat = ' | Repeat: 🔁'
-        else if ((this.player as Player).trackRepeat === true) repeat = ' | Repeat: 🔂'
-
-        return `${global.dataState.anchorUser.username}#${global.dataState.anchorUser.discriminator} is the current DJ` + repeat
+        return `${global.dataState.anchorUser.username}#${global.dataState.anchorUser.discriminator} is the current DJ`
     },
     mainEmbedMessageButtons() {
         return new MessageActionRow().addComponents([
@@ -335,17 +344,24 @@ let musicState: MusicState = {
         this.votesByUser = new Map()
 
         if (global.dataState.isThreadCreated === true) {
+            log.debug('Thread created, cleaning...')
+
             await global.dataState.anchorUser.client.channels
-                .fetch(global.dataState.channelID)
+                .fetch(global.musicState.player.textChannel)
                 .then(async (textChannel: TextChannel) => {
                     await textChannel.threads
                         .fetch(global.dataState.threadID)
                         .then(async (thread: ThreadChannel) => {
-                            await thread.delete().catch((e: any) => {
-                                log.fatal(`Failed to cleanup the thread, exiting...\n${e.stack}`)
+                            await thread
+                                .delete()
+                                .then(() => {
+                                    log.success({ message: 'Thread deleted!', level: 4 })
+                                })
+                                .catch((e: any) => {
+                                    log.fatal(`Failed to cleanup the thread, exiting...\n${e.stack}`)
 
-                                process.exit(ExitStatus.Success)
-                            })
+                                    process.exit(ExitStatus.Success)
+                                })
                         })
                         .catch((e: any) => {
                             process.exit(ExitStatus.Success)

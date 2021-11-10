@@ -23,7 +23,7 @@ class ExtendedClient extends Client {
                 port: parseInt(process.env.LAVALINK_PORT),
             },
         ],
-        trackPartial: ['title', 'duration', 'requester', 'thumbnail', 'isStream', 'uri'],
+        trackPartial: ['title', 'duration', 'requester', 'displayThumbnail', 'isStream', 'uri'],
         send: (id, payload) => {
             const guild = this.guilds.cache.get(id)
             if (guild) guild.shard.send(payload)
@@ -53,13 +53,15 @@ class ExtendedClient extends Client {
                     await updateMainEmbedMessage()
                     await updateQueueEmbedMessage()
 
-                    await sendEphemeralEmbed(textChannel, {
-                        color: Color.info,
-                        author: {
-                            name: global.musicState.mainEmbedMessageTitle(true, true),
-                        },
-                        description: `requested by <@${requester.id}>`,
-                    })
+                    if (global.dataState.isThreadCreated === false) {
+                        await sendEphemeralEmbed(textChannel, {
+                            color: Color.info,
+                            author: {
+                                name: global.musicState.mainEmbedMessageTitle(true, true),
+                            },
+                            description: `requested by <@${requester.id}>`,
+                        })
+                    }
                 })
                 .catch((e) => {
                     log.error(`Failed to fetch the the text channel, this is a discord internal error\n${e.stack}`)

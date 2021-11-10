@@ -79,7 +79,7 @@ export const command: Command = {
             await sendEphemeralEmbed(ctx.channel, {
                 color: Color.error,
                 author: {
-                    name: 'Failed to connect to voice channel, please try again',
+                    name: `Failed to connect to voice channel, please try again\n${e.stack}`,
                 },
             })
 

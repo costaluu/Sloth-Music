@@ -155,19 +155,19 @@ export async function unpause(ctx: Message, internalTrigger: boolean) {
     }
 }
 
-export async function toggle(ctx: Message) {
+export async function toggle(ctx: Message, internalTrigger: boolean) {
     await global.musicState.player.pause(!global.musicState.player.paused)
 
-    await safeReact(ctx, Emojis.success)
+    if (internalTrigger === false) await safeReact(ctx, Emojis.success)
 }
 
-export async function stop(ctx: Message) {
+export async function stop(ctx: Message, internalTrigger: boolean) {
     await global.musicState.player.setQueueRepeat(false)
     await global.musicState.player.setTrackRepeat(false)
     await global.musicState.player.queue.clear()
     await global.musicState.player.stop()
 
-    await safeReact(ctx, Emojis.success)
+    if (internalTrigger === false) await safeReact(ctx, Emojis.success)
 }
 
 export async function skip(channel: TextChannel, internalTrigger: boolean, showMessage: boolean) {
@@ -184,6 +184,10 @@ export async function skip(channel: TextChannel, internalTrigger: boolean, showM
     global.musicState.votesByUser = new Map()
 
     if (global.musicState.player.queueRepeat === true || global.musicState.player.trackRepeat === true) global.musicState.player.queue.push(global.musicState.player.queue.current)
+
+    if (global.musicState.player.trackRepeat === true) {
+        global.musicState.player.setTrackRepeat(false), global.musicState.player.setQueueRepeat(true)
+    }
 
     await global.musicState.player.stop()
 }
@@ -225,12 +229,12 @@ export async function repeat(channel: TextChannel, internalTrigger: boolean) {
     }
 }
 
-export async function shuffle(ctx: Message) {
+export async function shuffle(ctx: Message, internalTrigger: boolean) {
     if (global.musicState.player.queue.length > 0) {
         await global.musicState.player.queue.shuffle()
 
-        await safeReact(ctx, Emojis.success)
-    } else await safeReact(ctx, Emojis.error)
+        if (internalTrigger === false) await safeReact(ctx, Emojis.success)
+    } else if (internalTrigger === false) await safeReact(ctx, Emojis.error)
 }
 
 export async function leave(ctx: Message, internalTrigger: boolean) {
@@ -239,12 +243,12 @@ export async function leave(ctx: Message, internalTrigger: boolean) {
     if (internalTrigger === false) await safeReact(ctx, Emojis.success)
 }
 
-export async function fairShuffle(ctx: Message) {
+export async function fairShuffle(ctx: Message, internalTrigger: boolean) {
     if (global.musicState.player.queue.length > 0) {
         global.musicState.player.queue.fairShuffle()
 
-        await safeReact(ctx, Emojis.success)
-    } else await safeReact(ctx, Emojis.error)
+        if (internalTrigger === false) await safeReact(ctx, Emojis.success)
+    } else if (internalTrigger === false) await safeReact(ctx, Emojis.error)
 }
 
 export async function jump(ctx: Message, position: number) {
@@ -374,4 +378,12 @@ export async function thread(client, ctx: Message) {
             },
         })
     }
+}
+
+export function nextQueuePage() {
+    global.musicState.player.queue.nextPage()
+}
+
+export function previousQueuePage() {
+    global.musicState.player.queue.previousPage()
 }
