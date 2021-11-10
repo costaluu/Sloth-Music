@@ -73,48 +73,56 @@ function assertSearchResultType(result: SearchResult | Track): boolean {
     else return false
 }
 
-export async function enqueue(ctx: Message, result: SearchResult | Track) {
+export async function enqueue(ctx: Message, result: SearchResult | Track, internalTrigger: boolean) {
     if (assertSearchResultType(result) === false) {
         result = result as Track
 
         global.musicState.player.queue.add(result)
 
-        await sendEphemeralEmbed(ctx.channel, {
-            color: Color.success,
-            author: {
-                name: `${Emojis.song} Enqueued ${result.title}.`,
-            },
-        })
+        if (internalTrigger === false) {
+            await sendEphemeralEmbed(ctx.channel, {
+                color: Color.success,
+                author: {
+                    name: `${Emojis.song} Enqueued ${result.title}.`,
+                },
+            })
+        }
     } else {
         result = result as SearchResult
         if (result.loadType === 'TRACK_LOADED' || result.loadType === 'SEARCH_RESULT') {
             global.musicState.player.queue.add(result.tracks[0])
 
-            await sendEphemeralEmbed(ctx.channel, {
-                color: Color.success,
-                author: {
-                    name: `${Emojis.song} Enqueued ${result.tracks[0].title}.`,
-                },
-            })
+            if (internalTrigger === false) {
+                await sendEphemeralEmbed(ctx.channel, {
+                    color: Color.success,
+                    author: {
+                        name: `${Emojis.song} Enqueued ${result.tracks[0].title}.`,
+                    },
+                })
+            }
         } else {
             if (result.tracks.length > Configs.maxPagesInQueue * Configs.maxSongsPerPage - global.musicState.player.queue.totalSize) {
                 let newTracksLength = Configs.maxPagesInQueue * Configs.maxSongsPerPage - global.musicState.player.queue.totalSize
 
                 result.tracks = result.tracks.slice(0, newTracksLength)
 
-                await sendEphemeralEmbed(ctx.channel, {
-                    color: Color.success,
-                    author: {
-                        name: `${Emojis.playlist} Enqueued only ${newTracksLength} songs from playlist ${result.playlist.name} due to queue limit.`,
-                    },
-                })
+                if (internalTrigger === false) {
+                    await sendEphemeralEmbed(ctx.channel, {
+                        color: Color.success,
+                        author: {
+                            name: `${Emojis.playlist} Enqueued only ${newTracksLength} songs from playlist ${result.playlist.name} due to queue limit.`,
+                        },
+                    })
+                }
             } else {
-                await sendEphemeralEmbed(ctx.channel, {
-                    color: Color.success,
-                    author: {
-                        name: `${Emojis.playlist} Enqueued playlist ${result.playlist.name} with ${result.tracks.length} songs.`,
-                    },
-                })
+                if (internalTrigger === false) {
+                    await sendEphemeralEmbed(ctx.channel, {
+                        color: Color.success,
+                        author: {
+                            name: `${Emojis.playlist} Enqueued playlist ${result.playlist.name} with ${result.tracks.length} songs.`,
+                        },
+                    })
+                }
             }
 
             global.musicState.player.queue.add(result.tracks)
@@ -162,13 +170,15 @@ export async function stop(ctx: Message) {
     await safeReact(ctx, Emojis.success)
 }
 
-export async function skip(channel: TextChannel, internalTrigger: boolean) {
-    await sendEphemeralEmbed(channel, {
-        color: internalTrigger === true ? Color.warn : Color.success,
-        author: {
-            name: internalTrigger === true ? `Something went wrong with that track skipping...` : `Skipping...`,
-        },
-    })
+export async function skip(channel: TextChannel, internalTrigger: boolean, showMessage: boolean) {
+    if (showMessage === true) {
+        await sendEphemeralEmbed(channel, {
+            color: internalTrigger === true ? Color.warn : Color.success,
+            author: {
+                name: internalTrigger === true ? `Something went wrong with that track skipping...` : `Skipping...`,
+            },
+        })
+    }
 
     global.musicState.currentSkipVotes = 0
     global.musicState.votesByUser = new Map()
@@ -178,54 +188,63 @@ export async function skip(channel: TextChannel, internalTrigger: boolean) {
     await global.musicState.player.stop()
 }
 
-export async function repeat(channel: TextChannel) {
+export async function repeat(channel: TextChannel, internalTrigger: boolean) {
     if (global.musicState.player.queueRepeat === true) {
         global.musicState.player.setTrackRepeat(true)
 
-        await sendEphemeralEmbed(channel, {
-            color: Color.success,
-            author: {
-                name: `Loop: Song.`,
-            },
-        })
+        if (internalTrigger === false) {
+            await sendEphemeralEmbed(channel, {
+                color: Color.success,
+                author: {
+                    name: `Loop: Song.`,
+                },
+            })
+        }
     } else if (global.musicState.player.trackRepeat === true) {
         global.musicState.player.setTrackRepeat(false)
 
-        await sendEphemeralEmbed(channel, {
-            color: Color.success,
-            author: {
-                name: `Loop: No repeat.`,
-            },
-        })
+        if (internalTrigger === false) {
+            await sendEphemeralEmbed(channel, {
+                color: Color.success,
+                author: {
+                    name: `Loop: No repeat.`,
+                },
+            })
+        }
     } else {
         global.musicState.player.setQueueRepeat(true)
 
-        await sendEphemeralEmbed(channel, {
-            color: Color.success,
-            author: {
-                name: `Loop: Queue.`,
-            },
-        })
+        if (internalTrigger === false) {
+            await sendEphemeralEmbed(channel, {
+                color: Color.success,
+                author: {
+                    name: `Loop: Queue.`,
+                },
+            })
+        }
     }
 }
 
 export async function shuffle(ctx: Message) {
-    await global.musicState.player.queue.shuffle()
+    if (global.musicState.player.queue.length > 0) {
+        await global.musicState.player.queue.shuffle()
 
-    await safeReact(ctx, Emojis.success)
+        await safeReact(ctx, Emojis.success)
+    } else await safeReact(ctx, Emojis.error)
 }
 
 export async function leave(ctx: Message, internalTrigger: boolean) {
-    await global.musicState.clear()
-    global.dataState.clear()
+    global.musicState.clear(true)
 
     if (internalTrigger === false) await safeReact(ctx, Emojis.success)
 }
 
 export async function fairShuffle(ctx: Message) {
-    global.musicState.player.queue.fairShuffle()
+    if (global.musicState.player.queue.length > 0) {
+        global.musicState.player.queue.fairShuffle()
 
-    await safeReact(ctx, Emojis.success)
+        await safeReact(ctx, Emojis.success)
+    } else await safeReact(ctx, Emojis.error)
 }
 
 export async function jump(ctx: Message, position: number) {
@@ -263,7 +282,7 @@ async function cleanupThread(thread: ThreadChannel | null) {
 export async function thread(client, ctx: Message) {
     const channel = ctx.channel as TextChannel
 
-    const checkForThread = channel.threads.cache.find((thread) => thread.name === `Music Thread-${global.dataState.voiceChannelID}`)
+    const checkForThread = channel.threads.cache.find((thread) => thread.name === `Music Thread-${global.musicState.player.voiceChannel}`)
 
     if (checkForThread === undefined) {
         /* Cria a thread */
@@ -271,7 +290,7 @@ export async function thread(client, ctx: Message) {
 
         await channel.threads
             .create({
-                name: `Music Thread-${global.dataState.voiceChannelID}`,
+                name: `Music Thread-${global.musicState.player.voiceChannel}`,
                 autoArchiveDuration: 'MAX',
                 reason: `Music-Bot Thread created by User id: ${global.dataState.anchorUser.id}`,
             })

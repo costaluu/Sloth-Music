@@ -46,7 +46,7 @@ export const command: Command = {
                     }
 
                     if (global.musicState.currentSkipVotes === votesToSkip) {
-                        global.musicState.taskQueue.enqueueTask('Skip', [ctx, false])
+                        global.musicState.taskQueue.enqueueTask('Skip', [ctx, false, true])
                     }
 
                     await safeReact(ctx, Emojis.success)

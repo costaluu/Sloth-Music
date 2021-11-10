@@ -9,8 +9,7 @@ export const command: Command = {
         let managerPermission: boolean = await global.dataState.managerBotPermission(ctx)
 
         if (managerPermission === true) {
-            await global.musicState.clear()
-            global.dataState.clear()
+            await global.musicState.clear(true)
 
             await safeReact(ctx, Emojis.success)
         } else await safeReact(ctx, Emojis.error)

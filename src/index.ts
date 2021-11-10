@@ -17,7 +17,7 @@ Structure.extend(
     'Queue',
     (Queue) =>
         class extends Queue {
-            public currentPage: number = 0
+            public currentPage: number = 1
 
             /**
              * Get a slice from queue estructure
@@ -279,7 +279,7 @@ let musicState: MusicState = {
             image: {
                 url:
                     (this.player as Player).queue.current !== null
-                        ? (this.player as Player).queue.current?.displayThumbnail()
+                        ? (this.player as Player).queue.current?.thumbnail
                         : 'https://elements-cover-images-0.imgix.net/669507c8-e26d-4e51-a393-a9d0b61983b5?auto=compress&crop=edges&fit=crop&fm=jpeg&h=630&w=1200&s=b96daa64c42952dab2a2eb2f6c6955ee',
             },
             timestamp: this.mainEmbedMessageTimeStamp,
@@ -328,7 +328,7 @@ let musicState: MusicState = {
             new MessageButton().setCustomId('FairQueue').setEmoji('🤝').setStyle('PRIMARY'),
         ])
     },
-    async clear() {
+    async clear(clearBotState: boolean) {
         log.debug('Clearing state...')
 
         this.currentSkipVotes = 0
@@ -368,6 +368,8 @@ let musicState: MusicState = {
         this.mainEmbedMessageID = ''
         this.mainEmbedMessageTimeStamp = null
         this.queueEmbedMessageID = ''
+
+        if (clearBotState === true) global.dataState.clear()
     },
 }
 
