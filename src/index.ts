@@ -231,7 +231,7 @@ let dataState: BotState = {
     async managerBotPermission(ctx: Message): Promise<boolean> {
         let hasPermission: boolean = false
 
-        let roles: ControlRoles[] = [ControlRoles.Admin, ControlRoles.Dev, ControlRoles.Moderator, ControlRoles.Teste]
+        let roles: ControlRoles[] = [ControlRoles.Admin, ControlRoles.Dev]
 
         for (let i = 0; i < roles.length && hasPermission === false; i++) {
             let role = ctx.guild.roles.cache.get(roles[i]) as Role
