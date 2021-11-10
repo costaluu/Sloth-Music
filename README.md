@@ -52,6 +52,7 @@ Dedicated discord music bot using JDA music core.
 ┃ ┃ ┃ ┣━ 📜thread.ts
 ┃ ┃ ┃ ┗━ 📜toggle.ts
 ┃ ┣━ 📂Events
+┃ ┃ ┣━ 📜interactionCreate.ts
 ┃ ┃ ┣━ 📜messageCreate.ts
 ┃ ┃ ┣━ 📜threadMembersUpdate.ts
 ┃ ┃ ┗━ 📜voiceStateUpdate.ts
