@@ -16,11 +16,9 @@ export const event: Event = {
                 .reply('Hi, you can use `' + `s${global.dataState.botID}help` + '` to see all commands')
                 .then((message: Message) => {
                     setTimeout(async () => {
-                        try {
-                            await message.delete()
-                        } catch (e) {
+                        await message.delete().catch((e) => {
                             log.debug(`Failed to delete message, this is a discord internal error! \n${e.stack}`)
-                        }
+                        })
                     }, Configs.EphemeralMessageTime * 1000)
                 })
                 .catch((e) => {
@@ -63,20 +61,18 @@ export const event: Event = {
                 })
             }
         } else {
-            if (processedContent === null) {
-                if (message.channelId === global.dataState.threadID && !message.content.includes('tenor.com')) {
-                    const thread = message.channel as ThreadChannel
+            if (message.channelId === global.dataState.threadID && !message.content.includes('tenor.com')) {
+                const thread = message.channel as ThreadChannel
 
-                    if (thread.isThread() && global.dataState.threadMembers.has(message.author.id)) {
-                        let query: SearchResult = await global.musicState.player.search(message.content, message.author)
-                        global.musicState.taskQueue.enqueueTask('Enqueue', [message, query, true])
-                    }
+                if (thread.isThread() && global.dataState.threadMembers.has(message.author.id)) {
+                    let query: SearchResult = await global.musicState.player.search(message.content, message.author)
+                    global.musicState.taskQueue.enqueueTask('Enqueue', [message, query, true])
+                }
 
-                    if (message.system === false) {
-                        await message.delete().catch(() => {
-                            log.debug(`Failed to delete message, this is a discord internal error!`)
-                        })
-                    }
+                if (message.system === false) {
+                    await message.delete().catch(() => {
+                        log.debug(`Failed to delete message, this is a discord internal error!`)
+                    })
                 }
             }
         }

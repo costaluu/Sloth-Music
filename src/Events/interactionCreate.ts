@@ -20,7 +20,7 @@ export const event: Event = {
         })
 
         const Actions = {
-            PlayResume() {
+            Toggle() {
                 if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true))
                     global.musicState.taskQueue.enqueueTask('Toggle', [null, true])
             },
@@ -44,7 +44,7 @@ export const event: Event = {
                 if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true))
                     global.musicState.taskQueue.enqueueTask('Repeat', [null, true])
             },
-            TurnOff() {
+            Leave() {
                 if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true))
                     global.musicState.taskQueue.enqueueTask('Leave', [null, true])
             },

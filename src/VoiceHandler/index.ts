@@ -173,7 +173,7 @@ export async function stop(ctx: Message, internalTrigger: boolean) {
 }
 
 export async function skip(channel: TextChannel, internalTrigger: boolean, showMessage: boolean) {
-    if (showMessage === true) {
+    if (showMessage === true && channel.id !== global.dataState.threadID) {
         await sendEphemeralEmbed(channel, {
             color: internalTrigger === true ? Color.warn : Color.success,
             author: {
@@ -198,7 +198,7 @@ export async function repeat(channel: TextChannel, internalTrigger: boolean) {
     if (global.musicState.player.queueRepeat === true) {
         global.musicState.player.setTrackRepeat(true)
 
-        if (internalTrigger === false) {
+        if (internalTrigger === false && channel.id !== global.dataState.threadID) {
             await sendEphemeralEmbed(channel, {
                 color: Color.success,
                 author: {
@@ -209,7 +209,7 @@ export async function repeat(channel: TextChannel, internalTrigger: boolean) {
     } else if (global.musicState.player.trackRepeat === true) {
         global.musicState.player.setTrackRepeat(false)
 
-        if (internalTrigger === false) {
+        if (internalTrigger === false && channel.id !== global.dataState.threadID) {
             await sendEphemeralEmbed(channel, {
                 color: Color.success,
                 author: {
@@ -220,7 +220,7 @@ export async function repeat(channel: TextChannel, internalTrigger: boolean) {
     } else {
         global.musicState.player.setQueueRepeat(true)
 
-        if (internalTrigger === false) {
+        if (internalTrigger === false && channel.id !== global.dataState.threadID) {
             await sendEphemeralEmbed(channel, {
                 color: Color.success,
                 author: {

@@ -284,7 +284,7 @@ let musicState: MusicState = {
     player: null,
     async mainEmbedMessage() {
         let thumbnail = null
-        thumbnail = (this.player as Player).queue.current !== null ? (this.player as Player).queue.current.displayThumbnail('maxresdefault') : null
+        thumbnail = (this.player as Player).queue.current !== null ? (this.player as Player).queue.current.displayThumbnail('hqdefault') : null
 
         if (thumbnail === null) thumbnail = Configs.defaultThreadThumbnail
 
@@ -320,11 +320,11 @@ let musicState: MusicState = {
     },
     mainEmbedMessageButtons() {
         return new MessageActionRow().addComponents([
-            new MessageButton().setCustomId('PlayResume').setEmoji('⏯️').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('Toggle').setEmoji('⏯️').setStyle('PRIMARY'),
             new MessageButton().setCustomId('Skip').setEmoji('⏭️').setStyle('PRIMARY'),
             new MessageButton().setCustomId('Repeat').setEmoji('🔁').setStyle('PRIMARY'),
             new MessageButton().setCustomId('Stop').setEmoji('⏹️').setStyle('PRIMARY'),
-            new MessageButton().setCustomId('TurnOff').setEmoji('❌').setStyle('DANGER'),
+            new MessageButton().setCustomId('Leave').setEmoji('❌').setStyle('DANGER'),
         ])
     },
     queueEmbedMessage() {
@@ -334,8 +334,8 @@ let musicState: MusicState = {
         return new MessageActionRow().addComponents([
             new MessageButton().setCustomId('PreviousPage').setEmoji('⬅️').setStyle('PRIMARY'),
             new MessageButton().setCustomId('NextPage').setEmoji('➡️').setStyle('PRIMARY'),
-            new MessageButton().setCustomId('ShuffleQueue').setEmoji('🔀').setStyle('PRIMARY'),
-            new MessageButton().setCustomId('FairQueue').setEmoji('🤝').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('Shuffle').setEmoji('🔀').setStyle('PRIMARY'),
+            new MessageButton().setCustomId('FairShuffle').setEmoji('🤝').setStyle('PRIMARY'),
         ])
     },
     async clear(clearBotState: boolean) {
