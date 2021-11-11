@@ -136,11 +136,11 @@ export async function play() {
     if (global.musicState.player.playing === false && global.musicState.player.paused === false) await global.musicState.player.play()
 }
 
-export async function pause(ctx: Message) {
+export async function pause(ctx: Message, internalTrigger: boolean) {
     if (global.musicState.player.paused === false) {
         await global.musicState.player.pause(true)
 
-        await safeReact(ctx, Emojis.success)
+        if (internalTrigger === false) await safeReact(ctx, Emojis.success)
     } else {
         await safeReact(ctx, Emojis.error)
     }
@@ -149,7 +149,7 @@ export async function pause(ctx: Message) {
 export async function unpause(ctx: Message, internalTrigger: boolean) {
     if (global.musicState.player.paused === true) {
         await global.musicState.player.pause(false)
-        if (internalTrigger === true) await safeReact(ctx, Emojis.success)
+        if (internalTrigger === false) await safeReact(ctx, Emojis.success)
     } else if (internalTrigger === true) {
         await safeReact(ctx, Emojis.error)
     }

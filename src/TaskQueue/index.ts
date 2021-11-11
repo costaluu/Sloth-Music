@@ -53,7 +53,7 @@ class AsyncTaskQueue {
                 else if (currentTask === 'Enqueue') await tasks.enqueue(args[0], args[1], args[2])
                 else if (currentTask === 'Play') await tasks.play()
                 else if (currentTask === 'Toggle') await tasks.toggle(args[0], args[1])
-                else if (currentTask === 'Pause') await tasks.pause(args[0])
+                else if (currentTask === 'Pause') await tasks.pause(args[0], args[1])
                 else if (currentTask === 'Unpause') await tasks.unpause(args[0], args[1])
                 else if (currentTask === 'Stop') await tasks.stop(args[0], args[1])
                 else if (currentTask === 'Skip') await tasks.skip(args[0], args[1], args[2])
