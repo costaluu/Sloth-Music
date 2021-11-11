@@ -22,7 +22,7 @@ export const event: Event = {
             if (newVC === currentVC) {
                 if (oldVC !== newVC) {
                     /* User joined in the currentVC */
-                    if (global.dataState.isThreadCreated === true) global.musciState.taskQueue.enqueueTask('updateMainMessage', [null])
+                    if (global.dataState.isThreadCreated === true) global.musicState.taskQueue.enqueueTask('updateMainMessage', [null])
                 } else if (oldChannel.id === client.user.id || newChannel.id === client.user.id) {
                     /* Bot leaved the current voice channel */
 
@@ -119,7 +119,7 @@ export const event: Event = {
                                             }
                                         }
 
-                                        if (global.dataState.isThreadCreated === true) global.musciState.taskQueue.enqueueTask('updateMainMessage', [null])
+                                        if (global.dataState.isThreadCreated === true) global.musicState.taskQueue.enqueueTask('updateMainMessage', [null])
                                     })
                                     .catch((e) => {
                                         log.warn(`Failed to fetch text channel while handover, this is a discord internal error\n${e.stack}`)
@@ -147,7 +147,7 @@ export const event: Event = {
                                         }
                                     }
 
-                                    if (global.dataState.isThreadCreated === true) global.musciState.taskQueue.enqueueTask('updateMainMessage', [null])
+                                    if (global.dataState.isThreadCreated === true) global.musicState.taskQueue.enqueueTask('updateMainMessage', [null])
                                 })
                                 .catch((e) => {
                                     log.warn(`Failed to fetch text channel while checking thread members\n${e.stack}`)
