@@ -37,7 +37,7 @@ export const event: Event = {
 
                             global.dataState.threadMembers = newMap
 
-                            if (global.dataState.isThreadCreated === true) global.musciState.taskQueue.enqueueTask('updateMainMessage', [null])
+                            if (global.dataState.isThreadCreated === true) global.musicState.taskQueue.enqueueTask('updateMainMessage', [null])
 
                             log.debug(`New presence map create with ${newMap.size} members`)
                         } else log.warn(`Failed to get thread from voice channel while checking`)
