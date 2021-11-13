@@ -66,6 +66,8 @@ class AsyncTaskQueue {
                 else if (currentTask === 'Thread') await tasks.thread(args[0], args[1])
                 else if (currentTask === 'PreviousPage') tasks.previousQueuePage()
                 else if (currentTask === 'NextPage') tasks.nextQueuePage()
+                else if (currentTask === 'Seek') tasks.seek(args[0], args[1])
+                else if (currentTask === 'Bassboost') tasks.bassboost(args[0], args[1])
 
                 if (
                     currentTask === 'Enqueue' ||

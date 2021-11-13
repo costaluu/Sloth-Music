@@ -23,7 +23,7 @@ class ExtendedClient extends Client {
                 port: parseInt(process.env.LAVALINK_PORT),
             },
         ],
-        trackPartial: ['title', 'duration', 'requester', 'displayThumbnail', 'isStream', 'uri'],
+        trackPartial: ['title', 'duration', 'requester', 'displayThumbnail', 'isStream', 'uri', 'isSeekable'],
         send: (id, payload) => {
             const guild = this.guilds.cache.get(id)
             if (guild) guild.shard.send(payload)

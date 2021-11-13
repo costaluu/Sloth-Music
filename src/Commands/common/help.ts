@@ -24,7 +24,12 @@ export const command: Command = {
                     },
                     {
                         name: `Music commands`,
-                        value: '`play`, `pause`, `resume`, `clear`, `search`, `queue`, `remove`, `leave`, `skip`, `loop`, `jump`, `nowplaying`, `shuffle`, `fairshuffle`, `thread`',
+                        value: '`play`, `pause`, `resume`, `clear`, `search`, `queue`, `remove`, `seek`, `leave`, `skip`, `loop`, `jump`, `nowplaying`, `shuffle`, `fairshuffle`, `thread`',
+                        inline: false,
+                    },
+                    {
+                        name: `Filter commands`,
+                        value: '`bassboost`',
                         inline: false,
                     },
                 ],

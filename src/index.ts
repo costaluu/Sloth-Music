@@ -148,11 +148,19 @@ Structure.extend(
                 }
             }
 
+            /**
+             * Goes to the next page in the thread queue
+             */
+
             public nextPage(): void {
                 if (this.currentPage + 1 <= this.pagesCount()) {
                     this.currentPage = this.currentPage + 1
                 }
             }
+
+            /**
+             * Goes to the previous page in the thread queue
+             */
 
             public previousPage(): void {
                 console.log(this.currentPage)

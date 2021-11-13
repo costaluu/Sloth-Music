@@ -5,6 +5,13 @@ import Configs from '../config.json'
 import Logger from '../Logger'
 const log = Logger(Configs.VoiceHandlerLogLevel, 'voicehandler.ts')
 
+enum BassLevels {
+    none = 0.0,
+    low = 0.2,
+    medium = 0.3,
+    high = 0.35,
+}
+
 /**
  * Updates the main thread message
  */
@@ -67,11 +74,23 @@ export async function updateQueueEmbedMessage() {
     } else log.debug(`Tried to update queue message whitout thread`)
 }
 
+/**
+ * Decide if the type is SearchResult or Track
+ * @param {result} SearchResult or Track .
+ */
+
 function assertSearchResultType(result: SearchResult | Track): boolean {
     let check = result as SearchResult
     if (check.loadType) return true
     else return false
 }
+
+/**
+ * Enqueue a song
+ * @param {ctx} context of the message.
+ * @param {result} track to be enqueued
+ * @param {internalTrigger} boolean that indicates if we shoud send a message or react in the text channel or not.
+ */
 
 export async function enqueue(ctx: Message, result: SearchResult | Track, internalTrigger: boolean) {
     if (assertSearchResultType(result) === false) {
@@ -132,19 +151,35 @@ export async function enqueue(ctx: Message, result: SearchResult | Track, intern
     await play()
 }
 
+/**
+ * Plays the current song
+ */
+
 export async function play() {
     if (global.musicState.player.playing === false && global.musicState.player.paused === false) await global.musicState.player.play()
 }
+
+/**
+ * Pauses the current song
+ * @param {ctx} context of the message.
+ * @param {internalTrigger} boolean that indicates if we shoud send a message or react in the text channel or not.
+ */
 
 export async function pause(ctx: Message, internalTrigger: boolean) {
     if (global.musicState.player.paused === false) {
         await global.musicState.player.pause(true)
 
         if (internalTrigger === false) await safeReact(ctx, Emojis.success)
-    } else {
+    } else if (internalTrigger === true) {
         await safeReact(ctx, Emojis.error)
     }
 }
+
+/**
+ * Resume the current song
+ * @param {ctx} context of the message.
+ * @param {internalTrigger} boolean that indicates if we shoud send a message or react in the text channel or not.
+ */
 
 export async function unpause(ctx: Message, internalTrigger: boolean) {
     if (global.musicState.player.paused === true) {
@@ -155,11 +190,23 @@ export async function unpause(ctx: Message, internalTrigger: boolean) {
     }
 }
 
+/**
+ * Toggles the current song, i.e, pause and unpause in the same command
+ * @param {ctx} context of the message.
+ * @param {internalTrigger} boolean that indicates if we shoud send a message or react in the text channel or not.
+ */
+
 export async function toggle(ctx: Message, internalTrigger: boolean) {
     await global.musicState.player.pause(!global.musicState.player.paused)
 
     if (internalTrigger === false) await safeReact(ctx, Emojis.success)
 }
+
+/**
+ * Stops the current song and clears the queue
+ * @param {ctx} context of the message.
+ * @param {internalTrigger} boolean that indicates if we shoud send a message or react in the text channel or not.
+ */
 
 export async function stop(ctx: Message, internalTrigger: boolean) {
     await global.musicState.player.setQueueRepeat(false)
@@ -171,6 +218,13 @@ export async function stop(ctx: Message, internalTrigger: boolean) {
 
     if (internalTrigger === false) await safeReact(ctx, Emojis.success)
 }
+
+/**
+ * Skips the current song
+ * @param {channel} context of the message.
+ * @param {internalTrigger} boolean that indicates if this function was called internally.
+ * @param {showMessage} boolean that indicates if we shoud send a message or react in the text channel or not.
+ */
 
 export async function skip(channel: TextChannel, internalTrigger: boolean, showMessage: boolean) {
     if (showMessage === true && channel.id !== global.dataState.threadID) {
@@ -193,6 +247,12 @@ export async function skip(channel: TextChannel, internalTrigger: boolean, showM
 
     await global.musicState.player.stop()
 }
+
+/**
+ * Change the repeat mode.
+ * @param {channel} context of the message.
+ * @param {internalTrigger} boolean that indicates if we shoud send a message or react in the text channel or not.
+ */
 
 export async function repeat(channel: TextChannel, internalTrigger: boolean) {
     if (global.musicState.player.queueRepeat === true) {
@@ -231,6 +291,12 @@ export async function repeat(channel: TextChannel, internalTrigger: boolean) {
     }
 }
 
+/**
+ * Shuffles the queue.
+ * @param {ctx} context of the message.
+ * @param {internalTrigger} boolean that indicates if we shoud send a message or react in the text channel or not.
+ */
+
 export async function shuffle(ctx: Message, internalTrigger: boolean) {
     if (global.musicState.player.queue.length > 0) {
         await global.musicState.player.queue.shuffle()
@@ -239,11 +305,23 @@ export async function shuffle(ctx: Message, internalTrigger: boolean) {
     } else if (internalTrigger === false) await safeReact(ctx, Emojis.error)
 }
 
+/**
+ * Make the bot leave and clear the state.
+ * @param {ctx} context of the message.
+ * @param {internalTrigger} boolean that indicates if we shoud send a message or react in the text channel or not.
+ */
+
 export async function leave(ctx: Message, internalTrigger: boolean) {
     global.musicState.clear(true)
 
     if (internalTrigger === false) await safeReact(ctx, Emojis.success)
 }
+
+/**
+ * Shuffles the queue in a fairway.
+ * @param {ctx} context of the message.
+ * @param {internalTrigger} boolean that indicates if we shoud send a message or react in the text channel or not.
+ */
 
 export async function fairShuffle(ctx: Message, internalTrigger: boolean) {
     if (global.musicState.player.queue.length > 0) {
@@ -252,6 +330,12 @@ export async function fairShuffle(ctx: Message, internalTrigger: boolean) {
         if (internalTrigger === false) await safeReact(ctx, Emojis.success)
     } else if (internalTrigger === false) await safeReact(ctx, Emojis.error)
 }
+
+/**
+ * Jumps to a specific song in queue.
+ * @param {ctx} context of the message.
+ * @param {position} number that indicates the position to jump.
+ */
 
 export async function jump(ctx: Message, position: number) {
     if (global.musicState.player.queueRepeat === true || global.musicState.player.trackRepeat === true) {
@@ -267,11 +351,26 @@ export async function jump(ctx: Message, position: number) {
     await safeReact(ctx, Emojis.success)
 }
 
+/**
+ * Jumps to a specific song in queue.
+ * @param {ctx} context of the message.
+ * @param {position} number that indicates the position to remove.
+ */
+
 export async function remove(ctx: Message, position: number) {
     global.musicState.player.queue.remove(position)
 
+    let pageCount: number = global.musicState.player.queue.pagesCount() === 0 ? 1 : global.musicState.player.queue.pagesCount()
+
+    if (global.musicState.player.queue.currentPage > pageCount) global.musicState.player.queue.currentPage = pageCount
+
     await safeReact(ctx, Emojis.success)
 }
+
+/**
+ * Function to cleanup the thread if something wrong happen during the thread creation.
+ * @param {thread} ThreadChannel of the message.
+ */
 
 async function cleanupThread(thread: ThreadChannel | null) {
     if (thread !== null) {
@@ -284,6 +383,12 @@ async function cleanupThread(thread: ThreadChannel | null) {
     global.dataState.threadID = ''
     global.dataState.isThreadCreated = false
 }
+
+/**
+ * Create a dedicated thread for the music bot
+ * @param {client} client.
+ * @param {ctx} context of the message.
+ */
 
 export async function thread(client, ctx: Message) {
     const channel = ctx.channel as TextChannel
@@ -382,10 +487,61 @@ export async function thread(client, ctx: Message) {
     }
 }
 
+/**
+ * Goes to the next page of the queue used in thread.
+ */
+
 export function nextQueuePage() {
     global.musicState.player.queue.nextPage()
 }
 
+/**
+ * Goes to the previous page of the queue used in thread.
+ */
+
 export function previousQueuePage() {
     global.musicState.player.queue.previousPage()
+}
+
+/**
+ * Seek to a specific position in song
+ * @param {ctx} context of the message.
+ * @param {position} number of the position.
+ */
+
+export async function seek(ctx: Message, position: number) {
+    if (global.musicState.player.queue.current !== null && global.musicState.player.queue.current.isSeekable === true) {
+        await global.musicState.player.seek(position)
+        await safeReact(ctx, Emojis.success)
+    } else {
+        await sendEphemeralEmbed(ctx.channel, {
+            color: Color.error,
+            author: {
+                name: `I'm not able to seek this song.`,
+            },
+        })
+    }
+}
+
+/**
+ * Change the bassboost level
+ * @param {ctx} context of the message.
+ * @param {level} leve of the bassboost
+ */
+
+export async function bassboost(ctx: Message, level: string) {
+    if (global.musicState.player.queue.current !== null) {
+        if (level === 'high') {
+            await global.musicState.player.setEQ(...new Array(3).fill(null).map((_, i) => ({ band: i, gain: BassLevels.high })))
+        } else if (level === 'medium') {
+            await global.musicState.player.setEQ(...new Array(3).fill(null).map((_, i) => ({ band: i, gain: BassLevels.medium })))
+        } else if (level === 'low') {
+            await global.musicState.player.setEQ(...new Array(3).fill(null).map((_, i) => ({ band: i, gain: BassLevels.low })))
+        } else {
+            await global.musicState.player.setEQ(...new Array(3).fill(null).map((_, i) => ({ band: i, gain: BassLevels.none })))
+        }
+        await safeReact(ctx, Emojis.success)
+    } else {
+        await safeReact(ctx, Emojis.error)
+    }
 }
