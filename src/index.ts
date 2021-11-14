@@ -163,7 +163,6 @@ Structure.extend(
              */
 
             public previousPage(): void {
-                console.log(this.currentPage)
                 if (this.currentPage - 1 > 0) {
                     this.currentPage = this.currentPage - 1
                 }

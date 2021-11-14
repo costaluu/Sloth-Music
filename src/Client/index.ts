@@ -171,6 +171,7 @@ class ExtendedClient extends Client {
                     } else log.warn(`Failed to fetch channel while gracefull shutdown`)
                 })
             } else {
+                log.trace()
                 log.info(`State is already clear...`)
                 log.success('Done.')
             }
