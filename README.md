@@ -33,6 +33,7 @@ Dedicated discord music bot using JDA music core.
 ┃ ┃ ┃ ┣━ 📜ping.ts
 ┃ ┃ ┃ ┗━ 📜uptime.ts
 ┃ ┃ ┗━ 📂music
+┃ ┃ ┃ ┣━ 📜bassboost.ts
 ┃ ┃ ┃ ┣━ 📜clearstate.ts
 ┃ ┃ ┃ ┣━ 📜fairshuffle.ts
 ┃ ┃ ┃ ┣━ 📜jump.ts
@@ -46,6 +47,7 @@ Dedicated discord music bot using JDA music core.
 ┃ ┃ ┃ ┣━ 📜repeat.ts
 ┃ ┃ ┃ ┣━ 📜resume.ts
 ┃ ┃ ┃ ┣━ 📜search.ts
+┃ ┃ ┃ ┣━ 📜seek.ts
 ┃ ┃ ┃ ┣━ 📜shuffle.ts
 ┃ ┃ ┃ ┣━ 📜skip.ts
 ┃ ┃ ┃ ┣━ 📜stop.ts

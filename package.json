@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "ts-node-dev -r dotenv/config --trace-warnings --respawn --transpile-only --poll ./src/index.ts 0",
+        "dev": "ts-node-dev -r dotenv/config --trace-warnings --respawn --transpile-only --poll ./src/index.ts 0 0",
         "build": "tsc",
         "prod": "pm2 start ecosystem.config.js",
         "stop-prod": "pm2 delete ecosystem.config.js"
