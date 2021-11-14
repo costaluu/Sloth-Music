@@ -3,6 +3,7 @@ import { SearchResult, Track } from 'erela.js'
 import { sendEphemeralEmbed, Color, Emojis, safeReact } from '../Utils'
 import Configs from '../config.json'
 import Logger from '../Logger'
+const lyricsFinder = require('lyrics-finder')
 const log = Logger(Configs.VoiceHandlerLogLevel, 'voicehandler.ts')
 
 /**
@@ -533,7 +534,7 @@ export async function seek(ctx: Message, position: number) {
  */
 
 export async function bassboost(ctx: Message, level: string) {
-    if (global.musicState.player.queue.current !== null) {
+    if (global.musicState.player !== null && global.musicState.player.queue.current !== null) {
         if (level === 'high') {
             await global.musicState.player.setEQ(...new Array(3).fill(null).map((_, i) => ({ band: i, gain: BassLevels.high })))
         } else if (level === 'medium') {
@@ -544,6 +545,39 @@ export async function bassboost(ctx: Message, level: string) {
             await global.musicState.player.setEQ(...new Array(3).fill(null).map((_, i) => ({ band: i, gain: BassLevels.none })))
         }
         await safeReact(ctx, Emojis.success)
+    } else {
+        await safeReact(ctx, Emojis.error)
+    }
+}
+
+/**
+ * Try to get the lyrics for a song.
+ * @param {ctx} context of the message.
+ */
+
+export async function lyrics(ctx: Message) {
+    if (global.musicState.player !== null && global.musicState.player.queue.current !== null) {
+        let currentSongTitle: string = global.musicState.player.queue.current.title
+
+        currentSongTitle = currentSongTitle.replace(
+            /lyrics|lyric|Official Video|\(Official Video\)|lyrical|official music video|\(official music video\)|audio|official|official video|official video hd|official hd video|offical video music|\(offical video music\)|extended|hd|(\[.+\])/gi,
+            ''
+        )
+
+        let lyrics = await lyricsFinder(currentSongTitle)
+
+        if (!lyrics) {
+            await sendEphemeralEmbed(ctx.channel, {
+                color: Color.error,
+                author: {
+                    name: `No lyrics found for the current song.`,
+                },
+            })
+
+            return
+        }
+
+        console.log(lyrics)
     } else {
         await safeReact(ctx, Emojis.error)
     }

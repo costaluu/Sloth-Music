@@ -38,6 +38,7 @@ Dedicated discord music bot using JDA music core.
 ┃ ┃ ┃ ┣━ 📜fairshuffle.ts
 ┃ ┃ ┃ ┣━ 📜jump.ts
 ┃ ┃ ┃ ┣━ 📜leave.ts
+┃ ┃ ┃ ┣━ 📜lyrics.ts
 ┃ ┃ ┃ ┣━ 📜nowplaying.ts
 ┃ ┃ ┃ ┣━ 📜pause.ts
 ┃ ┃ ┃ ┣━ 📜play.ts
