@@ -1,5 +1,5 @@
 import { Command, RoleLevel } from '../../Interfaces'
-import { safeReact, Emojis, sendEphemeralEmbed, Color } from '../../Utils'
+import { safeReact, Emojis } from '../../Utils'
 import { VoiceChannel } from 'discord.js'
 import Logger from '../../Logger'
 import Configs from '../../config.json'
@@ -25,7 +25,7 @@ export const command: Command = {
 
                 if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
                     if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
-                        global.musicState.taskQueue.enqueueTask('Thread', [client, ctx])
+                        global.musicState.taskQueue.enqueueTask('Thread', [ctx])
                     } else await safeReact(ctx, Emojis.error)
                 } else await safeReact(ctx, Emojis.error)
             })

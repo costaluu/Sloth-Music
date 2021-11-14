@@ -1,7 +1,11 @@
-import { TextChannel, Message, TextBasedChannels, ThreadChannel } from 'discord.js'
+import { TextChannel, Message, TextBasedChannels } from 'discord.js'
 import Logger from '../Logger'
 import Configs from '../config.json'
 const log = Logger(Configs.CommandsLogLevel, 'utils.ts')
+
+/**
+ * Colors enum.
+ */
 
 export enum Color {
     info = parseInt(Configs.Colors.info),
@@ -10,12 +14,20 @@ export enum Color {
     error = parseInt(Configs.Colors.error),
 }
 
+/**
+ * Emojis enum.
+ */
+
 export enum Emojis {
     success = '<:zslothsalute:695418865131454534>',
     error = '<:zslothmad:859400824421613588>',
     playlist = '💽',
     song = '🎵',
 }
+
+/**
+ * Function to send safely a ephemeral embed wich is deleted after some time.
+ */
 
 export async function sendEphemeralEmbed(textChannel: TextChannel | TextBasedChannels, content: Object): Promise<void> {
     await textChannel
@@ -34,11 +46,19 @@ export async function sendEphemeralEmbed(textChannel: TextChannel | TextBasedCha
         })
 }
 
+/**
+ * Function to react to a message safely.
+ */
+
 export async function safeReact(message: Message, reaction: string): Promise<void> {
     await message.react(reaction).catch((e) => {
         log.debug(`Failed to react, this is a discord internal error\n${e.stack}`)
     })
 }
+
+/**
+ * Function to convert DD:HH:MM:ss string to milliseconds.
+ */
 
 export function durationToMS(durationStr: string): number | null {
     let regexDays = /^([0-9]+):(\d?\d):(\d?\d):(\d?\d)$/gm.exec(durationStr)

@@ -1,6 +1,5 @@
 import { Event } from '../Interfaces'
 import { Collection, Snowflake, ThreadMember, ThreadChannel, VoiceChannel } from 'discord.js'
-import { updateMainEmbedMessage } from '../VoiceHandler'
 import Configs from '../config.json'
 import Logger from '../Logger'
 const log = Logger(Configs.EventsLogLevel, 'threadMembersUpdate.ts')

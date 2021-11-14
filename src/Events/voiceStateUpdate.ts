@@ -1,6 +1,5 @@
 import { Event } from '../Interfaces'
 import { Message, VoiceState, VoiceChannel, TextChannel, User } from 'discord.js'
-import { updateMainEmbedMessage } from '../VoiceHandler'
 import Logger from '../Logger'
 import Configs from '../config.json'
 const log = Logger(Configs.EventsLogLevel, 'voiceStateUpdate.ts')

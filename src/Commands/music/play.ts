@@ -2,7 +2,7 @@ import { Command } from '../../Interfaces'
 import { Color, sendEphemeralEmbed } from '../../Utils'
 import { VoiceChannel, User, TextChannel } from 'discord.js'
 import Logger from '../../Logger'
-import { SearchResult, Player } from 'erela.js'
+import { SearchResult } from 'erela.js'
 import Configs from '../../config.json'
 const log = Logger(Configs.CommandsLogLevel, 'play.ts')
 

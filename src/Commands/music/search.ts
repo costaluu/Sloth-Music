@@ -47,6 +47,17 @@ export const command: Command = {
 
                         if (query.loadType === 'SEARCH_RESULT') {
                             try {
+                                if (query.tracks.length < 5) {
+                                    await sendEphemeralEmbed(ctx.channel, {
+                                        color: Color.error,
+                                        author: {
+                                            name: `I could not find any songs.`,
+                                        },
+                                    })
+
+                                    return
+                                }
+
                                 const searchEmbedRowButtonsSelect = new MessageActionRow().addComponents([
                                     new MessageButton().setCustomId('SearchFirst').setEmoji('1️⃣').setStyle('SECONDARY'),
                                     new MessageButton().setCustomId('SearchSecond').setEmoji('2️⃣').setStyle('SECONDARY'),

@@ -5,6 +5,10 @@ import Configs from '../config.json'
 import Logger from '../Logger'
 const log = Logger(Configs.VoiceHandlerLogLevel, 'voicehandler.ts')
 
+/**
+ * Bass levels enum
+ */
+
 enum BassLevels {
     none = 0.0,
     low = 0.2,
@@ -386,11 +390,10 @@ async function cleanupThread(thread: ThreadChannel | null) {
 
 /**
  * Create a dedicated thread for the music bot
- * @param {client} client.
  * @param {ctx} context of the message.
  */
 
-export async function thread(client, ctx: Message) {
+export async function thread(ctx: Message) {
     const channel = ctx.channel as TextChannel
 
     const checkForThread = channel.threads.cache.find((thread) => thread.name === `Music Thread-${global.musicState.player.voiceChannel}`)
