@@ -148,11 +148,19 @@ Structure.extend(
                 }
             }
 
+            /**
+             * Goes to the next page in the thread queue
+             */
+
             public nextPage(): void {
                 if (this.currentPage + 1 <= this.pagesCount()) {
                     this.currentPage = this.currentPage + 1
                 }
             }
+
+            /**
+             * Goes to the previous page in the thread queue
+             */
 
             public previousPage(): void {
                 console.log(this.currentPage)
@@ -167,6 +175,7 @@ let dataState: BotState = {
     controlRoles: [ControlRoles.Admin, ControlRoles.AstroSloth, ControlRoles.Cosmos, ControlRoles.Dev, ControlRoles.Moderator, ControlRoles.SlothExplorer, ControlRoles.SlothNapper],
     djRoles: [DJRoles.SlothNation, DJRoles.SlothSupporter, DJRoles.DJ],
     botID: parseInt(process.argv[2]) /* Bot ID */,
+    teacherBot: parseInt(process.argv[3]) === 1 ? true : false,
     anchorUser: null,
     isThreadCreated: false,
     threadID: '',
@@ -185,29 +194,15 @@ let dataState: BotState = {
 
                     if (find !== undefined) isUserInVC = true
 
-                    for (let i = 0; i < this.controlRoles.length; i++) {
-                        let role = channel.guild.roles.cache.get(this.controlRoles[i]) as Role
-
-                        if (role !== undefined) {
-                            let find = role.members.get(userID)
-
-                            if (find !== undefined) {
-                                roleLevel = RoleLevel.ControlRole
-
-                                break
-                            }
-                        }
-                    }
-
-                    if (roleLevel === RoleLevel.NoPermission) {
-                        for (let i = 0; i < this.djRoles.length; i++) {
-                            let role = channel.guild.roles.cache.get(this.djRoles[i]) as Role
+                    if (this.teacherBot === false) {
+                        for (let i = 0; i < this.controlRoles.length; i++) {
+                            let role = channel.guild.roles.cache.get(this.controlRoles[i]) as Role
 
                             if (role !== undefined) {
                                 let find = role.members.get(userID)
 
                                 if (find !== undefined) {
-                                    roleLevel = RoleLevel.DJRole
+                                    roleLevel = RoleLevel.ControlRole
 
                                     break
                                 }
@@ -215,7 +210,31 @@ let dataState: BotState = {
                         }
 
                         if (roleLevel === RoleLevel.NoPermission) {
-                            if (userID === this.anchorUser.id) roleLevel = RoleLevel.CurrentDJ
+                            for (let i = 0; i < this.djRoles.length; i++) {
+                                let role = channel.guild.roles.cache.get(this.djRoles[i]) as Role
+
+                                if (role !== undefined) {
+                                    let find = role.members.get(userID)
+
+                                    if (find !== undefined) {
+                                        roleLevel = RoleLevel.DJRole
+
+                                        break
+                                    }
+                                }
+                            }
+
+                            if (roleLevel === RoleLevel.NoPermission) {
+                                if (userID === this.anchorUser.id) roleLevel = RoleLevel.CurrentDJ
+                            }
+                        }
+                    } else {
+                        let role = channel.guild.roles.cache.get(ControlRoles.Teacher) as Role
+
+                        if (role !== undefined) {
+                            let find = role.members.get(userID)
+
+                            if (find !== undefined) roleLevel = RoleLevel.ControlRole
                         }
                     }
                 })

@@ -1,15 +1,15 @@
 import { Command, RoleLevel } from '../../Interfaces'
-import { safeReact, Emojis } from '../../Utils'
+import { safeReact, Emojis, durationToMS, sendEphemeralEmbed, Color } from '../../Utils'
 import { VoiceChannel } from 'discord.js'
 import Logger from '../../Logger'
 import Configs from '../../config.json'
-const log = Logger(Configs.CommandsLogLevel, 'toggle.ts')
+const log = Logger(Configs.CommandsLogLevel, 'seek.ts')
 
 export const command: Command = {
-    name: 'pause',
-    aliases: [],
-    description: 'Pause the player.',
-    run: async (client, ctx) => {
+    name: 'seek',
+    aliases: ['sk'],
+    description: 'Seek to a specific music position.',
+    run: async (client, ctx, duration) => {
         if (global.musicState.player === null) {
             await safeReact(ctx, Emojis.error)
 
@@ -25,7 +25,16 @@ export const command: Command = {
 
                 if (member !== undefined || userPermissions[0] === RoleLevel.ControlRole) {
                     if (userPermissions[0] === RoleLevel.ControlRole || (userPermissions[0] === RoleLevel.DJRole && userPermissions[1] === true) || (userPermissions[0] === RoleLevel.CurrentDJ && userPermissions[1] === true)) {
-                        global.musicState.taskQueue.enqueueTask('Pause', [ctx, false])
+                        let msDuration: number | null = durationToMS(duration[0])
+                        if (msDuration !== null && msDuration < global.musicState.player.queue.current.duration) global.musicState.taskQueue.enqueueTask('Seek', [ctx, msDuration])
+                        else {
+                            await sendEphemeralEmbed(ctx.channel, {
+                                color: Color.warn,
+                                author: {
+                                    name: `Wrong format or parameter, the correct format is HH:MM:SS, MM:SS, SS, Please try again.`,
+                                },
+                            })
+                        }
                     } else await safeReact(ctx, Emojis.error)
                 } else await safeReact(ctx, Emojis.error)
             })

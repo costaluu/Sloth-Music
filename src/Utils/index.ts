@@ -39,3 +39,32 @@ export async function safeReact(message: Message, reaction: string): Promise<voi
         log.debug(`Failed to react, this is a discord internal error\n${e.stack}`)
     })
 }
+
+export function durationToMS(durationStr: string): number | null {
+    let regexDays = /^([0-9]+):(\d?\d):(\d?\d):(\d?\d)$/gm.exec(durationStr)
+    let regexHours = /^(\d?\d):(\d?\d):(\d?\d)$/gm.exec(durationStr)
+    let regexMinutes = /^(\d?\d):(\d?\d)$/gm.exec(durationStr)
+    let regexSeconds = /^(\d?\d)$/gm.exec(durationStr)
+
+    if (regexDays !== null) {
+        let days = parseInt(regexDays[1]) * 86400000
+        let hours = parseInt(regexDays[2]) * 3600000
+        let minutes = parseInt(regexDays[3]) * 60000
+        let seconds = parseInt(regexDays[4]) * 1000
+
+        return days + hours + minutes + seconds
+    } else if (regexHours !== null) {
+        let hours = parseInt(regexHours[1]) * 3600000
+        let minutes = parseInt(regexHours[2]) * 60000
+        let seconds = parseInt(regexHours[3]) * 1000
+
+        return hours + minutes + seconds
+    } else if (regexMinutes !== null) {
+        let minutes = parseInt(regexMinutes[1]) * 60000
+        let seconds = parseInt(regexMinutes[2]) * 1000
+
+        return minutes + seconds
+    } else if (regexSeconds !== null) {
+        return parseInt(regexSeconds[1]) * 1000
+    } else return null
+}

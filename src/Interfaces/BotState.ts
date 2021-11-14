@@ -12,7 +12,7 @@ export enum ControlRoles {
     AstroSloth = '817761854880612363',
     SlothExplorer = '706635884090359899',
     SlothNapper = '706635836954902620',
-    Teste = '901687527071694901',
+    Teacher = '507298235766013981',
 }
 
 /**
@@ -47,6 +47,7 @@ export enum RoleLevel {
 
 export interface BotState {
     botID: number
+    teacherBot: boolean
     anchorUser: User
     isThreadCreated: boolean
     threadID: string
