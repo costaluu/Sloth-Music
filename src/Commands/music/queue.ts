@@ -11,6 +11,7 @@ export const command: Command = {
     description: 'Shows the current or specific queue page.',
     run: async (client, ctx, page) => {
         let position: number = parseInt(page[0])
+
         let userPermissions: [RoleLevel, boolean] = await global.dataState.userPermissions(ctx.author.id)
 
         if (global.musicState.player === null || userPermissions[1] === false) {
@@ -24,7 +25,9 @@ export const command: Command = {
         ctx.reply(global.musicState.player.queue.pageTextGenerator(position))
             .then((message: Message) => {
                 setTimeout(async () => {
-                    await message.delete()
+                    await message.delete().catch((e) => {
+                        log.debug(`Failed to delete message, this is a discord internal error.`)
+                    })
                 }, Configs.EphemeralMessageTime * 1000)
             })
             .catch((e) => {
