@@ -68,6 +68,7 @@ class AsyncTaskQueue {
                 else if (currentTask === 'NextPage') await tasks.nextQueuePage()
                 else if (currentTask === 'Seek') await tasks.seek(args[0], args[1])
                 else if (currentTask === 'Bassboost') await tasks.bassboost(args[0], args[1])
+                else if (currentTask === 'Playnext') await tasks.playnext(args[0], args[1])
                 else if (currentTask === 'Lyrics') await tasks.lyrics(args[0])
 
                 if (
@@ -80,7 +81,8 @@ class AsyncTaskQueue {
                     currentTask === 'Jump' ||
                     currentTask === 'Remove' ||
                     currentTask === 'PreviousPage' ||
-                    currentTask === 'NextPage'
+                    currentTask === 'NextPage' ||
+                    currentTask === 'Playnext'
                 ) {
                     that.enqueueTask('updateMainMessage', [null])
                     that.enqueueTask('updateMainQueueMessage', [null])

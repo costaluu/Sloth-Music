@@ -37,12 +37,12 @@ export async function sendEphemeralEmbed(textChannel: TextChannel | TextBasedCha
         .then((message: Message) => {
             setTimeout(() => {
                 message.delete().catch((e) => {
-                    log.debug(`Failed to delete message, this is a discord internal error\n${e.stack}`)
+                    log.debug(`Failed to delete message, this is a discord internal error.`)
                 })
             }, Configs.EphemeralMessageTime * 1000)
         })
         .catch((e) => {
-            log.debug(`Failed to send message, this is a discord internal error\n${e.stack}`)
+            log.debug(`Failed to send message, this is a discord internal error.`)
         })
 }
 

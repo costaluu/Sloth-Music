@@ -24,13 +24,14 @@ export const event: Event = {
                                 if (voiceChannel.members.get(id) === undefined) {
                                     log.debug(`Found member, removing from thread...`)
 
-                                    try {
-                                        await threadMember.remove()
-
-                                        log.success({ message: 'Member removed', level: 4 })
-                                    } catch (e) {
-                                        log.error(new Error(`Failed to remove thread member, this is a discord internal error ${e.stack}`))
-                                    }
+                                    await threadMember
+                                        .remove()
+                                        .then(() => {
+                                            log.success({ message: 'Member removed', level: 4 })
+                                        })
+                                        .catch((e) => {
+                                            log.error(new Error(`Failed to remove thread member, this is a discord internal error ${e.stack}`))
+                                        })
                                 } else newMap.set(id, true)
                             })
 

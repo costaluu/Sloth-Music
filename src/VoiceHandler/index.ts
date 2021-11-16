@@ -1,5 +1,5 @@
 import { Message, TextChannel, ThreadChannel, User } from 'discord.js'
-import { SearchResult, Track } from 'erela.js'
+import { SearchResult, Track, UnresolvedTrack } from 'erela.js'
 import { sendEphemeralEmbed, Color, Emojis, safeReact } from '../Utils'
 import Configs from '../config.json'
 import Logger from '../Logger'
@@ -581,4 +581,24 @@ export async function lyrics(ctx: Message) {
     } else {
         await safeReact(ctx, Emojis.error)
     }
+}
+
+/**
+ * Jumps to a specific song in queue.
+ * @param {ctx} context of the message.
+ * @param {position} number that indicates the position to jump.
+ */
+
+export async function playnext(ctx: Message, position: number) {
+    let playNextTack: Track | UnresolvedTrack = global.musicState.player.queue[position]
+
+    global.musicState.player.queue.remove(position)
+
+    let pageCount: number = global.musicState.player.queue.pagesCount() === 0 ? 1 : global.musicState.player.queue.pagesCount()
+
+    if (global.musicState.player.queue.currentPage > pageCount) global.musicState.player.queue.currentPage = 1
+
+    global.musicState.player.queue.unshift(playNextTack)
+
+    await safeReact(ctx, Emojis.success)
 }

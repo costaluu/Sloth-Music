@@ -67,6 +67,6 @@ export const event: Event = {
         let action = Actions[interaction.customId]
 
         if (action) action()
-        else log.error(new Error(`Action not found!`))
+        else log.error(`Action not found!`)
     },
 }
