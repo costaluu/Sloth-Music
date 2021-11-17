@@ -163,7 +163,6 @@ Structure.extend(
              */
 
             public previousPage(): void {
-                console.log(this.currentPage)
                 if (this.currentPage - 1 > 0) {
                     this.currentPage = this.currentPage - 1
                 }
@@ -229,12 +228,19 @@ let dataState: BotState = {
                             }
                         }
                     } else {
-                        let role = channel.guild.roles.cache.get(ControlRoles.Teacher) as Role
+                        let roles: ControlRoles[] = [ControlRoles.Teacher, ControlRoles.Admin, ControlRoles.Moderator, ControlRoles.Dev]
 
-                        if (role !== undefined) {
-                            let find = role.members.get(userID)
+                        for (let i = 0; i < roles.length; i++) {
+                            let role = channel.guild.roles.cache.get(roles[i]) as Role
 
-                            if (find !== undefined) roleLevel = RoleLevel.ControlRole
+                            if (role !== undefined) {
+                                let find = role.members.get(userID)
+
+                                if (find !== undefined) {
+                                    roleLevel = RoleLevel.ControlRole
+                                    break
+                                }
+                            }
                         }
                     }
                 })

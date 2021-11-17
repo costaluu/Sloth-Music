@@ -63,11 +63,13 @@ class AsyncTaskQueue {
                 else if (currentTask === 'FairShuffle') await tasks.fairShuffle(args[0], args[1])
                 else if (currentTask === 'Jump') await tasks.jump(args[0], args[1])
                 else if (currentTask === 'Remove') await tasks.remove(args[0], args[1])
-                else if (currentTask === 'Thread') await tasks.thread(args[0], args[1])
-                else if (currentTask === 'PreviousPage') tasks.previousQueuePage()
-                else if (currentTask === 'NextPage') tasks.nextQueuePage()
-                else if (currentTask === 'Seek') tasks.seek(args[0], args[1])
-                else if (currentTask === 'Bassboost') tasks.bassboost(args[0], args[1])
+                else if (currentTask === 'Thread') await tasks.thread(args[0])
+                else if (currentTask === 'PreviousPage') await tasks.previousQueuePage()
+                else if (currentTask === 'NextPage') await tasks.nextQueuePage()
+                else if (currentTask === 'Seek') await tasks.seek(args[0], args[1])
+                else if (currentTask === 'Bassboost') await tasks.bassboost(args[0], args[1])
+                else if (currentTask === 'Playnext') await tasks.playnext(args[0], args[1])
+                else if (currentTask === 'Lyrics') await tasks.lyrics(args[0])
 
                 if (
                     currentTask === 'Enqueue' ||
@@ -79,7 +81,8 @@ class AsyncTaskQueue {
                     currentTask === 'Jump' ||
                     currentTask === 'Remove' ||
                     currentTask === 'PreviousPage' ||
-                    currentTask === 'NextPage'
+                    currentTask === 'NextPage' ||
+                    currentTask === 'Playnext'
                 ) {
                     that.enqueueTask('updateMainMessage', [null])
                     that.enqueueTask('updateMainQueueMessage', [null])

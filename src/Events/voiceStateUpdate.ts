@@ -1,6 +1,5 @@
 import { Event } from '../Interfaces'
-import { Message, VoiceState, VoiceChannel, TextChannel, User } from 'discord.js'
-import { updateMainEmbedMessage } from '../VoiceHandler'
+import { Message, VoiceState, VoiceChannel, TextChannel, User, ThreadChannel, ThreadMember } from 'discord.js'
 import Logger from '../Logger'
 import Configs from '../config.json'
 const log = Logger(Configs.EventsLogLevel, 'voiceStateUpdate.ts')
@@ -28,25 +27,6 @@ export const event: Event = {
 
                     log.debug(`Bot left the voice channel, clearing state...`)
 
-                    await client.channels
-                        .fetch(currentTC)
-                        .then(async (channel: TextChannel) => {
-                            if (channel) {
-                                let findThread = channel.threads.cache.find((thread) => thread.id === global.dataState.threadID)
-
-                                if (findThread !== undefined) {
-                                    log.debug('Thread found! Deleting...')
-
-                                    await findThread.delete().catch((e) => {
-                                        log.warn(`Failed to delete thread, this is a discord internal error\n${e.stack}`)
-                                    })
-                                }
-                            } else log.warn(`Failed to fetch text channel while clearing bot state`)
-                        })
-                        .catch((e) => {
-                            log.warn(`Failed to fetch text channel while clearing bot state\n${e.stack}`)
-                        })
-
                     global.musicState.taskQueue.enqueueTask('Leave', [null, true])
                 }
             } else {
@@ -56,25 +36,6 @@ export const event: Event = {
                         if (channel.members.size === 1 && channel.members.get(client.user.id) !== undefined) {
                             /* Bot alone in call */
                             log.debug(`Bot alone in call, clearing state...`)
-
-                            if (global.dataState.isThreadCreated === true) {
-                                await client.channels
-                                    .fetch(currentTC)
-                                    .then(async (channel: TextChannel) => {
-                                        let findThread = channel.threads.cache.find((thread) => thread.id === global.dataState.threadID)
-
-                                        if (findThread !== undefined) {
-                                            log.info('Thread found! Deleting...')
-
-                                            await findThread.delete().catch((e) => {
-                                                log.warn(`Failed to delete thread, this is a discord internal error\n${e.stack}`)
-                                            })
-                                        }
-                                    })
-                                    .catch((e) => {
-                                        log.warn(`Failed to fetch text channel while clearing state`)
-                                    })
-                            }
 
                             global.musicState.taskQueue.enqueueTask('Leave', [null, true])
                         } else if (oldChannel.id === global.dataState.anchorUser.id) {
@@ -95,31 +56,27 @@ export const event: Event = {
                                 await client.channels
                                     .fetch(currentTC)
                                     .then(async (channel: TextChannel) => {
-                                        let thread = channel.threads.cache.find((thread) => thread.id === global.dataState.threadID)
-
-                                        if (global.musicState.mainEmbedMessageID !== '' && global.dataState.isThreadCreated === true) {
-                                            log.debug(`Editing message...`)
-
-                                            await thread.messages.fetch(global.musicState.mainEmbedMessageID).then(async (message: Message) => {
-                                                try {
-                                                    await message.edit({ embeds: [await global.musicState.mainEmbedMessage()], components: [global.musicState.mainEmbedMessageButtons()] })
-                                                } catch (e) {
-                                                    log.error(`Failed to edit message while handover, this is a discord internal error\n${e.stack}`)
-                                                }
+                                        await channel.threads
+                                            .fetch(global.dataState.threadID)
+                                            .then(async (thread: ThreadChannel) => {
+                                                if (thread) {
+                                                    await thread.members
+                                                        .fetch(nextAnchorUserId)
+                                                        .then(() => {
+                                                            log.debug(`Next anchor is already in thread.`)
+                                                        })
+                                                        .catch(async (e) => {
+                                                            await thread.members.add(nextAnchorUserId).catch((e) => {
+                                                                log.error(`Failed to add member while handover, this is a discord internal error\n${e.stack}`)
+                                                            })
+                                                        })
+                                                } else log.debug(`Thread not valid while handover`)
                                             })
-                                        }
+                                            .catch((e) => {
+                                                log.error(`Failed to fetch thread while handover, this is a discord internal error\n${e.stack}`)
+                                            })
 
-                                        if (thread.members.cache.get(nextAnchorUserId) === undefined) {
-                                            log.debug(`New anchor user is not in the thread, adding member...`)
-
-                                            try {
-                                                await thread.members.add(nextAnchorUserId)
-                                            } catch (e) {
-                                                log.error(`Failed to add member while handover, this is a discord internal error\n${e.stack}`)
-                                            }
-                                        }
-
-                                        if (global.dataState.isThreadCreated === true) global.musicState.taskQueue.enqueueTask('updateMainMessage', [null])
+                                        global.musicState.taskQueue.enqueueTask('updateMainMessage', [null])
                                     })
                                     .catch((e) => {
                                         log.warn(`Failed to fetch text channel while handover, this is a discord internal error\n${e.stack}`)
@@ -133,21 +90,31 @@ export const event: Event = {
                             await client.channels
                                 .fetch(currentTC)
                                 .then(async (channel: TextChannel) => {
-                                    let thread = channel.threads.cache.find((thread) => thread.id === global.dataState.threadID)
-
-                                    if (thread !== undefined && thread.members.cache.get(oldChannel.id) !== undefined) {
-                                        log.debug(`Member was in thread, removing...`)
-
-                                        try {
-                                            await thread.members.remove(oldChannel.id)
-
-                                            log.success({ message: `Done`, level: 4 })
-                                        } catch (e) {
+                                    await channel.threads
+                                        .fetch(global.dataState.threadID)
+                                        .then(async (thread: ThreadChannel) => {
+                                            await thread.members
+                                                .fetch(oldChannel.id)
+                                                .then(async (member: ThreadMember) => {
+                                                    await member
+                                                        .remove()
+                                                        .then(() => {
+                                                            log.debug(`Member was in thread, removing...`)
+                                                            log.success({ message: `Done`, level: 4 })
+                                                        })
+                                                        .catch((e) => {
+                                                            log.error(`Failed to remove thread member, this is a discord internal error\n${e.stack}`)
+                                                        })
+                                                })
+                                                .catch((e) => {
+                                                    log.error(`Member is not in thread.`)
+                                                })
+                                        })
+                                        .catch((e) => {
                                             log.error(`Failed to remove thread member, this is a discord internal error\n${e.stack}`)
-                                        }
-                                    }
+                                        })
 
-                                    if (global.dataState.isThreadCreated === true) global.musicState.taskQueue.enqueueTask('updateMainMessage', [null])
+                                    global.musicState.taskQueue.enqueueTask('updateMainMessage', [null])
                                 })
                                 .catch((e) => {
                                     log.warn(`Failed to fetch text channel while checking thread members\n${e.stack}`)
