@@ -41,6 +41,11 @@ export const command: Command = {
                     value: 'Songs ✅ | Playlists: ✅',
                     inline: false,
                 },
+                {
+                    name: `Contribute`,
+                    value: `You can access [github](https://github.com/costaluu/Sloth-Music) for more information.`,
+                    inline: false,
+                },
             ],
             timestamp: new Date(),
             footer: {

@@ -560,9 +560,11 @@ export async function lyrics(ctx: Message) {
         let currentSongTitle: string = global.musicState.player.queue.current.title
 
         currentSongTitle = currentSongTitle.replace(
-            /lyrics|lyric|Official Video|\(Official Video\)|lyrical|official music video|\(official music video\)|audio|official|official video|official video hd|official hd video|offical video music|\(offical video music\)|extended|hd|(\[.+\])/gi,
+            /lyrics|lyric|Official Video|\(Official Video\)|lyrical|official music video|\(official music video\)|audio|official|official video|official video hd|official hd video|offical video music|\(offical video music\)|extended|hd|(\[.+\])|\(.+\)/gi,
             ''
         )
+
+        console.log(currentSongTitle)
 
         let lyrics = await lyricsFinder(currentSongTitle)
 
@@ -577,7 +579,43 @@ export async function lyrics(ctx: Message) {
             return
         }
 
-        console.log(lyrics)
+        const chunk = (arr, size) => arr.reduce((chunks, el, i) => (i % size ? chunks[chunks.length - 1].push(el) : chunks.push([el])) && chunks, [])
+
+        lyrics = lyrics.split('\n')
+
+        lyrics = chunk(lyrics, 40) // Split in 40 lines
+
+        if (lyrics[0].length > 0) {
+            for (let i = 0; i < lyrics.length; i++) {
+                await ctx.channel
+                    .send({
+                        embeds: [
+                            {
+                                color: Color.info,
+                                title: i === 0 ? `Lyrics for ${global.musicState.player.queue.current.title}` : `Continuation of lyrics`,
+                                description: lyrics[i].join('\n'),
+                            },
+                        ],
+                    })
+                    .then((message: Message) => {
+                        setTimeout(() => {
+                            message.delete().catch((e) => {
+                                log.debug(`Failed to delete message, this is a discord internal error.`)
+                            })
+                        }, 5 * Configs.EphemeralMessageTime * 1000)
+                    })
+                    .catch((e) => {
+                        log.debug(`Failed to send lyrics, this is a discord internal error.`)
+                    })
+            }
+        } else {
+            await sendEphemeralEmbed(ctx.channel, {
+                color: Color.error,
+                author: {
+                    name: `No lyrics found for the current song.`,
+                },
+            })
+        }
     } else {
         await safeReact(ctx, Emojis.error)
     }
