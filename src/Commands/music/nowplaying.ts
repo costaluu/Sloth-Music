@@ -8,7 +8,7 @@ import { Player, Track, UnresolvedTrack } from 'erela.js'
  * https://github.com/Sparker-99/string-progressbar
  */
 
-const splitBar = (total: number, current: number, size: number = 40, line: string = '▬', slider: string = '🔘'): string => {
+const splitBar = (total: number, current: number, size: number = 40, line: string = '▬', slider: string = '🔵'): string => {
     if (!total) throw new Error('Total value is either not provided or invalid')
     if (!current && current !== 0) throw new Error('Current value is either not provided or invalid')
     if (isNaN(total)) throw new Error('Total value is not an integer')
@@ -47,7 +47,9 @@ export const command: Command = {
 
         let requester: User = current.requester as any as User
 
-        let split: string = splitBar(current?.duration, player.position, 15, '▬', '🔘')
+        let split: string = splitBar(current?.duration, player.position, 50, '▬', '🔵')
+
+        let playSymbol: string = global.musicState.player.paused === false ? '▶️' : '⏸️'
 
         await sendEphemeralEmbed(ctx.channel, {
             color: Color.info,
@@ -57,8 +59,9 @@ export const command: Command = {
             title: global.musicState.mainEmbedMessageTitle(current.isStream, false),
             url: current.uri,
             description:
-                `- Requested by <@${requester.id}>` +
-                (current.isStream === true ? '' : `\n\n▶️ ${split}\n\n[${global.musicState.player.queue.getDurationString(player.position)}/${global.musicState.player.queue.getDurationString(current.duration)}]\n`),
+                '\n```' +
+                (current.isStream === true ? '' : ` ${global.musicState.player.queue.getDurationString(player.position)} ${playSymbol} ${split} ${global.musicState.player.queue.getDurationString(current.duration)} \`\`\``) +
+                `\nRequested by <@${requester.id}>`,
         })
 
         return
