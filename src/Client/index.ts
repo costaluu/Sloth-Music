@@ -5,7 +5,6 @@ import { readdirSync } from 'fs'
 import Configs from '../config.json'
 import Logger from '../Logger'
 import { Manager, Player, Track } from 'erela.js'
-import { updateMainEmbedMessage, updateQueueEmbedMessage } from '../VoiceHandler'
 const Spotify = require('better-erela.js-spotify').default
 const log = Logger(Configs.ClientLogLevel, 'client.ts')
 import { sendEphemeralEmbed, Color } from '../Utils'
@@ -43,6 +42,27 @@ class ExtendedClient extends Client {
             this.gracefullShutdown()
 
             log.error(`An error occuried on Lavalink\n${error.message}`)
+        })
+        .on('queueEnd', (player: Player) => {
+            setTimeout(async () => {
+                await this.channels
+                    .fetch(player.textChannel)
+                    .then(async (textChannel: TextChannel) => {
+                        if (player.queue.current === null) {
+                            await sendEphemeralEmbed(textChannel, {
+                                color: Color.warn,
+                                author: {
+                                    name: 'Bot left due to inactivity',
+                                },
+                            })
+
+                            global.musicState.taskQueue.enqueueTask('Leave', [null, true])
+                        }
+                    })
+                    .catch((e) => {
+                        log.error(`Failed to fetch the the text channel, this is a discord internal error\n${e.stack}`)
+                    })
+            }, Configs.IdleTime * 1000)
         })
         .on('trackStart', async (player: Player, track: Track) => {
             await this.channels
