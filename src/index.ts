@@ -175,6 +175,7 @@ let dataState: BotState = {
     djRoles: [DJRoles.SlothNation, DJRoles.SlothSupporter, DJRoles.DJ],
     botID: parseInt(process.argv[2]) /* Bot ID */,
     teacherBot: parseInt(process.argv[3]) === 1 ? true : false,
+    keepAlive: false,
     anchorUser: null,
     isThreadCreated: false,
     threadID: '',
@@ -279,6 +280,7 @@ let dataState: BotState = {
         this.isThreadCreated = false
         this.threadID = ''
         this.threadMembers = new Map()
+        this.keepAlive = false
     },
 }
 

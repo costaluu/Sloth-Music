@@ -50,6 +50,7 @@ export interface BotState {
     teacherBot: boolean
     anchorUser: User
     isThreadCreated: boolean
+    keepAlive: boolean
     threadID: string
     threadMembers: Map<string, boolean>
     userPermissions(userID: string): Promise<[RoleLevel, boolean]>

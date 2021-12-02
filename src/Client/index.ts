@@ -44,25 +44,26 @@ class ExtendedClient extends Client {
             log.error(`An error occuried on Lavalink\n${error.message}`)
         })
         .on('queueEnd', (player: Player) => {
-            setTimeout(async () => {
-                await this.channels
-                    .fetch(player.textChannel)
-                    .then(async (textChannel: TextChannel) => {
-                        if (player.queue.current === null) {
-                            await sendEphemeralEmbed(textChannel, {
-                                color: Color.warn,
-                                author: {
-                                    name: 'Bot left due to inactivity',
-                                },
-                            })
+            if (global.dataState.anchorUser as User)
+                setTimeout(async () => {
+                    await this.channels
+                        .fetch(player.textChannel)
+                        .then(async (textChannel: TextChannel) => {
+                            if (player.queue.current === null && global.dataState.keepAlive === false) {
+                                await sendEphemeralEmbed(textChannel, {
+                                    color: Color.warn,
+                                    author: {
+                                        name: 'Bot left due to inactivity',
+                                    },
+                                })
 
-                            global.musicState.taskQueue.enqueueTask('Leave', [null, true])
-                        }
-                    })
-                    .catch((e) => {
-                        log.error(`Failed to fetch the the text channel, this is a discord internal error\n${e.stack}`)
-                    })
-            }, Configs.IdleTime * 1000)
+                                global.musicState.taskQueue.enqueueTask('Leave', [null, true])
+                            }
+                        })
+                        .catch((e) => {
+                            log.error(`Failed to fetch the the text channel, this is a discord internal error\n${e.stack}`)
+                        })
+                }, Configs.IdleTime * 1000)
         })
         .on('trackStart', async (player: Player, track: Track) => {
             await this.channels
