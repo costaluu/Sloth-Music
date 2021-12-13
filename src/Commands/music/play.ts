@@ -2,7 +2,7 @@ import { Command } from '../../Interfaces'
 import { Color, sendEphemeralEmbed } from '../../Utils'
 import { VoiceChannel, User, TextChannel } from 'discord.js'
 import Logger from '../../Logger'
-import { SearchResult } from 'erela.js'
+import { Player, SearchResult } from 'erela.js'
 import Configs from '../../config.json'
 const log = Logger(Configs.CommandsLogLevel, 'play.ts')
 
@@ -74,12 +74,12 @@ export const command: Command = {
                 return
             }
 
-            if (global.musicState.player.state !== 'CONNECTED') global.musicState.player.connect()
+            if ((global.musicState.player as Player).state !== 'CONNECTED') global.musicState.player.connect()
         } catch (e) {
             await sendEphemeralEmbed(ctx.channel, {
                 color: Color.error,
                 author: {
-                    name: `Failed to connect to voice channel, please try again\n${e.stack}`,
+                    name: `Failed to connect to voice channel, please try again.`,
                 },
             })
 
@@ -135,19 +135,19 @@ export const command: Command = {
                         await sendEphemeralEmbed(ctx.channel, {
                             color: Color.error,
                             author: {
-                                name: 'Failed to connect to voice channel, please try again',
+                                name: `I'm in another voice channel`,
                             },
                         })
-
-                        global.musicState.taskQueue.enqueueTask('Leave', [null, true])
                     }
                 } else {
                     await sendEphemeralEmbed(ctx.channel, {
                         color: Color.error,
                         author: {
-                            name: `I'm in another voice channel`,
+                            name: 'Failed to connect to voice channel, please try again',
                         },
                     })
+
+                    global.musicState.taskQueue.enqueueTask('Leave', [null, true])
                 }
             })
             .catch((e) => {

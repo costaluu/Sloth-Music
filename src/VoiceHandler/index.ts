@@ -564,8 +564,6 @@ export async function lyrics(ctx: Message) {
             ''
         )
 
-        console.log(currentSongTitle)
-
         let lyrics = await lyricsFinder(currentSongTitle)
 
         if (!lyrics) {

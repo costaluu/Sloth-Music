@@ -47,7 +47,7 @@ export const command: Command = {
 
         let requester: User = current.requester as any as User
 
-        let split: string = splitBar(current?.duration, player.position, 50, '▬', '🔵')
+        let split: string = splitBar(current?.duration, player.position, 40, '▬', '🔵')
 
         let playSymbol: string = global.musicState.player.paused === false ? '▶️' : '⏸️'
 

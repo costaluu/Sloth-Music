@@ -1,4 +1,4 @@
-import { Client, Collection, TextChannel, User } from 'discord.js'
+import { Client, Collection, Guild, TextChannel, User } from 'discord.js'
 import { Command, Event } from '../Interfaces'
 import path from 'path'
 import { readdirSync } from 'fs'

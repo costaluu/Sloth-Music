@@ -4,7 +4,7 @@
     "IndexLogLevel": 4,
     "ClientLogLevel": 4,
     "EventsLogLevel": 4,
-    "CommandsLogLevel": 1,
+    "CommandsLogLevel": 4,
     "TaskQueueLogLevel": 1,
     "VoiceHandlerLogLevel": 4,
     "EphemeralMessageTime": 60,
