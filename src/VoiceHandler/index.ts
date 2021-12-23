@@ -107,7 +107,7 @@ export async function enqueue(ctx: Message, result: SearchResult | Track, intern
             await sendEphemeralEmbed(ctx.channel, {
                 color: Color.success,
                 author: {
-                    name: `${Emojis.song} Enqueued ${result.title}.`,
+                    name: `${Emojis.song} Enqueued ${result.title} at position ${global.musicState.player.queue.length === 0 ? 1 : global.musicState.player.queue.length}.`,
                 },
             })
         }
@@ -120,7 +120,7 @@ export async function enqueue(ctx: Message, result: SearchResult | Track, intern
                 await sendEphemeralEmbed(ctx.channel, {
                     color: Color.success,
                     author: {
-                        name: `${Emojis.song} Enqueued ${result.tracks[0].title}.`,
+                        name: `${Emojis.song} Enqueued ${result.tracks[0].title} at position ${global.musicState.player.queue.length === 0 ? 1 : global.musicState.player.queue.length}.`,
                     },
                 })
             }
