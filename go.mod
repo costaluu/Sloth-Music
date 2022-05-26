@@ -3,6 +3,8 @@ module sloth-music
 go 1.18
 
 require (
+	github.com/PuerkitoBio/goquery v1.4.1 // indirect
+	github.com/andybalholm/cascadia v1.0.0 // indirect
 	github.com/bwmarrin/discordgo v0.24.0 // indirect
 	github.com/disgoorg/disgo v0.8.8 // indirect
 	github.com/disgoorg/disgolink/dgolink v1.5.2 // indirect
@@ -13,8 +15,11 @@ require (
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/gompus/snowflake v0.0.4 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
+	github.com/gosimple/slug v1.2.0 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/lukasl-dev/waterlink/v2 v2.0.0 // indirect
+	github.com/rainycape/unidecode v0.0.0-20150907023854-cb7f23ec59be // indirect
+	github.com/rhnvrm/lyric-api-go v0.1.3 // indirect
 	github.com/sasha-s/go-csync v0.0.0-20210812194225-61421b77c44b // indirect
 	github.com/zmb3/spotify/v2 v2.2.0 // indirect
 	golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b // indirect

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"time"
 
@@ -23,20 +22,8 @@ var AboutCommand Command = Command{
 		})
 
 		fields = append(fields, &discordgo.MessageEmbedField{
-			Name:   "Soundcloud Support",
-			Value:  "Songs: ✅ | Playlists: ✅ | Albums: ✅",
-			Inline: false,
-		})
-
-		fields = append(fields, &discordgo.MessageEmbedField{
 			Name:   "Spotify Support",
 			Value:  "Songs ⚠️ | Playlists: ⚠️ | Albums: ⚠️",
-			Inline: false,
-		})
-
-		fields = append(fields, &discordgo.MessageEmbedField{
-			Name:   "Vimeo Support",
-			Value:  "Songs ✅ | Playlists: ✅",
 			Inline: false,
 		})
 
@@ -46,21 +33,31 @@ var AboutCommand Command = Command{
 			Inline: false,
 		})
 
+		guild, err := client.Session.Guild(message.GuildID)
+
+		if err != nil {
+			client.MessageInteraction(message, ERROR_MSG, COLOR_ERROR)
+
+			return
+		}
+
 		response := discordgo.MessageEmbed{
 			Type:        discordgo.EmbedTypeRich,
 			Title:       "Commands for Sloth Music Bot",
-			Description: "```ini\n" + "The Sloth Music Bot is a dedicated music bot for The Language Sloth server made with Java, Javascript and Typescript and maintained by costa.\n\nFeel free to report any bug🐛 or problem in the suggestion channel. You can use the help command" + fmt.Sprintf("s%shelp", os.Getenv("BOT_ID")) + " to see all the avaliable commands.\n\nObs: Spotify does not allow songs to be played directly, in practice the equivalent song is found on youtube." + "\n```",
+			Description: "```ini\n" + "The Sloth Music Bot is a dedicated music bot for The Language Sloth server made with Java and GOLANG. This bot is and maintained by Costa'.\n\nFeel free to report any bug 🐛 or problem in the suggestions channel. You can use the help command " + fmt.Sprintf("s%shelp", os.Getenv("BOT_IDENTIFICATOR")) + " to see all the avaliable commands.\n\nObs: Spotify does not allow songs to be played directly, in practice the equivalent song is found on youtube." + "\n```",
 			Fields:      fields,
 			Timestamp:   CurrentTimestamp(),
-			Footer:      client.DefautlFooter(message),
-			Color:       COLOR_INFO,
+			Footer: &discordgo.MessageEmbedFooter{
+				Text:    "Made with ❤️ with GO.",
+				IconURL: guild.IconURL(),
+			},
+			Color: COLOR_INFO,
 		}
 
 		msg, err := client.Session.ChannelMessageSendEmbed(message.ChannelID, &response)
 
 		if err != nil {
-			fmt.Println(err.Error())
-			log.Println("Failed to send message!")
+			client.MessageInteraction(message, ERROR_MSG, COLOR_ERROR)
 
 			return
 		}

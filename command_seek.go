@@ -19,11 +19,11 @@ var SeekCommand Command = Command{
 
 			return
 		} else if userPermission == PERM_NOT_IN_VC {
-			client.MessageInteraction(message, "❌ ERROR | You're not in a voice channel!", COLOR_ERROR)
+			client.MessageInteraction(message, "❌ | You're not in a voice channel!", COLOR_ERROR)
 
 			return
 		} else if userPermission == PERM_WRONG_VC {
-			client.MessageInteraction(message, "⚠️ WARN | I'm in another voice channel!", COLOR_ERROR)
+			client.MessageInteraction(message, "⚠️ | I'm in another voice channel!", COLOR_WARNING)
 
 			return
 		}
@@ -32,6 +32,12 @@ var SeekCommand Command = Command{
 
 		if err != nil || position == -1 || position > int(client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Length) {
 			client.MessageInteraction(message, WARN_INVALID_INPUT, COLOR_WARNING)
+
+			return
+		}
+
+		if client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Seekable == false {
+			client.MessageInteraction(message, CustomError("This track is not seekable."), COLOR_ERROR)
 
 			return
 		}

@@ -9,6 +9,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 	"github.com/lukasl-dev/waterlink/v2"
 	"github.com/lukasl-dev/waterlink/v2/track"
+	lyrics "github.com/rhnvrm/lyric-api-go"
 	"github.com/zmb3/spotify/v2"
 	"golang.org/x/oauth2"
 )
@@ -57,6 +58,7 @@ type Client struct {
 	SpotifyClient      *spotify.Client
 	SpotifyToken       *oauth2.Token
 	SpotifyContext     context.Context
+	LyricsClient       lyrics.Lyric
 }
 
 type PlayNextResult uint8

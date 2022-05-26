@@ -1,0 +1,68 @@
+2022-05-26 16:08:04.110  INFO 19736 --- [main] lavalink.server.Launcher                 : 
+
+[32m       .  [31m _                  _ _       _    [32m__ _ _
+[32m      /\\ [31m| | __ ___   ____ _| (_)_ __ | | __[32m\ \ \ \
+[32m     ( ( )[31m| |/ _` \ \ / / _` | | | '_ \| |/ /[32m \ \ \ \
+[32m      \\/ [31m| | (_| |\ V / (_| | | | | | |   < [32m  ) ) ) )
+[32m       '  [31m|_|\__,_| \_/ \__,_|_|_|_| |_|_|\_\[32m / / / /
+[0m    =========================================[32m/_/_/_/[0m
+
+	Version:        eec629def799086d30e7df25f03c398d64357783-SNAPSHOT
+	Build:          1342
+	Build time:     22.02.2022 11:17:22 UTC
+	Branch          master
+	Commit:         eec629d
+	Commit time:    22.02.2022 11:14:41 UTC
+	JVM:            13.0.9
+	Lavaplayer      1.3.96-original
+
+2022-05-26 16:08:04.251  WARN 19736 --- [background-preinit] o.s.h.c.j.Jackson2ObjectMapperBuilder    : For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2022-05-26 16:08:04.262  INFO 19736 --- [main] lavalink.server.Launcher                 : Starting Launcher on LucasC with PID 19736 (D:\git_folder\Sloth\new-sloth-music\lavalink\Lavalink.jar started by conta in D:\git_folder\Sloth\new-sloth-music\lavalink)
+2022-05-26 16:08:04.263  INFO 19736 --- [main] lavalink.server.Launcher                 : No active profile set, falling back to default profiles: default
+2022-05-26 16:08:06.864  WARN 19736 --- [main] io.undertow.websockets.jsr               : UT026010: Buffer pool was not set on WebSocketDeploymentInfo, the default pool will be used
+2022-05-26 16:08:06.899  INFO 19736 --- [main] io.undertow.servlet                      : Initializing Spring embedded WebApplicationContext
+2022-05-26 16:08:06.899  INFO 19736 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2571 ms
+2022-05-26 16:08:07.518  WARN 19736 --- [main] l.server.config.SentryConfiguration      : Turning off sentry
+2022-05-26 16:08:08.158  INFO 19736 --- [main] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring enabled, reporting results every 2 minutes.
+2022-05-26 16:08:08.807  INFO 19736 --- [main] lavalink.server.config.KoeConfiguration  : OS: Windows 10, Arch: amd64
+2022-05-26 16:08:08.807  WARN 19736 --- [main] lavalink.server.config.KoeConfiguration  : This system and architecture appears to not support native audio sending! GC pauses may cause your bot to stutter during playback.
+2022-05-26 16:08:09.263  INFO 19736 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-05-26 16:08:09.847  INFO 19736 --- [main] org.xnio                                 : XNIO version 3.3.8.Final
+2022-05-26 16:08:09.870  INFO 19736 --- [main] org.xnio.nio                             : XNIO NIO Implementation Version 3.3.8.Final
+2022-05-26 16:08:09.975  INFO 19736 --- [main] o.s.b.w.e.u.UndertowServletWebServer     : Undertow started on port(s) 2333 (http) with context path ''
+2022-05-26 16:08:09.982  INFO 19736 --- [main] lavalink.server.Launcher                 : Started Launcher in 6.878 seconds (JVM running for 7.696)
+2022-05-26 16:08:09.984  INFO 19736 --- [main] lavalink.server.Launcher                 : You can safely ignore the big red warning about illegal reflection. See https://github.com/freyacodes/Lavalink/issues/295
+2022-05-26 16:08:15.718  INFO 19736 --- [XNIO-1 task-1] io.undertow.servlet                      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-26 16:08:15.719  INFO 19736 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-05-26 16:08:15.739  INFO 19736 --- [XNIO-1 task-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 20 ms
+2022-05-26 16:08:15.785  INFO 19736 --- [XNIO-1 task-1] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:55943
+2022-05-26 16:08:15.904  INFO 19736 --- [XNIO-1 task-1] lavalink.server.io.SocketServer          : Connection successfully established from waterlink/v2.0.0
+2022-05-26 16:11:43.300  INFO 19736 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"voiceUpdate","guildId":"858470922004070421","sessionId":"91d49b11ba18337e34ae121164198e5d","event":{"guild_id":"858470922004070421","token":"426aea4b28938a4d","endpoint":"brazil9017.discord.media:443"}}
+
+2022-05-26 16:11:43.400  INFO 19736 --- [XNIO-1 task-2] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch: One Dance Drake audio"
+2022-05-26 16:11:45.319  INFO 19736 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: One Dance Drake audio
+2022-05-26 16:11:45.901  INFO 19736 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAiwIAJU9uZSBEYW5jZS1EcmFrZSAoZmVhdC4gV2l6a2lkICYgS3lsYSkADENocmlzIE9iYW5kbwAAAAAAAquYAAtpQWJuRVVBMHdwQQABACtodHRwczovL3d3dy55b3V0dWJlLmNvbS93YXRjaD92PWlBYm5FVUEwd3BBAAd5b3V0dWJlAAAAAAAAAAA="}
+
+2022-05-26 16:13:03.704  INFO 19736 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+
+2022-05-26 16:13:04.284  INFO 19736 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:55943 -- CloseStatus[code=1006, reason=]
+2022-05-26 16:13:04.285  INFO 19736 --- [XNIO-1 I/O-3] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2022-05-26 16:13:09.285  INFO 19736 --- [XNIO-1 task-4] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:50937
+2022-05-26 16:13:09.291  INFO 19736 --- [XNIO-1 task-4] lavalink.server.io.SocketServer          : Connection successfully established from waterlink/v2.0.0
+2022-05-26 16:13:29.008  INFO 19736 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"voiceUpdate","guildId":"858470922004070421","sessionId":"d56464a443f10c68928d76e160ad0f07","event":{"guild_id":"858470922004070421","token":"b28a767523f57fe9","endpoint":"brazil9017.discord.media:443"}}
+
+2022-05-26 16:13:29.013  INFO 19736 --- [XNIO-1 task-5] l.server.player.AudioLoaderRestHandler   : Got request to load for identifier "ytsearch: BYE Jaden audio"
+2022-05-26 16:13:29.722  INFO 19736 --- [lava-daemon-pool-info-loader-2-thread-1] lavalink.server.player.AudioLoader       : Loaded playlist Search results for: BYE Jaden audio
+2022-05-26 16:13:30.119  INFO 19736 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"play","guildId":"858470922004070421","track":"QAAAYgIAA0JZRQAFSmFkZW4AAAAAAASIKAALVmRIUGtjREhKZmcAAQAraHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1WZEhQa2NESEpmZwAHeW91dHViZQAAAAAAAAAA"}
+
+2022-05-26 16:16:52.317  INFO 19736 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : {"op":"stop","guildId":"858470922004070421"}
+
+2022-05-26 16:16:52.338  INFO 19736 --- [XNIO-1 I/O-5] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:50937 -- CloseStatus[code=1006, reason=]
+2022-05-26 16:16:52.339  INFO 19736 --- [XNIO-1 I/O-5] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2022-05-26 16:19:29.972  INFO 19736 --- [XNIO-1 task-7] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:60280
+2022-05-26 16:19:29.977  INFO 19736 --- [XNIO-1 task-7] lavalink.server.io.SocketServer          : Connection successfully established from waterlink/v2.0.0
+2022-05-26 16:19:42.026  INFO 19736 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:60280 -- CloseStatus[code=1006, reason=]
+2022-05-26 16:19:42.027  INFO 19736 --- [XNIO-1 I/O-4] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2022-05-26 16:24:06.892  INFO 19736 --- [Thread-1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2022-05-26 16:24:06.899  INFO 19736 --- [Thread-1] c.s.d.l.tools.GarbageCollectionMonitor   : GC monitoring disabled.
+2022-05-26 16:24:06.908  INFO 19736 --- [Thread-1] io.undertow.servlet                      : Destroying Spring FrameworkServlet 'dispatcherServlet'

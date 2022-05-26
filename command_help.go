@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"time"
 
@@ -25,13 +24,13 @@ var HelpCommand Command = Command{
 
 			fields = append(fields, &discordgo.MessageEmbedField{
 				Name:   "Music commands",
-				Value:  "`play`, `pause`, `resume`, `clear`, `search`, `queue`, `remove`, `seek`, `leave`, `skip`, `loop`, `jump`, `nowplaying`, `playnext`, `lyrics`, `shuffle`, `fairshuffle`, `thread`",
+				Value:  "`play`, `pause`, `resume`, `seek`, `leave`, `skip`, `jump`, `nowplaying`, `playnext`, `lyrics`, `volume`, `keepalive`",
 				Inline: false,
 			})
 
 			fields = append(fields, &discordgo.MessageEmbedField{
-				Name:   "Filter commands",
-				Value:  "`bassboost`",
+				Name:   "Queue commands",
+				Value:  "`queue`, `clear`, `remove`, `move`, `shuffle`, `sort`, `repeat`, `upcomming`",
 				Inline: false,
 			})
 
@@ -48,16 +47,13 @@ var HelpCommand Command = Command{
 			msg, err := client.Session.ChannelMessageSendEmbed(message.ChannelID, &response)
 
 			if err != nil {
-				fmt.Println(err.Error())
-				log.Println("Failed to send message!")
+				client.MessageInteraction(message, ERROR_MSG, COLOR_ERROR)
 
 				return
 			}
 
 			go func() {
 				time.Sleep(time.Duration(ephemeralTime) * time.Second)
-
-				client.Session.ChannelMessageDelete(message.ChannelID, message.ID)
 				client.Session.ChannelMessageDelete(msg.ChannelID, msg.ID)
 			}()
 		} else {

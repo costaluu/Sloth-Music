@@ -1,3 +1,4 @@
 go.sum
 .env
-lavalink
+lavalink/application.yml
+lavalink/lavalink.jar

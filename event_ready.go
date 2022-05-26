@@ -38,6 +38,14 @@ func (client *Client) Ready(session *discordgo.Session, event *discordgo.Ready) 
 					color = COLOR_YOUTUBE
 				}
 
+				var duration string
+
+				if client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Stream == true {
+					duration = "🔴 Live"
+				} else {
+					duration = client.Queue.GetDurationString(client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Length, false)
+				}
+
 				response := discordgo.MessageEmbed{
 					Type: discordgo.EmbedTypeRich,
 					Author: &discordgo.MessageEmbedAuthor{
@@ -45,7 +53,7 @@ func (client *Client) Ready(session *discordgo.Session, event *discordgo.Ready) 
 						IconURL: icon,
 					},
 					URL:         client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.URI,
-					Title:       fmt.Sprintf("%s - [%s]", client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Title, client.Queue.GetDurationString(client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Length, false)),
+					Title:       fmt.Sprintf("%s - [%s]", client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Title, duration),
 					Description: fmt.Sprintf("requested by %s", client.Queue.Queue[client.Queue.CurrentIndex].RequesterName),
 					Color:       color,
 				}

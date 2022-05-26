@@ -15,6 +15,7 @@ import (
 	"github.com/joho/godotenv"
 
 	"github.com/lukasl-dev/waterlink/v2"
+	lyrics "github.com/rhnvrm/lyric-api-go"
 	"github.com/zmb3/spotify/v2"
 	"golang.org/x/oauth2/clientcredentials"
 )
@@ -45,6 +46,7 @@ var BotCommands []Command = []Command{
 	PlayNextCommand,
 	MoveCommand,
 	KeepAliveCommand,
+	LyricsCommand,
 }
 
 func main() {
@@ -66,6 +68,8 @@ func main() {
 
 	Bot.SpotifyHTTPClient = spotifyauth.New().Client(Bot.SpotifyContext, Bot.SpotifyToken)
 	Bot.SpotifyClient = spotify.New(Bot.SpotifyHTTPClient)
+
+	Bot.LyricsClient = lyrics.New()
 
 	Bot.BotConfig = Config{
 		Token:            os.Getenv("TOKEN"),

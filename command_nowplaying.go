@@ -19,29 +19,50 @@ var NowPlayingCommand Command = Command{
 
 			return
 		} else if userPermission == PERM_NOT_IN_VC {
-			client.MessageInteraction(message, "❌ ERROR | You're not in a voice channel!", COLOR_ERROR)
+			client.MessageInteraction(message, "❌ | You're not in a voice channel!", COLOR_ERROR)
 
 			return
 		} else if userPermission == PERM_WRONG_VC {
-			client.MessageInteraction(message, "⚠️ WARN | I'm in another voice channel!", COLOR_ERROR)
+			client.MessageInteraction(message, "⚠️ | I'm in another voice channel!", COLOR_WARNING)
 
 			return
 		}
 
 		if client.IsPlaying == false {
-			client.MessageInteraction(message, "I'm not playing!", COLOR_ERROR)
+			client.MessageInteraction(message, ERROR_MSG, COLOR_ERROR)
 
 			return
+		}
+
+		var icon string
+		var color int
+
+		if client.Queue.Queue[client.Queue.CurrentIndex].Source == SpotifySource {
+			icon = spotifyLogoURL
+			color = COLOR_SPOTIFY
+		} else {
+			icon = youtubeLogoURL
+			color = COLOR_YOUTUBE
+		}
+
+		var duration string
+
+		if client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Stream == true {
+			duration = "🔴 Live"
+		} else {
+			duration = client.Queue.GetDurationString(client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Length, false)
 		}
 
 		response := discordgo.MessageEmbed{
 			Type: discordgo.EmbedTypeRich,
 			Author: &discordgo.MessageEmbedAuthor{
-				Name: "Now playing 🔊",
+				Name:    "Now playing 🔊",
+				IconURL: icon,
 			},
-			Title:       fmt.Sprintf("▶️ %s - [%s]", client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Title, client.Queue.GetDurationString(client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Length, client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Stream)),
+			URL:         client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.URI,
+			Title:       fmt.Sprintf("%s - [%s]", client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Title, duration),
 			Description: fmt.Sprintf("requested by %s", client.Queue.Queue[client.Queue.CurrentIndex].RequesterName),
-			Color:       COLOR_INFO,
+			Color:       color,
 		}
 
 		msg, err := client.Session.ChannelMessageSendEmbed(client.AnchorTextChannel, &response)

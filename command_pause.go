@@ -17,11 +17,11 @@ var PauseCommand Command = Command{
 
 			return
 		} else if userPermission == PERM_NOT_IN_VC {
-			client.MessageInteraction(message, "❌ ERROR | You're not in a voice channel!", COLOR_ERROR)
+			client.MessageInteraction(message, "❌ | You're not in a voice channel!", COLOR_ERROR)
 
 			return
 		} else if userPermission == PERM_WRONG_VC {
-			client.MessageInteraction(message, "⚠️ WARN | I'm in another voice channel!", COLOR_ERROR)
+			client.MessageInteraction(message, "⚠️ | I'm in another voice channel!", COLOR_WARNING)
 
 			return
 		}
