@@ -9,7 +9,7 @@ import (
 
 var QueueCommand Command = Command{
 	Name:        "queue",
-	Description: "test help",
+	Description: "Shows a specific page in queue or the current page.\ns[index]page [page number]*",
 	Aliases:     []string{"q", "list"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

@@ -9,7 +9,7 @@ import (
 
 var UptimeCommand Command = Command{
 	Name:        "uptime",
-	Description: "test help",
+	Description: "Show the time that bot is online.",
 	Aliases:     []string{"upt"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		timeDiff := time.Now().Sub(client.StartTime)

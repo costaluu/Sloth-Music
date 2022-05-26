@@ -8,7 +8,7 @@ import (
 
 var RepeatCommand Command = Command{
 	Name:        "repeat",
-	Description: "test help",
+	Description: "Change the repeat mode.\ns[index]repeat [off/queue/song]",
 	Aliases:     []string{"rpt", "loop"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

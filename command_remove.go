@@ -9,7 +9,7 @@ import (
 
 var RemoveCommand Command = Command{
 	Name:        "remove",
-	Description: "test help",
+	Description: "Removes a song from the queue.\ns[index]remove [position]",
 	Aliases:     []string{"rm", "delete"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

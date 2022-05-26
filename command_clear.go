@@ -5,9 +5,9 @@ import (
 	"github.com/gompus/snowflake"
 )
 
-var StopCommand Command = Command{
+var ClearCommand Command = Command{
 	Name:        "clear",
-	Description: "test help",
+	Description: "Clears the queue.",
 	Aliases:     []string{"stop", "cl", "stp"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

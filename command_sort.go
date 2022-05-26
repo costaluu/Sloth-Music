@@ -21,7 +21,7 @@ func (a ByRequester) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
 
 var SortCommand Command = Command{
 	Name:        "sort",
-	Description: "test help",
+	Description: "Sort the next songs in queue.\ns[index]sort [title/requester]",
 	Aliases:     []string{},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

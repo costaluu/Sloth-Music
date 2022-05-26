@@ -10,7 +10,7 @@ import (
 
 var HelpCommand Command = Command{
 	Name:        "help",
-	Description: "test help",
+	Description: "Gives you general information about the commands and how to use the bot.",
 	Aliases:     []string{"hlp"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		if len(arg) == 0 {

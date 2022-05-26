@@ -9,7 +9,7 @@ import (
 
 var MoveCommand Command = Command{
 	Name:        "move",
-	Description: "test help",
+	Description: "Moves a song to a specific position in queue.\ns[index]move [from] [to]",
 	Aliases:     []string{"mv"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

@@ -10,7 +10,7 @@ import (
 
 var AboutCommand Command = Command{
 	Name:        "about",
-	Description: "test help",
+	Description: "Gives you general information about the bot.",
 	Aliases:     []string{"abt"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		fields := make([]*discordgo.MessageEmbedField, 0)

@@ -7,7 +7,7 @@ import (
 
 var PauseCommand Command = Command{
 	Name:        "pause",
-	Description: "test help",
+	Description: "Pauses the current song.",
 	Aliases:     []string{"ps"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

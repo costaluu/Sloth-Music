@@ -9,7 +9,7 @@ import (
 
 var UpCommingCommand Command = Command{
 	Name:        "upcomming",
-	Description: "test help",
+	Description: "Shows information for the next song in queue.",
 	Aliases:     []string{"upc"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)
@@ -29,7 +29,7 @@ var UpCommingCommand Command = Command{
 		}
 
 		if client.IsPlaying == false {
-			client.MessageInteraction(message, "I'm not playing!", COLOR_ERROR)
+			client.MessageInteraction(message, CustomWarning("I'm not playing."), COLOR_WARNING)
 
 			return
 		}
@@ -37,7 +37,7 @@ var UpCommingCommand Command = Command{
 		var index int16
 
 		if client.Queue.RepeatingMode == RepeatingModeOff && int(client.Queue.CurrentIndex+1) >= len(client.Queue.Queue) {
-			client.MessageInteraction(message, "There's no next song!", COLOR_WARNING)
+			client.MessageInteraction(message, CustomWarning("There's no next song!"), COLOR_WARNING)
 
 			return
 		} else if client.Queue.RepeatingMode == RepeatingModeOff && int(client.Queue.CurrentIndex+1) < len(client.Queue.Queue) {

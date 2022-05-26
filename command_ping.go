@@ -9,7 +9,7 @@ import (
 
 var PingCommand Command = Command{
 	Name:        "ping",
-	Description: "test help",
+	Description: "Shows information about the bot connection.",
 	Aliases:     []string{"png"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		startTime := time.Now()

@@ -6,7 +6,7 @@ import (
 
 var ReverseCommand Command = Command{
 	Name:        "reverse",
-	Description: "test help",
+	Description: "Reverses the next songs in queue.",
 	Aliases:     []string{"rr"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

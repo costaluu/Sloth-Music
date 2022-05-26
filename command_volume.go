@@ -10,7 +10,7 @@ import (
 
 var VolumeCommand Command = Command{
 	Name:        "volume",
-	Description: "test help",
+	Description: "Changes the bot server volume.\ns[index]volume [0-100]",
 	Aliases:     []string{"vol", "vl"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

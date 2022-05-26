@@ -9,7 +9,7 @@ import (
 
 var ShuffleCommand Command = Command{
 	Name:        "shuffle",
-	Description: "test help",
+	Description: "Shuffles the next songs from the queue.",
 	Aliases:     []string{"shfl", "rand"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

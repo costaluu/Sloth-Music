@@ -9,7 +9,7 @@ import (
 
 var SeekCommand Command = Command{
 	Name:        "seek",
-	Description: "test help",
+	Description: "Seek the song for the a specific moment.\ns[index]seek [hh:mm:ss]",
 	Aliases:     []string{"sk"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

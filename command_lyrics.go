@@ -6,7 +6,7 @@ import (
 
 var LyricsCommand Command = Command{
 	Name:        "lyrics",
-	Description: "test help",
+	Description: "Search for lyrics for a specific artist-song.\ns[index]lyrics [artist] [song]",
 	Aliases:     []string{"ly"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		client.MessageInteraction(message, "⚠️ | Command in maintenance.", COLOR_WARNING)

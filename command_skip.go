@@ -7,7 +7,7 @@ import (
 
 var SkipCommand Command = Command{
 	Name:        "skip",
-	Description: "test help",
+	Description: "Skips the current song.",
 	Aliases:     []string{"s"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

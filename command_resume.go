@@ -7,7 +7,7 @@ import (
 
 var ResumeCommand Command = Command{
 	Name:        "resume",
-	Description: "test help",
+	Description: "Resumes the bot.",
 	Aliases:     []string{"rsm"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

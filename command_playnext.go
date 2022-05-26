@@ -10,7 +10,7 @@ import (
 
 var PlayNextCommand Command = Command{
 	Name:        "playnext",
-	Description: "test",
+	Description: "Enqueue a song in the next position, it can be a song in queue or a [title/link].\ns[index]playnext [position in queue/link/title/song]",
 	Aliases:     []string{"pln", "setnext"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

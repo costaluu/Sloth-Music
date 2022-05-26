@@ -9,7 +9,7 @@ import (
 
 var PlayCommand Command = Command{
 	Name:        "play",
-	Description: "test help",
+	Description: "Plays a song, you can use `;` to play multiple songs.\ns[index]play [title/album/link];[title/album/link]...",
 	Aliases:     []string{"p"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, userVoiceState, botVoiceState := client.CheckPermissionsForUser(message)

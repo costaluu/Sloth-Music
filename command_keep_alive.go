@@ -6,7 +6,7 @@ import (
 
 var KeepAliveCommand Command = Command{
 	Name:        "keepalive",
-	Description: "test help",
+	Description: "Ignores the idle time making the bot stay in the voice channel.",
 	Aliases:     []string{"ka"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

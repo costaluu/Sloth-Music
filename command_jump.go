@@ -10,7 +10,7 @@ import (
 
 var JumpCommand Command = Command{
 	Name:        "jump",
-	Description: "test help",
+	Description: "Jumps for a specific position in queue.\ns[index]jump [position]",
 	Aliases:     []string{"j"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

@@ -9,7 +9,7 @@ import (
 
 var NowPlayingCommand Command = Command{
 	Name:        "nowplaying",
-	Description: "test help",
+	Description: "Shows information about the current song.",
 	Aliases:     []string{"np"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)

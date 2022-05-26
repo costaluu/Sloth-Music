@@ -6,7 +6,7 @@ import (
 
 var LeaveCommand Command = Command{
 	Name:        "leave",
-	Description: "test help",
+	Description: "Makes the bot leave the call.",
 	Aliases:     []string{"l"},
 	Instance: func(client *Client, message *discordgo.MessageCreate, arg string) {
 		userPermission, _, _ := client.CheckPermissionsForUser(message)
