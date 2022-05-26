@@ -2,6 +2,8 @@
 
 Dedicated discord music bot to The Language Sloth.
 
+This version is not longer supported!
+
 ### 📝 Requeriments
 
 -   [Java 13](https://www.azul.com/downloads/?package=jdk)
