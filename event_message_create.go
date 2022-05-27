@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"regexp"
 
 	"github.com/bwmarrin/discordgo"
@@ -10,6 +11,14 @@ func (client *Client) MessageCreate(session *discordgo.Session, message *discord
 
 	if message.Author.Bot == true || message.GuildID == "" {
 		return
+	}
+
+	for _, mentions := range message.Mentions {
+		if mentions.ID == client.BotConfig.BotID {
+			client.Session.ChannelMessageSend(message.ChannelID, fmt.Sprintf("Hello! you can use `s%shelp` to see my comands.", client.BotConfig.BotIdentificator))
+
+			return
+		}
 	}
 
 	regex := regexp.MustCompile(`^s([0-9])([^\s]+)\s*(.*)`)

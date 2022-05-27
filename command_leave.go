@@ -27,6 +27,6 @@ var LeaveCommand Command = Command{
 
 		client.BotClearState(true)
 
-		client.MessageInteraction(message, CustomSuccess("👋 Leaving the channel"), COLOR_ERROR)
+		client.MessageInteraction(message, CustomSuccess("👋 Leaving the channel"), COLOR_SUCCESS)
 	},
 }

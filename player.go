@@ -284,6 +284,8 @@ func (client *Client) PlayTrack() {
 	if play == PLAY_NEXT_QUEUE_ENDED {
 		client.IsPlaying = false
 
+		client.Session.UpdateListeningStatus(fmt.Sprintf("s%shelp.", client.BotConfig.BotIdentificator))
+
 		if client.KeepAlive == false {
 			go func() {
 				time.Sleep(time.Duration(client.BotConfig.IdleTime) * time.Second)
@@ -295,6 +297,8 @@ func (client *Client) PlayTrack() {
 				}
 			}()
 		}
+
+		return
 	} else if play == PLAY_NEXT_TRACK_ERROR {
 		i := client.Queue.CurrentIndex
 
@@ -304,6 +308,8 @@ func (client *Client) PlayTrack() {
 			client.BotClearState(true)
 		} else if play == PLAY_NEXT_QUEUE_ENDED {
 			client.IsPlaying = false
+
+			client.Session.UpdateListeningStatus(fmt.Sprintf("s%shelp.", client.BotConfig.BotIdentificator))
 
 			go func() {
 				time.Sleep(time.Duration(client.BotConfig.IdleTime) * time.Second)
@@ -317,5 +323,9 @@ func (client *Client) PlayTrack() {
 		}
 
 		client.Queue.Remove(int(i))
+
+		return
 	}
+
+	client.Session.UpdateGameStatus(0, "good quality music.")
 }

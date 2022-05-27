@@ -88,4 +88,6 @@ func (client *Client) Ready(session *discordgo.Session, event *discordgo.Ready) 
 	Bot.IsPlaying = false
 
 	log.Printf("Bot %s#%s is online!\n", event.User.Username, event.User.Discriminator)
+
+	client.Session.UpdateListeningStatus(fmt.Sprintf("s%shelp.", client.BotConfig.BotIdentificator))
 }
