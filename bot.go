@@ -77,8 +77,8 @@ func main() {
 		LavalinkPass:     os.Getenv("LAVALINK_PASS"),
 		BotIdentificator: os.Getenv("BOT_IDENTIFICATOR"),
 		BotID:            os.Getenv("BOT_ID"),
-		GuildID:          "858470922004070421",
-		ControlRole:      "876107010419073054",
+		GuildID:          os.Getenv("GUILD_ID"),
+		ControlRole:      os.Getenv("CONTROL_ROLE_ID"),
 		IdleTime:         60,
 	}
 
