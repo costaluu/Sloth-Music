@@ -72,14 +72,14 @@ func (client *Client) CommandEmbedAnswer(message *discordgo.MessageCreate, title
 
 	if err != nil {
 		log.Println("Failed to send message!")
+	} else {
+		go func() {
+			time.Sleep(time.Duration(ephemeralTime) * time.Second)
+
+			client.Session.ChannelMessageDelete(message.ChannelID, message.ID)
+			client.Session.ChannelMessageDelete(msg.ChannelID, msg.ID)
+		}()
 	}
-
-	go func() {
-		time.Sleep(time.Duration(ephemeralTime) * time.Second)
-
-		client.Session.ChannelMessageDelete(message.ChannelID, message.ID)
-		client.Session.ChannelMessageDelete(msg.ChannelID, msg.ID)
-	}()
 }
 
 func (client *Client) MessageInteraction(message *discordgo.MessageCreate, title string, color int) {
@@ -93,14 +93,14 @@ func (client *Client) MessageInteraction(message *discordgo.MessageCreate, title
 
 	if err != nil {
 		log.Println("Failed to send message!")
+	} else {
+		go func() {
+			time.Sleep(time.Duration(ephemeralTime) * time.Second)
+
+			client.Session.ChannelMessageDelete(msg.ChannelID, msg.ID)
+			client.Session.ChannelMessageDelete(message.ChannelID, message.ID)
+		}()
 	}
-
-	go func() {
-		time.Sleep(time.Duration(ephemeralTime) * time.Second)
-
-		client.Session.ChannelMessageDelete(msg.ChannelID, msg.ID)
-		client.Session.ChannelMessageDelete(message.ChannelID, message.ID)
-	}()
 }
 
 func (client *Client) EventMessage(title string, color int) {
@@ -114,13 +114,13 @@ func (client *Client) EventMessage(title string, color int) {
 
 	if err != nil {
 		log.Println("Failed to send message!")
+	} else {
+		go func() {
+			time.Sleep(time.Duration(ephemeralTime) * time.Second)
+
+			client.Session.ChannelMessageDelete(msg.ChannelID, msg.ID)
+		}()
 	}
-
-	go func() {
-		time.Sleep(time.Duration(ephemeralTime) * time.Second)
-
-		client.Session.ChannelMessageDelete(msg.ChannelID, msg.ID)
-	}()
 }
 
 func (client *Client) DefautlFooter(message *discordgo.MessageCreate) *discordgo.MessageEmbedFooter {

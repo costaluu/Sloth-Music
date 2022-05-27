@@ -62,9 +62,10 @@ func (client *Client) Ready(session *discordgo.Session, event *discordgo.Ready) 
 
 				if err != nil {
 					log.Println("Failed to send message!")
+				} else {
+					client.PlayingMessageID = msg.ID
 				}
 
-				client.PlayingMessageID = msg.ID
 			} else if reflect.TypeOf(evt).String() == "event.TrackException" {
 				/* Skip */
 				client.PlayTrack()
