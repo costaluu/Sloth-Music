@@ -29,34 +29,35 @@ var PlayNextCommand Command = Command{
 			return
 		}
 
-		var InQueuePattern = regexp.MustCompile(`[\d]+`)
+		var InQueuePattern = regexp.MustCompile(`^[\d]+`)
 		InQueue := InQueuePattern.MatchString(arg)
 		var conv int
+
+		fmt.Println("in queue: ", InQueue)
 
 		if InQueue {
 			var err error
 			conv, err = strconv.Atoi(arg)
-
 			if err != nil {
 				client.MessageInteraction(message, ERROR_MSG, COLOR_ERROR)
 
 				return
 			}
-
 			if conv-1 < 0 || int(conv)-1 >= len(client.Queue.Queue) {
 				client.MessageInteraction(message, WARN_INVALID_INPUT, COLOR_WARNING)
 
 				return
 			}
-
 			if int16(conv-1) == client.Queue.CurrentIndex {
 				client.MessageInteraction(message, CustomWarning("You can't delete the current song!"), COLOR_WARNING)
 
 				return
 			}
-
 			client.Queue.Move(conv-1, int(client.Queue.CurrentIndex+1))
-		} else {
+			client.MessageInteraction(message, SUCCESS_MSG, COLOR_SUCCESS)
+
+			return
+		} else if arg != "" {
 			if len(client.Queue.Queue) == MaxPages*MaxSongsPerPage {
 				client.MessageInteraction(message, CustomWarning("I've reached my limit of songs in the queue."), COLOR_INFO)
 
@@ -81,9 +82,15 @@ var PlayNextCommand Command = Command{
 				} else {
 					client.Queue.Push(tracks...)
 
+					client.Queue.Move(len(client.Queue.Queue)-1, int(client.Queue.CurrentIndex+1))
+
 					client.MessageInteraction(message, CustomSuccess(fmt.Sprintf("%s Enqueued %s at position %v.", EMOJI_SONG, tracks[0].AudioTrack.Info.Title, client.Queue.CurrentIndex+2)), COLOR_SUCCESS)
 				}
 			}
+		} else {
+			client.MessageInteraction(message, WARN_INVALID_INPUT, COLOR_WARNING)
+
+			return
 		}
 
 		if len(client.Queue.Queue) == MaxPages*MaxSongsPerPage {

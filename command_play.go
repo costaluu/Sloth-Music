@@ -66,6 +66,10 @@ var PlayCommand Command = Command{
 		var songs []string = strings.Split(arg, ";")
 
 		for _, userQuery := range songs {
+			if userQuery == "" {
+				continue
+			}
+
 			tracks, result, playlistName, tracksToPush := client.SearchEngine(userQuery, message.Author.String())
 
 			if result == SEARCH_ENGINE_NOT_FOUND {

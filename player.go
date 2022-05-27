@@ -147,9 +147,6 @@ func (queue *Queue) GetTotalQueueDurationString() string {
 }
 
 func (queue *Queue) Move(from, to int) {
-	queue.Mutex.Lock()
-	defer queue.Mutex.Unlock()
-
 	selectedTrack := queue.Queue[from]
 
 	queue.Remove(from)
@@ -213,7 +210,15 @@ func (client *Client) PageTextGenerator(pageNumber int) string {
 				isCurrent = " 🎯"
 			}
 
-			songs += fmt.Sprintf("[%v]. %s - [%s] | request by %s%s\n", (pageNumber-1)*MaxSongsPerPage+(i+1), track.AudioTrack.Info.Title, client.Queue.GetDurationString(track.AudioTrack.Info.Length, track.AudioTrack.Info.Stream), track.RequesterName, isCurrent)
+			var songName string
+
+			if track.LazyLoaded == false {
+				songName = fmt.Sprintf("%s - %s", track.LazyLoadingSongArtist, track.LazyLoadingSongTitle)
+			} else {
+				songName = track.AudioTrack.Info.Title
+			}
+
+			songs += fmt.Sprintf("[%v]. %s - [%s] | request by %s%s\n", (pageNumber-1)*MaxSongsPerPage+(i+1), songName, client.Queue.GetDurationString(track.AudioTrack.Info.Length, track.AudioTrack.Info.Stream), track.RequesterName, isCurrent)
 		}
 	}
 
