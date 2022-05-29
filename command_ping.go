@@ -17,7 +17,7 @@ var PingCommand Command = Command{
 		msg, err := client.Session.ChannelMessageSend(message.ChannelID, "Pinging...")
 
 		if err != nil {
-			fmt.Println("Error while sending msg")
+			client.MessageInteraction(message, ERROR_MSG, COLOR_ERROR)
 
 			return
 		}

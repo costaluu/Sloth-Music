@@ -33,8 +33,6 @@ var PlayNextCommand Command = Command{
 		InQueue := InQueuePattern.MatchString(arg)
 		var conv int
 
-		fmt.Println("in queue: ", InQueue)
-
 		if InQueue {
 			var err error
 			conv, err = strconv.Atoi(arg)

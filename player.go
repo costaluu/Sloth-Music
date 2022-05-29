@@ -41,14 +41,6 @@ func (client *Client) Playnext() PlayNextResult {
 		return PLAY_NEXT_QUEUE_ENDED
 	}
 
-	if client.PlayingMessageID != "" {
-		err := client.Session.ChannelMessageDelete(client.AnchorTextChannel, client.PlayingMessageID)
-
-		if err != nil {
-			fmt.Println("Failed to delete message: ", err.Error())
-		}
-	}
-
 	track := client.Queue.Pop()
 
 	if track == true {
@@ -291,43 +283,21 @@ func (client *Client) PlayTrack() {
 
 		client.Session.UpdateListeningStatus(fmt.Sprintf("s%shelp.", client.BotConfig.BotIdentificator))
 
-		if client.KeepAlive == false {
+		if client.KeepAlive == false && client.IsPlaying == false {
 			go func() {
 				time.Sleep(time.Duration(client.BotConfig.IdleTime) * time.Second)
 
-				if client.KeepAlive == false {
-					client.BotClearState(true)
-
+				if client.KeepAlive == false && client.IsPlaying == false {
 					client.EventMessage(CustomInfo("I left due to inactivity"), COLOR_INFO)
+
+					client.BotClearState(true)
 				}
 			}()
 		}
 
 		return
 	} else if play == PLAY_NEXT_TRACK_ERROR {
-		i := client.Queue.CurrentIndex
-
-		secondTry := client.Playnext()
-
-		if secondTry == PLAY_NEXT_TRACK_ERROR {
-			client.BotClearState(true)
-		} else if play == PLAY_NEXT_QUEUE_ENDED {
-			client.IsPlaying = false
-
-			client.Session.UpdateListeningStatus(fmt.Sprintf("s%shelp.", client.BotConfig.BotIdentificator))
-
-			go func() {
-				time.Sleep(time.Duration(client.BotConfig.IdleTime) * time.Second)
-
-				if client.KeepAlive == false {
-					client.BotClearState(true)
-
-					client.EventMessage(CustomInfo("I left due to inactivity"), COLOR_INFO)
-				}
-			}()
-		}
-
-		client.Queue.Remove(int(i))
+		client.EventMessage(CustomError("Somethin went wrong with this song"), COLOR_ERROR)
 
 		return
 	}

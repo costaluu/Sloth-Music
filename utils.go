@@ -272,19 +272,19 @@ func DurationToMS(durationStr string) (int, error) {
 
 		return ((days * 86400000) + (hours * 3600000) + (minutes * 60000) + (seconds * 1000)), nil
 	} else if len(regexHours) > 0 {
-		hours, err := strconv.Atoi(regexDays[1])
+		hours, err := strconv.Atoi(regexHours[1])
 
 		if err != nil {
 			return 0, err
 		}
 
-		minutes, err := strconv.Atoi(regexDays[2])
+		minutes, err := strconv.Atoi(regexHours[2])
 
 		if err != nil {
 			return 0, err
 		}
 
-		seconds, err := strconv.Atoi(regexDays[3])
+		seconds, err := strconv.Atoi(regexHours[3])
 
 		if err != nil {
 			return 0, err
@@ -292,13 +292,13 @@ func DurationToMS(durationStr string) (int, error) {
 
 		return ((hours * 3600000) + (minutes * 60000) + (seconds * 1000)), nil
 	} else if len(regexMinutes) > 0 {
-		minutes, err := strconv.Atoi(regexDays[1])
+		minutes, err := strconv.Atoi(regexMinutes[1])
 
 		if err != nil {
 			return 0, err
 		}
 
-		seconds, err := strconv.Atoi(regexDays[2])
+		seconds, err := strconv.Atoi(regexMinutes[2])
 
 		if err != nil {
 			return 0, err
@@ -306,7 +306,7 @@ func DurationToMS(durationStr string) (int, error) {
 
 		return ((minutes * 60000) + (seconds * 1000)), nil
 	} else if len(regexSeconds) > 0 {
-		seconds, err := strconv.Atoi(regexDays[1])
+		seconds, err := strconv.Atoi(regexSeconds[1])
 
 		if err != nil {
 			return 0, err

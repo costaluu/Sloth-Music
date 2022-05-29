@@ -6,6 +6,7 @@ import (
 	"reflect"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/gompus/snowflake"
 	"github.com/lukasl-dev/waterlink/v2"
 )
 
@@ -22,9 +23,19 @@ func (client *Client) Ready(session *discordgo.Session, event *discordgo.Ready) 
 	opts := waterlink.ConnectionOptions{
 		EventHandler: waterlink.EventHandlerFunc(func(evt interface{}) {
 			if reflect.TypeOf(evt).String() == "event.TrackEnd" {
+				if client.PlayingMessageID != "" && client.AnchorTextChannel != "" {
+					err := client.Session.ChannelMessageDelete(client.AnchorTextChannel, client.PlayingMessageID)
+
+					if err != nil {
+						fmt.Println("Failed to delete message: ", err.Error())
+					}
+				}
+
 				client.PlayTrack()
 			} else if reflect.TypeOf(evt).String() == "event.TrackStuck" {
-				client.PlayTrack()
+				guild := client.LavalinkConnection.Guild(snowflake.MustParse(client.BotConfig.GuildID))
+
+				guild.SetPaused(false)
 			} else if reflect.TypeOf(evt).String() == "event.TrackStart" {
 
 				var icon string
@@ -68,9 +79,19 @@ func (client *Client) Ready(session *discordgo.Session, event *discordgo.Ready) 
 
 			} else if reflect.TypeOf(evt).String() == "event.TrackException" {
 				/* Skip */
+
+				client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Title = "Track Exception " + client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Title
+
+				client.EventMessage(CustomError("Something went wrong, skipping..."), COLOR_ERROR)
+
+				client.IsPlaying = false
+
 				client.PlayTrack()
 			} else if reflect.TypeOf(evt).String() == "event.WebSocketClosed" {
 				/* Kill the bot */
+
+				client.EventMessage(CustomError("Connection lost, leaving..."), COLOR_ERROR)
+
 				client.BotClearState(true)
 			}
 		}),

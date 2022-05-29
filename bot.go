@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 	"time"
 
@@ -47,6 +48,7 @@ var BotCommands []Command = []Command{
 	MoveCommand,
 	KeepAliveCommand,
 	LyricsCommand,
+	SeekCommand,
 }
 
 func main() {
@@ -71,6 +73,14 @@ func main() {
 
 	Bot.LyricsClient = lyrics.New()
 
+	idle, err := strconv.Atoi(os.Getenv("IDLE_TIME"))
+
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+
+		return
+	}
+
 	Bot.BotConfig = Config{
 		Token:            os.Getenv("TOKEN"),
 		LavalinkHost:     os.Getenv("LAVALINK_HOST"),
@@ -79,7 +89,7 @@ func main() {
 		BotID:            os.Getenv("BOT_ID"),
 		GuildID:          os.Getenv("GUILD_ID"),
 		ControlRole:      os.Getenv("CONTROL_ROLE_ID"),
-		IdleTime:         60,
+		IdleTime:         uint(idle),
 	}
 
 	if err != nil {
