@@ -1,2 +1,2 @@
 #!/bin/sh
-nohup go build -v . && ./sloth-music &
+nohup ./sloth-music &
