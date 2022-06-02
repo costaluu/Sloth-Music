@@ -46,12 +46,12 @@ var PlayNextCommand Command = Command{
 
 				return
 			}
-			if int16(conv-1) == client.Queue.CurrentIndex {
+			if (conv - 1) == client.Queue.GetNextIndex() {
 				client.MessageInteraction(message, CustomWarning("You can't delete the current song!"), COLOR_WARNING)
 
 				return
 			}
-			client.Queue.Move(conv-1, int(client.Queue.CurrentIndex+1))
+			client.Queue.Move(conv-1, int(client.Queue.GetNextIndex()+1))
 			client.MessageInteraction(message, SUCCESS_MSG, COLOR_SUCCESS)
 
 			return
@@ -80,9 +80,9 @@ var PlayNextCommand Command = Command{
 				} else {
 					client.Queue.Push(tracks...)
 
-					client.Queue.Move(len(client.Queue.Queue)-1, int(client.Queue.CurrentIndex+1))
+					client.Queue.Move(len(client.Queue.Queue)-1, int(client.Queue.GetNextIndex()+1))
 
-					client.MessageInteraction(message, CustomSuccess(fmt.Sprintf("%s Enqueued %s at position %v.", EMOJI_SONG, tracks[0].AudioTrack.Info.Title, client.Queue.CurrentIndex+2)), COLOR_SUCCESS)
+					client.MessageInteraction(message, CustomSuccess(fmt.Sprintf("%s Enqueued %s at position %v.", EMOJI_SONG, tracks[0].AudioTrack.Info.Title, client.Queue.GetNextIndex()+2)), COLOR_SUCCESS)
 				}
 			}
 		} else {

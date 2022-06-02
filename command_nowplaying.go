@@ -37,7 +37,7 @@ var NowPlayingCommand Command = Command{
 		var icon string
 		var color int
 
-		if client.Queue.Queue[client.Queue.CurrentIndex].Source == SpotifySource {
+		if client.Queue.Queue[client.Queue.GetNextIndex()].Source == SpotifySource {
 			icon = spotifyLogoURL
 			color = COLOR_SPOTIFY
 		} else {
@@ -47,10 +47,10 @@ var NowPlayingCommand Command = Command{
 
 		var duration string
 
-		if client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Stream == true {
+		if client.Queue.Queue[client.Queue.GetNextIndex()].AudioTrack.Info.Stream == true {
 			duration = "🔴 Live"
 		} else {
-			duration = client.Queue.GetDurationString(client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Length, false)
+			duration = client.Queue.GetDurationString(client.Queue.Queue[client.Queue.GetNextIndex()].AudioTrack.Info.Length, false)
 		}
 
 		response := discordgo.MessageEmbed{
@@ -59,9 +59,9 @@ var NowPlayingCommand Command = Command{
 				Name:    "Now playing 🔊",
 				IconURL: icon,
 			},
-			URL:         client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.URI,
-			Title:       fmt.Sprintf("%s - [%s]", client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Title, duration),
-			Description: fmt.Sprintf("requested by %s", client.Queue.Queue[client.Queue.CurrentIndex].RequesterName),
+			URL:         client.Queue.Queue[client.Queue.GetNextIndex()].AudioTrack.Info.URI,
+			Title:       fmt.Sprintf("%s - [%s]", client.Queue.Queue[client.Queue.GetNextIndex()].AudioTrack.Info.Title, duration),
+			Description: fmt.Sprintf("requested by %s", client.Queue.Queue[client.Queue.GetNextIndex()].RequesterName),
 			Color:       color,
 		}
 

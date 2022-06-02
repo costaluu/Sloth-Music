@@ -31,12 +31,12 @@ var QueueCommand Command = Command{
 		page, err := strconv.Atoi(arg)
 
 		if err != nil || page < 1 || page > client.Queue.PagesCount() {
-			if client.Queue.CurrentIndex+1 < MaxSongsPerPage {
+			if client.Queue.GetNextIndex()+1 < MaxSongsPerPage {
 				page = 1
-			} else if (client.Queue.CurrentIndex+1)%MaxSongsPerPage == 0 {
-				page = int((client.Queue.CurrentIndex + 1) / MaxSongsPerPage)
+			} else if (client.Queue.GetNextIndex()+1)%MaxSongsPerPage == 0 {
+				page = int((client.Queue.GetNextIndex() + 1) / MaxSongsPerPage)
 			} else {
-				page = int((client.Queue.CurrentIndex+1)/MaxSongsPerPage) + 1
+				page = int((client.Queue.GetNextIndex()+1)/MaxSongsPerPage) + 1
 			}
 		}
 

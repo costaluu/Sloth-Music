@@ -40,16 +40,16 @@ var SortCommand Command = Command{
 			return
 		}
 
-		if len(client.Queue.Queue) < 2 && int(client.Queue.CurrentIndex+1) < len(client.Queue.Queue) {
+		if len(client.Queue.Queue) < 2 && int(client.Queue.GetNextIndex()+1) < len(client.Queue.Queue) {
 			client.MessageInteraction(message, CustomError("You can't do that!"), COLOR_ERROR)
 
 			return
 		}
 
 		if arg == "title" {
-			sort.Sort(ByTitle(client.Queue.Queue[client.Queue.CurrentIndex+1:]))
+			sort.Sort(ByTitle(client.Queue.Queue[client.Queue.GetNextIndex()+1:]))
 		} else if arg == "requester" {
-			sort.Sort(ByRequester(client.Queue.Queue[client.Queue.CurrentIndex+1:]))
+			sort.Sort(ByRequester(client.Queue.Queue[client.Queue.GetNextIndex()+1:]))
 		} else {
 			client.MessageInteraction(message, CustomWarning("Invalid input, try: `title` or `requester`."), COLOR_WARNING)
 

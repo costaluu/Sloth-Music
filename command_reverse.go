@@ -25,7 +25,7 @@ var ReverseCommand Command = Command{
 			return
 		}
 
-		if len(client.Queue.Queue) < 2 && int(client.Queue.CurrentIndex+1) < len(client.Queue.Queue) {
+		if len(client.Queue.Queue) < 2 && int(client.Queue.GetNextIndex()+1) < len(client.Queue.Queue) {
 			client.MessageInteraction(message, CustomError("You can't do that!"), COLOR_ERROR)
 
 			return
@@ -33,7 +33,7 @@ var ReverseCommand Command = Command{
 
 		// algorithm to reverse
 
-		var i int = int(client.Queue.CurrentIndex + 1)
+		var i int = int(client.Queue.GetNextIndex() + 1)
 		var j int = len(client.Queue.Queue) - 1
 
 		for ; i < j; i, j = i+1, j-1 {

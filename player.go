@@ -115,7 +115,13 @@ func (queue *Queue) GetDurationString(lenght uint, isStream bool) string {
 }
 
 func (queue *Queue) GetNextIndex() int {
-	return int(queue.CurrentIndex) % (MaxPages * MaxSongsPerPage)
+	if int(queue.CurrentIndex) == len(queue.Queue) {
+		fmt.Println("DEBUG: INDEX ERROR")
+	}
+
+	queue.CurrentIndex = int16(min(int(queue.CurrentIndex)%(MaxPages*MaxSongsPerPage), len(queue.Queue)-1))
+
+	return int(queue.CurrentIndex)
 }
 
 func (queue *Queue) GetTotalQueueDurationString() string {
@@ -149,6 +155,10 @@ func (queue *Queue) Move(from, to int) {
 		to -= 1
 	}
 
+	if to < int(queue.CurrentIndex) {
+		queue.CurrentIndex += 1
+	}
+
 	newQueue = append(newQueue, queue.Queue[:to]...)
 
 	newQueue = append(newQueue, selectedTrack)
@@ -174,7 +184,7 @@ func (client *Client) PageTextGenerator(pageNumber int) string {
 		return "```css\n" + "No songs in queue 😔" + "\n```"
 	}
 
-	title := fmt.Sprintf("🎶 Queue List 🎶 %v song(s) | The %vth song is playing", len(client.Queue.Queue), client.Queue.CurrentIndex+1)
+	title := fmt.Sprintf("🎶 Queue List 🎶 %v song(s) | The %vth song is playing", len(client.Queue.Queue), client.Queue.GetNextIndex()+1)
 
 	repeatText := ""
 
@@ -198,7 +208,7 @@ func (client *Client) PageTextGenerator(pageNumber int) string {
 
 			isCurrent := ""
 
-			if ((pageNumber-1)*MaxSongsPerPage)+i == int(client.Queue.CurrentIndex) {
+			if ((pageNumber-1)*MaxSongsPerPage)+i == int(client.Queue.GetNextIndex()) {
 				isCurrent = " 🎯"
 			}
 

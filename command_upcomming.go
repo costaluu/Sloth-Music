@@ -34,18 +34,18 @@ var UpCommingCommand Command = Command{
 			return
 		}
 
-		var index int16
+		var index int
 
-		if client.Queue.RepeatingMode == RepeatingModeOff && int(client.Queue.CurrentIndex+1) >= len(client.Queue.Queue) {
+		if client.Queue.RepeatingMode == RepeatingModeOff && int(client.Queue.GetNextIndex()+1) >= len(client.Queue.Queue) {
 			client.MessageInteraction(message, CustomWarning("There's no next song!"), COLOR_WARNING)
 
 			return
-		} else if client.Queue.RepeatingMode == RepeatingModeOff && int(client.Queue.CurrentIndex+1) < len(client.Queue.Queue) {
-			index = client.Queue.CurrentIndex + 1
+		} else if client.Queue.RepeatingMode == RepeatingModeOff && int(client.Queue.GetNextIndex()+1) < len(client.Queue.Queue) {
+			index = client.Queue.GetNextIndex() + 1
 		} else if client.Queue.RepeatingMode == RepeatingModeQueue {
-			index = (client.Queue.CurrentIndex + 1) % (MaxPages * MaxSongsPerPage)
+			index = (client.Queue.GetNextIndex() + 1) % (MaxPages * MaxSongsPerPage)
 		} else {
-			index = client.Queue.CurrentIndex
+			index = client.Queue.GetNextIndex()
 		}
 
 		response := discordgo.MessageEmbed{

@@ -26,6 +26,12 @@ var SkipCommand Command = Command{
 			return
 		}
 
+		if client.Queue.RepeatingMode == RepeatingModeOff && int(client.Queue.GetNextIndex()+1) >= len(client.Queue.Queue) {
+			client.MessageInteraction(message, CustomWarning("Queue ended, you can't skip"), COLOR_WARNING)
+
+			return
+		}
+
 		err := client.LavalinkConnection.Guild(snowflake.MustParse(client.BotConfig.GuildID)).Stop()
 
 		if err != nil {

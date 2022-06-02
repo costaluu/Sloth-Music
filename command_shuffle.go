@@ -28,15 +28,15 @@ var ShuffleCommand Command = Command{
 			return
 		}
 
-		if len(client.Queue.Queue) < 2 && int(client.Queue.CurrentIndex+1) < len(client.Queue.Queue) {
+		if len(client.Queue.Queue) < 2 && int(client.Queue.GetNextIndex()+1) < len(client.Queue.Queue) {
 			client.MessageInteraction(message, CustomError("You can't do that!"), COLOR_ERROR)
 
 			return
 		}
 
 		rand.Seed(time.Now().UnixNano())
-		rand.Shuffle(len(client.Queue.Queue[client.Queue.CurrentIndex+1:]), func(i, j int) {
-			client.Queue.Queue[int(client.Queue.CurrentIndex+1)+i], client.Queue.Queue[int(client.Queue.CurrentIndex+1)+j] = client.Queue.Queue[int(client.Queue.CurrentIndex+1)+j], client.Queue.Queue[int(client.Queue.CurrentIndex+1)+i]
+		rand.Shuffle(len(client.Queue.Queue[client.Queue.GetNextIndex()+1:]), func(i, j int) {
+			client.Queue.Queue[int(client.Queue.GetNextIndex()+1)+i], client.Queue.Queue[int(client.Queue.GetNextIndex()+1)+j] = client.Queue.Queue[int(client.Queue.GetNextIndex()+1)+j], client.Queue.Queue[int(client.Queue.GetNextIndex()+1)+i]
 		})
 
 		client.MessageInteraction(message, SUCCESS_MSG, COLOR_SUCCESS)

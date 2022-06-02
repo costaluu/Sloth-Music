@@ -30,13 +30,13 @@ var SeekCommand Command = Command{
 
 		position, err := DurationToMS(arg)
 
-		if err != nil || position == -1 || position > int(client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Length) {
+		if err != nil || position == -1 || position > int(client.Queue.Queue[client.Queue.GetNextIndex()].AudioTrack.Info.Length) {
 			client.MessageInteraction(message, WARN_INVALID_INPUT, COLOR_WARNING)
 
 			return
 		}
 
-		if client.Queue.Queue[client.Queue.CurrentIndex].AudioTrack.Info.Seekable == false {
+		if client.Queue.Queue[client.Queue.GetNextIndex()].AudioTrack.Info.Seekable == false {
 			client.MessageInteraction(message, CustomError("This track is not seekable."), COLOR_ERROR)
 
 			return

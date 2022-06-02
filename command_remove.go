@@ -45,7 +45,7 @@ var RemoveCommand Command = Command{
 				return
 			}
 
-			if int16(pos-1) == client.Queue.CurrentIndex {
+			if (pos - 1) == client.Queue.GetNextIndex() {
 				client.MessageInteraction(message, "You can't delete the current song!", COLOR_ERROR)
 
 				return
@@ -72,7 +72,7 @@ var RemoveCommand Command = Command{
 					return
 				}
 
-				if int16(conv-1) == client.Queue.CurrentIndex {
+				if (conv - 1) == client.Queue.GetNextIndex() {
 					client.MessageInteraction(message, CustomWarning("You can't delete the current song!"), COLOR_WARNING)
 
 					return
